@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+
+@theme {
+    --color-primary: #003366;
+    --color-primary-light: #0055A4;
+    --color-gold: #C9962B;
+    --color-gold-light: #E8B84B;
+    --color-dark: #1A1A2E;
+    --color-gray-soft: #F5F7FA;
+    --font-sans: 'Inter', sans-serif;
+}
+

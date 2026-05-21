@@ -1,0 +1,46 @@
+<?php
+namespace App\Http\Controllers;
+use App\Models\These;
+use App\Models\Laboratoire;
+
+class RechercheController extends Controller
+{
+    public function axes()   { return view('pages.recherche.axes'); }
+
+    public function laboratoires()
+    {
+        $laboratoires = Laboratoire::orderBy('nom')->get();
+        return view('pages.recherche.laboratoires', compact('laboratoires'));
+    }
+
+    public function projets() { return view('pages.recherche.projets'); }
+
+    public function theses()
+    {
+        $theses = These::where('publiee', true)
+            ->where('statut', 'soutenue')
+            ->with(['doctorant', 'directeur'])
+            ->orderBy('date_soutenance', 'desc')
+            ->paginate(10);
+        return view('pages.recherche.theses', compact('theses'));
+    }
+
+    public function these($id)
+    {
+        $these = These::where('publiee', true)
+            ->where('statut', 'soutenue')
+            ->with(['doctorant', 'directeur'])
+            ->findOrFail($id);
+
+        $autresTheses = These::where('publiee', true)
+            ->where('statut', 'soutenue')
+            ->where('id', '!=', $id)
+            ->with(['doctorant', 'directeur'])
+            ->orderBy('date_soutenance', 'desc')
+            ->take(3)->get();
+
+        return view('pages.recherche.these-detail', compact('these', 'autresTheses'));
+    }
+
+    public function ethique() { return view('pages.recherche.ethique'); }
+}

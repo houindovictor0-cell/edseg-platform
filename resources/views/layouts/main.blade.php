@@ -12,65 +12,63 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .garamond { font-family: 'EB Garamond', serif; }
-        .nav-dropdown:hover .dropdown-menu { display: block; }
     </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">
 
     {{-- BANDEAU --}}
-<div class="bg-[#1a1a2e] text-white text-center py-2 px-4">
-    <p class="text-xs tracking-widest uppercase">
-        {{ $infosEcole['bandeau_annonce']->valeur ?? 'Inscriptions doctorat 2026–2027 ouvertes' }}
-        <a href="/admission/candidature"
-           class="underline underline-offset-2 hover:text-[#C9962B] transition ml-2">
-            Soumettre un dossier
-        </a>
-    </p>
-</div>
+    <div class="bg-[#1a1a2e] text-white text-center py-2 px-4">
+        <p class="text-xs tracking-widest uppercase">
+            {{ $infosEcole['bandeau_annonce']->valeur ?? 'Inscriptions doctorat 2026–2027 ouvertes' }}
+            <a href="/admission/candidature"
+               class="underline underline-offset-2 hover:text-[#C9962B] transition ml-2">
+                Soumettre un dossier
+            </a>
+        </p>
+    </div>
 
     {{-- HEADER --}}
-   
-<header class="bg-[#003366] sticky top-0 z-50">
+    <header class="bg-[#003366] sticky top-0 z-50">
 
-    {{-- TOPBAR --}}
-    <div class="bg-[#1a1a2e]">
-        <div class="max-w-screen-xl mx-auto px-8 py-1.5 flex justify-between items-center">
-            <span class="text-[11px] tracking-widest uppercase text-slate-400">
-                Université d'Abomey-Calavi — Bénin
-            </span>
-            <div class="flex items-center gap-4">
-                <a href="#" class="text-[11px] tracking-widest uppercase text-slate-400 hover:text-white transition">Fr</a>
-                <span class="text-slate-700">|</span>
-                <a href="#" class="text-[11px] tracking-widests uppercase text-slate-400 hover:text-white transition">En</a>
+        {{-- TOPBAR --}}
+        <div class="bg-[#1a1a2e] hidden md:block">
+            <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-1.5 flex justify-between items-center">
+                <span class="text-[11px] tracking-widest uppercase text-slate-400">
+                    Université d'Abomey-Calavi — Bénin
+                </span>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="text-[11px] tracking-widest uppercase text-slate-400 hover:text-white transition">Fr</a>
+                    <span class="text-slate-700">|</span>
+                    <a href="#" class="text-[11px] tracking-widest uppercase text-slate-400 hover:text-white transition">En</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    {{-- LOGO --}}
-    <div class="max-w-screen-xl mx-auto px-8 py-4 flex items-center justify-between border-b border-white/10">
-        <a href="/" class="flex items-center gap-4">
-            <div class="w-[3px] h-11 bg-[#C9962B]"></div>
-            <div>
-                <p class="text-white font-semibold text-sm tracking-wider uppercase leading-tight">École Doctorale</p>
-                <p class="text-white font-semibold text-sm tracking-wider uppercase leading-tight">Sciences Économiques et de Gestion</p>
-                <p class="text-slate-400 text-xs tracking-wide leading-tight mt-0.5"></p>
-            </div>
-        </a>
+        {{-- LOGO + BURGER --}}
+        <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between border-b border-white/10">
+            <a href="/" class="flex items-center gap-3">
+                <div class="w-[3px] h-9 md:h-11 bg-[#C9962B]"></div>
+                <div>
+                    <p class="text-white font-semibold text-xs md:text-sm tracking-wider uppercase leading-tight">École Doctorale</p>
+                    <p class="text-white font-semibold text-xs md:text-sm tracking-wider uppercase leading-tight">Sciences Économiques et de Gestion</p>
+                </div>
+            </a>
 
-        {{-- BURGER MOBILE --}}
-        <button id="burger" class="xl:hidden text-white p-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        </button>
-    </div>
+            {{-- BURGER MOBILE --}}
+            <button id="burger" class="xl:hidden text-white p-2 focus:outline-none">
+                <svg id="burger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
 
-    {{-- NAV DESKTOP --}}
-    
-        <div class="max-w-screen-xl mx-auto px-8 flex items-stretch">
+        {{-- NAV DESKTOP --}}
+        <div class="hidden xl:flex max-w-screen-xl mx-auto px-8 items-stretch">
 
-            <a href="/"
-               class="px-4 py-4 text-[11px] font-medium tracking-widest uppercase text-white/60 hover:text-white border-b-2 border-transparent hover:border-[#C9962B] transition-all whitespace-nowrap">
+            <a href="/" class="px-4 py-4 text-[11px] font-medium tracking-widest uppercase text-white/60 hover:text-white border-b-2 border-transparent hover:border-[#C9962B] transition-all whitespace-nowrap">
                 Accueil
             </a>
 
@@ -108,8 +106,7 @@
                         </a>
                         @endforeach
                     </div>
-                    <a href="/ecole-doctorale/presentation"
-                       class="flex items-center justify-between bg-[#003366] hover:bg-[#0055A4] transition px-6 py-4 self-end w-48 group/cta">
+                    <a href="/ecole-doctorale/presentation" class="flex items-center justify-between bg-[#003366] hover:bg-[#0055A4] transition px-6 py-4 self-end w-48 group/cta">
                         <span class="text-[10px] font-bold tracking-widest uppercase text-white">Découvrir</span>
                         <span class="text-[#C9962B] text-lg group-hover/cta:translate-x-1 transition-transform">→</span>
                     </a>
@@ -138,12 +135,10 @@
                         </a>
                         @endforeach
                     </div>
-                    <a href="{{ route('formation.filieres') }}"
-                       class="flex items-center justify-between bg-[#003366] hover:bg-[#0055A4] transition px-6 py-4 self-end w-48 group/cta">
+                    <a href="{{ route('formation.filieres') }}" class="flex items-center justify-between bg-[#003366] hover:bg-[#0055A4] transition px-6 py-4 self-end w-48 group/cta">
                         <span class="text-[10px] font-bold tracking-widest uppercase text-white">Programme</span>
                         <span class="text-[#C9962B] text-lg group-hover/cta:translate-x-1 transition-transform">→</span>
                     </a>
-
                 </div>
             </div>
 
@@ -179,8 +174,7 @@
                             <p class="text-xs text-amber-800 font-medium">Clôture le 30 juin 2026</p>
                         </div>
                     </div>
-                    <a href="/admission/candidature"
-                       class="flex items-center justify-between bg-[#C9962B] hover:bg-yellow-700 transition px-6 py-4 self-end w-48 group/cta">
+                    <a href="/admission/candidature" class="flex items-center justify-between bg-[#C9962B] hover:bg-yellow-700 transition px-6 py-4 self-end w-48 group/cta">
                         <span class="text-[10px] font-bold tracking-widest uppercase text-white">Candidater</span>
                         <span class="text-white text-lg group-hover/cta:translate-x-1 transition-transform">→</span>
                     </a>
@@ -221,8 +215,7 @@
                         </a>
                         @endforeach
                     </div>
-                    <a href="/recherche/axes"
-                       class="flex items-center justify-between bg-[#003366] hover:bg-[#0055A4] transition px-6 py-4 self-end w-48 group/cta">
+                    <a href="/recherche/axes" class="flex items-center justify-between bg-[#003366] hover:bg-[#0055A4] transition px-6 py-4 self-end w-48 group/cta">
                         <span class="text-[10px] font-bold tracking-widest uppercase text-white">Explorer</span>
                         <span class="text-[#C9962B] text-lg group-hover/cta:translate-x-1 transition-transform">→</span>
                     </a>
@@ -251,29 +244,24 @@
                         </a>
                         @endforeach
                     </div>
-                    <a href="/cooperation/international"
-                       class="flex items-center justify-between bg-[#003366] hover:bg-[#0055A4] transition px-6 py-4 self-end w-48 group/cta">
+                    <a href="/cooperation/international" class="flex items-center justify-between bg-[#003366] hover:bg-[#0055A4] transition px-6 py-4 self-end w-48 group/cta">
                         <span class="text-[10px] font-bold tracking-widest uppercase text-white">Réseau</span>
                         <span class="text-[#C9962B] text-lg group-hover/cta:translate-x-1 transition-transform">→</span>
                     </a>
                 </div>
             </div>
 
-            <a href="/actualites"
-               class="px-4 py-4 text-[11px] font-medium tracking-widest uppercase text-white/60 hover:text-white border-b-2 border-transparent hover:border-[#C9962B] transition-all whitespace-nowrap">
+            <a href="/actualites" class="px-4 py-4 text-[11px] font-medium tracking-widest uppercase text-white/60 hover:text-white border-b-2 border-transparent hover:border-[#C9962B] transition-all whitespace-nowrap">
                 Actualités
             </a>
 
-            {{-- CONNEXION --}}
             <div class="ml-auto flex items-center pl-6">
                 @auth
-                    <a href="/dashboard"
-                       class="text-[10px] font-bold tracking-widest uppercase bg-[#C9962B] hover:bg-yellow-700 text-white px-6 py-3 transition">
+                    <a href="/dashboard" class="text-[10px] font-bold tracking-widest uppercase bg-[#C9962B] hover:bg-yellow-700 text-white px-6 py-3 transition">
                         Mon Espace
                     </a>
                 @else
-                    <a href="{{ route('login') }}"
-                       class="text-[10px] font-bold tracking-widest uppercase bg-[#C9962B] hover:bg-yellow-700 text-white px-6 py-3 transition">
+                    <a href="{{ route('login') }}" class="text-[10px] font-bold tracking-widest uppercase bg-[#C9962B] hover:bg-yellow-700 text-white px-6 py-3 transition">
                         Connexion
                     </a>
                 @endauth
@@ -281,32 +269,121 @@
 
         </div>
 
+        {{-- MENU MOBILE --}}
+        <div id="mobile-menu" class="hidden xl:hidden bg-[#002855] border-t border-white/10 overflow-y-auto max-h-[80vh]">
+            <div class="px-4 py-4 space-y-0">
 
-    {{-- MENU MOBILE --}}
-    <div id="mobile-menu" class="hidden xl:hidden bg-[#003366] border-t border-white/10">
-        <div class="max-w-screen-xl mx-auto px-8 py-6 space-y-1">
-            <a href="/" class="block py-3 text-[11px] tracking-widests uppercase text-white/60 hover:text-white border-b border-white/10 transition">Accueil</a>
-            <a href="/ecole-doctorale/presentation" class="block py-3 text-[11px] tracking-widest uppercase text-white/60 hover:text-white border-b border-white/10 transition">L'École Doctorale</a>
-            <a href="/formation/programme" class="block py-3 text-[11px] tracking-widest uppercase text-white/60 hover:text-white border-b border-white/10 transition">Formation</a>
-            <a href="/admission/conditions" class="block py-3 text-[11px] tracking-widest uppercase text-white/60 hover:text-white border-b border-white/10 transition">Admission</a>
-            <a href="/recherche/axes" class="block py-3 text-[11px] tracking-widest uppercase text-white/60 hover:text-white border-b border-white/10 transition">Recherche</a>
-            <a href="/cooperation/national" class="block py-3 text-[11px] tracking-widest uppercase text-white/60 hover:text-white border-b border-white/10 transition">Coopération</a>
-            <a href="/actualites" class="block py-3 text-[11px] tracking-widest uppercase text-white/60 hover:text-white border-b border-white/10 transition">Actualités</a>
-            <a href="{{ route('login') }}" class="block py-3 text-[11px] tracking-widest uppercase font-bold text-[#C9962B]">Connexion</a>
+                {{-- Liens simples --}}
+                <a href="/" class="flex items-center justify-between py-3.5 text-[11px] tracking-widest uppercase text-white/70 hover:text-white border-b border-white/10 transition">Accueil</a>
+
+                {{-- Accordéon L'École --}}
+                <div class="border-b border-white/10">
+                    <button onclick="toggleAccordion('acc-ecole')" class="w-full flex items-center justify-between py-3.5 text-[11px] tracking-widest uppercase text-white/70 hover:text-white transition">
+                        L'École
+                        <svg class="w-3 h-3 transition-transform duration-200" id="acc-ecole-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-ecole" class="hidden pb-2 pl-4 space-y-1">
+                        <a href="/ecole-doctorale/presentation" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Présentation & Historique</a>
+                        <a href="/ecole-doctorale/missions" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Missions & Objectifs</a>
+                        <a href="/ecole-doctorale/mot-du-directeur" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Mot du Directeur</a>
+                        <a href="/ecole-doctorale/organisation" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Organisation & Gouvernance</a>
+                        <a href="/ecole-doctorale/partenaires" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Partenaires institutionnels</a>
+                    </div>
+                </div>
+
+                {{-- Accordéon Formation --}}
+                <div class="border-b border-white/10">
+                    <button onclick="toggleAccordion('acc-formation')" class="w-full flex items-center justify-between py-3.5 text-[11px] tracking-widest uppercase text-white/70 hover:text-white transition">
+                        Formation
+                        <svg class="w-3 h-3" id="acc-formation-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-formation" class="hidden pb-2 pl-4 space-y-1">
+                        <a href="/formation/filieres" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Filières & Spécialités</a>
+                        <a href="/formation/encadrement" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Encadrement & Tutorat</a>
+                        <a href="/formation/seminaires" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Séminaires Doctoraux</a>
+                    </div>
+                </div>
+
+                {{-- Accordéon Admission --}}
+                <div class="border-b border-white/10">
+                    <button onclick="toggleAccordion('acc-admission')" class="w-full flex items-center justify-between py-3.5 text-[11px] tracking-widests uppercase text-white/70 hover:text-white transition">
+                        Admission
+                        <svg class="w-3 h-3" id="acc-admission-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-admission" class="hidden pb-2 pl-4 space-y-1">
+                        <a href="/admission/conditions" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Conditions d'accès & FAQ</a>
+                        <a href="/admission/candidature" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Déposer une candidature</a>
+                        <a href="/admission/calendrier" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Calendrier & Résultats</a>
+                    </div>
+                </div>
+
+                {{-- Accordéon Recherche --}}
+                <div class="border-b border-white/10">
+                    <button onclick="toggleAccordion('acc-recherche')" class="w-full flex items-center justify-between py-3.5 text-[11px] tracking-widests uppercase text-white/70 hover:text-white transition">
+                        Recherche
+                        <svg class="w-3 h-3" id="acc-recherche-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-recherche" class="hidden pb-2 pl-4 space-y-1">
+                        <a href="/recherche/axes" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Axes & Thématiques</a>
+                        <a href="/recherche/laboratoires" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Laboratoires & Unités</a>
+                        <a href="/recherche/projets" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Projets en cours</a>
+                        <a href="/recherche/theses" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Thèses soutenues</a>
+                        <a href="/recherche/ethique" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Intégrité & Éthique</a>
+                    </div>
+                </div>
+
+                {{-- Accordéon Coopération --}}
+                <div class="border-b border-white/10">
+                    <button onclick="toggleAccordion('acc-coop')" class="w-full flex items-center justify-between py-3.5 text-[11px] tracking-widests uppercase text-white/70 hover:text-white transition">
+                        Coopération
+                        <svg class="w-3 h-3" id="acc-coop-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="acc-coop" class="hidden pb-2 pl-4 space-y-1">
+                        <a href="/cooperation/national" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Partenariats nationaux</a>
+                        <a href="/cooperation/international" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Partenariats internationaux</a>
+                        <a href="/cooperation/mobilite" class="block py-2 text-[11px] text-white/50 hover:text-white transition">Mobilité & Bourses</a>
+                    </div>
+                </div>
+
+                <a href="/actualites" class="flex items-center justify-between py-3.5 text-[11px] tracking-widests uppercase text-white/70 hover:text-white border-b border-white/10 transition">Actualités</a>
+
+                {{-- CTA Connexion --}}
+                <div class="pt-4 pb-2">
+                    @auth
+                        <a href="/dashboard" class="block text-center text-[11px] font-bold tracking-widests uppercase bg-[#C9962B] hover:bg-yellow-700 text-white px-6 py-3.5 transition">
+                            Mon Espace
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="block text-center text-[11px] font-bold tracking-widests uppercase bg-[#C9962B] hover:bg-yellow-700 text-white px-6 py-3.5 transition">
+                            Connexion
+                        </a>
+                    @endauth
+                </div>
+
+            </div>
         </div>
-    </div>
 
-</header>
+    </header>
 
     {{-- CONTENU --}}
     <main>@yield('content')</main>
 
     {{-- FOOTER --}}
     <footer class="bg-[#0d1b2a] text-white">
-        <div class="max-w-screen-xl mx-auto px-8 py-16">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+        <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-16">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-10">
 
-                <div class="md:col-span-4">
+                <div class="sm:col-span-2 md:col-span-4">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-[3px] h-10 bg-[#C9962B]"></div>
                         <div>
@@ -320,72 +397,51 @@
                     </p>
                     <div class="flex gap-3 mt-8">
                         <a href="#" class="w-9 h-9 border border-gray-700 hover:border-white flex items-center justify-center transition">
-                            <svg class="w-4 h-4 fill-gray-400 hover:fill-white" viewBox="0 0 24 24">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
+                            <svg class="w-4 h-4 fill-gray-400" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                         </a>
                         <a href="#" class="w-9 h-9 border border-gray-700 hover:border-white flex items-center justify-center transition">
-                            <svg class="w-4 h-4 fill-gray-400 hover:fill-white" viewBox="0 0 24 24">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                            </svg>
+                            <svg class="w-4 h-4 fill-gray-400" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                         </a>
                     </div>
                 </div>
 
                 <div class="md:col-span-2">
-                    <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C9962B] mb-5">L'École</p>
+                    <p class="text-[10px] font-semibold tracking-widests uppercase text-[#C9962B] mb-5">L'École</p>
                     <ul class="space-y-3">
-                        @foreach([
-                            ['Présentation', '/ecole-doctorale/presentation'],
-                            ['Missions', '/ecole-doctorale/missions'],
-                            ['Gouvernance', '/ecole-doctorale/organisation'],
-                            ['Partenaires', '/ecole-doctorale/partenaires'],
-                        ] as [$label, $url])
+                        @foreach([['Présentation', '/ecole-doctorale/presentation'],['Missions', '/ecole-doctorale/missions'],['Gouvernance', '/ecole-doctorale/organisation'],['Partenaires', '/ecole-doctorale/partenaires']] as [$label, $url])
                         <li><a href="{{ $url }}" class="text-gray-400 text-sm hover:text-white transition">{{ $label }}</a></li>
                         @endforeach
                     </ul>
                 </div>
 
                 <div class="md:col-span-2">
-                    <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C9962B] mb-5">Formation</p>
+                    <p class="text-[10px] font-semibold tracking-widests uppercase text-[#C9962B] mb-5">Formation</p>
                     <ul class="space-y-3">
-                        @foreach([
-                            ['Programme', '/formation/programme'],
-                            ['Encadrement', '/formation/encadrement'],
-                            ['Séminaires', '/formation/seminaires'],
-                            ['Admission', '/admission/conditions'],
-                        ] as [$label, $url])
+                        @foreach([['Programme', '/formation/programme'],['Encadrement', '/formation/encadrement'],['Séminaires', '/formation/seminaires'],['Admission', '/admission/conditions']] as [$label, $url])
                         <li><a href="{{ $url }}" class="text-gray-400 text-sm hover:text-white transition">{{ $label }}</a></li>
                         @endforeach
                     </ul>
                 </div>
 
                 <div class="md:col-span-2">
-                    <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C9962B] mb-5">Ressources</p>
+                    <p class="text-[10px] font-semibold tracking-widests uppercase text-[#C9962B] mb-5">Ressources</p>
                     <ul class="space-y-3">
-                        @foreach([
-                            ['Thèses soutenues', '/recherche/theses'],
-                            ['Charte du doctorat', '#'],
-                            ['Guide de rédaction', '#'],
-                            ['Formulaires', '#'],
-                        ] as [$label, $url])
+                        @foreach([['Thèses soutenues', '/recherche/theses'],['Charte du doctorat', '#'],['Guide de rédaction', '#'],['Formulaires', '#']] as [$label, $url])
                         <li><a href="{{ $url }}" class="text-gray-400 text-sm hover:text-white transition">{{ $label }}</a></li>
                         @endforeach
                     </ul>
                 </div>
 
                 <div class="md:col-span-2">
-                    <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C9962B] mb-5">Contact</p>
+                    <p class="text-[10px] font-semibold tracking-widests uppercase text-[#C9962B] mb-5">Contact</p>
                     <ul class="space-y-3 text-sm text-gray-400">
-                        {{-- Contact footer dynamique --}}
-                <li>{{ $infosEcole['adresse']->valeur ?? 'Campus UAC, Abomey-Calavi, Bénin' }}</li>
-                <li>{{ $infosEcole['telephone']->valeur ?? '+229 XX XX XX XX' }}</li>
-                <li>
-                <a href="mailto:{{ $infosEcole['email_contact']->valeur ?? 'contact@edseg-uac.bj' }}"
-                class="hover:text-white transition">
-                 {{ $infosEcole['email_contact']->valeur ?? 'contact@edseg-uac.bj' }}
-                </a>
-                </li>
+                        <li>{{ $infosEcole['adresse']->valeur ?? 'Campus UAC, Abomey-Calavi, Bénin' }}</li>
+                        <li>{{ $infosEcole['telephone']->valeur ?? '+229 XX XX XX XX' }}</li>
+                        <li>
+                            <a href="mailto:{{ $infosEcole['email_contact']->valeur ?? 'contact@edseg-uac.bj' }}" class="hover:text-white transition">
+                                {{ $infosEcole['email_contact']->valeur ?? 'contact@edseg-uac.bj' }}
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -393,8 +449,8 @@
         </div>
 
         <div class="border-t border-gray-800">
-            <div class="max-w-screen-xl mx-auto px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-3">
-                <p class="text-gray-600 text-xs tracking-wide">
+            <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-3">
+                <p class="text-gray-600 text-xs tracking-wide text-center md:text-left">
                     &copy; {{ date('Y') }} École Doctorale des Sciences Économiques et de Gestion — Université d'Abomey-Calavi
                 </p>
                 <div class="flex gap-6 text-xs text-gray-600">
@@ -407,11 +463,26 @@
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
-        document.getElementById('burger')?.addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        // Burger menu
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const burgerIcon = document.getElementById('burger-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        burger?.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            burgerIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
         });
+
+        // Accordéons mobile
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            el.classList.toggle('hidden');
+            icon.style.transform = el.classList.contains('hidden') ? '' : 'rotate(180deg)';
+        }
     </script>
 </body>
 </html>
-
 

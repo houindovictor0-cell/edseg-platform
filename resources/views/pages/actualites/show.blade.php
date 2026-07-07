@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', $actualite->titre . ' — EDSEG / UAC')
 @section('content')
-
+@use('Illuminate\Support\Facades\Storage')
 <x-page-hero
     :titre="$actualite->titre"
     image="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80"

@@ -30,7 +30,7 @@
             Formulaire officiel
         </p>
         <h2 class="garamond" style="font-size:32px; font-weight:400; color:#003366; margin-bottom:8px;">
-            Formulaire de candidature
+            Formulaire de présélection en ligne
         </h2>
         <p style="font-size:13px; color:#6b7280;">
             Tous les champs marqués d'un <span style="color:#dc2626;">*</span> sont obligatoires.
@@ -243,7 +243,7 @@
 
         <div style="display:flex; justify-content:flex-end;">
             <button type="submit" class="cand-btn">
-                Soumettre ma candidature →
+                Soumettre mon formulaire →
             </button>
         </div>
 

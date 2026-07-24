@@ -34,9 +34,10 @@
         @foreach($laboratoires as $i => $lab)
         <div class="bg-white grid grid-cols-1 lg:grid-cols-12 gap-0">
             <div class="lg:col-span-4 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80"
-                     alt="{{ $lab->nom }}"
-                     class="w-full h-full min-h-[220px] object-cover object-center hover:scale-105 transition-transform duration-500">
+                <img src="{{ $lab->image_url }}"
+     alt="{{ $lab->nom }}"
+     class="w-full h-full min-h-[220px] object-cover object-center hover:scale-105 transition-transform duration-500">
+
             </div>
             <div class="lg:col-span-8 p-10">
                 <div class="flex items-start justify-between mb-4">

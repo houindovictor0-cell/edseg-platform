@@ -16,7 +16,7 @@ return new class extends Migration
         $table->string('titre');
         $table->text('contenu');
         $table->string('image')->nullable();
-        $table->enum('categorie', ['actualite', 'communique', 'offre', 'soutenance', 'colloque'])->default('actualite');
+        $table->enum('categorie', ['actualite', 'communique', 'offre', 'soutenance', 'colloque', 'bourse', 'mobilite'])->default('actualite');
         $table->boolean('publiee')->default(false);
         $table->timestamp('date_publication')->nullable();
         $table->foreignId('user_id')->constrained()->onDelete('cascade');

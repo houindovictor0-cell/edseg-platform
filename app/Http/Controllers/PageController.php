@@ -38,10 +38,10 @@ class PageController extends Controller
     }
 
     public function organisation()
-    {
-        $enseignants = Enseignant::take(6)->get();
-        return view('pages.ecole.organisation', compact('enseignants'));
-    }
+{
+    $enseignants = \App\Models\Enseignant::orderBy('grade')->orderBy('nom')->get();
+    return view('pages.ecole.organisation', compact('enseignants'));
+}
 
     public function partenaires()
     {

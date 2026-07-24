@@ -11,7 +11,13 @@ class DoctorantSeeder extends Seeder
 {
     public function run(): void
     {
-        $user       = User::where('email', 'm.ahouandjinou@edseg-uac.bj')->first();
+$user = User::firstOrCreate(
+    ['email' => 'm.ahouandjinou@edseg-uac.bj'],
+    [
+        'name' => 'Marc Ahouandjinou',
+        'password' => bcrypt('password'),
+    ]
+);
         $enseignant = Enseignant::first();
 
         Doctorant::create([
@@ -30,3 +36,4 @@ class DoctorantSeeder extends Seeder
         ]);
     }
 } 
+

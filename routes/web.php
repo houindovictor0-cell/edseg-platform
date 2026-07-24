@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\SeminaireAdminController;
 use App\Http\Controllers\Admin\BourseAdminController;
 use App\Http\Controllers\Admin\TheseAdminController;
 use App\Http\Controllers\Admin\EcoleAdminController;
+use App\Http\Controllers\EnseignantTheseController;
 use App\Http\Controllers\Admin\ActualiteController as AdminActualiteController;
 // ─────────────────────────────────────────────────────────
 //  PAGES PUBLIQUES
@@ -30,6 +31,7 @@ Route::prefix('ecole-doctorale')->group(function () {
     Route::get('/organisation', [PageController::class, 'organisation'])->name('ecole.organisation');
     Route::get('/partenaires', [PageController::class, 'partenaires'])->name('ecole.partenaires');
 });
+Route::get('/ecole/organisation', [PageController::class, 'organisation'])->name('ecole.organisation');
 // ─────────────────────────────────────────────────────────
 //  FORMATION
 // ─────────────────────────────────────────────────────────
@@ -102,6 +104,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
         Route::post('/publications', [DashboardController::class, 'deposerPublication'])->name('enseignant.publications.deposer');
     });
     
+    
     //  Admin ──
     Route::prefix('admin')->group(function () {
         Route::get('/', [DashboardController::class, 'admin'])->name('admin.index');
@@ -144,6 +147,9 @@ Route::middleware(['auth', 'approved'])->group(function () {
         Route::put('/seminaires/{id}', [SeminaireAdminController::class, 'update'])->name('admin.seminaires.update');
         Route::delete('/seminaires/{id}', [SeminaireAdminController::class, 'destroy'])->name('admin.seminaires.destroy');
         // Bourses
+        // Bourses publiques
+Route::get('/cooperation/mobilite', [CooperationController::class, 'mobilite'])->name('cooperation.mobilite');
+Route::get('/cooperation/mobilite/{id}', [CooperationController::class, 'bourse'])->name('cooperation.bourse');
         Route::get('/bourses', [BourseAdminController::class, 'index'])->name('admin.bourses');
         Route::post('/bourses', [BourseAdminController::class, 'store'])->name('admin.bourses.store');
         Route::put('/bourses/{id}', [BourseAdminController::class, 'update'])->name('admin.bourses.update');
@@ -164,7 +170,21 @@ Route::middleware(['auth', 'approved'])->group(function () {
         Route::delete('/actualites/{id}', [AdminActualiteController::class, 'destroy'])->name('admin.actualites.destroy');
         Route::post('/actualites/{id}/toggle', [AdminActualiteController::class, 'togglePublication'])->name('admin.actualites.toggle');
     });
+
+
+
 });
+
+Route::get('dashboard/enseignant-theses-create',
+    [EnseignantTheseController::class, 'create']
+)->name('enseignant.theses.create');
+
+
+Route::post('/enseignant/theses',
+    [EnseignantTheseController::class, 'store']
+)->name('enseignant.theses.store');
+
+
 // ─────────────────────────────────────────────────────────
 //  AUTH LARAVEL
 // ─────────────────────────────────────────────────────────

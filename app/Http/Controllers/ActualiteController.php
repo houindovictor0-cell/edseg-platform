@@ -1,18 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Models\Actualite;
 
 class ActualiteController extends Controller
 {
-    public function index()
-    {
-        $actualites = Actualite::where('publiee', true)
-            ->orderBy('date_publication', 'desc')
-            ->paginate(9);
-        return view('pages.actualites.index', compact('actualites'));
+    public function index(Request $request)
+{
+    $query = Actualite::query();
+
+    if ($request->filled('categorie')) {
+        $query->where('categorie', $request->categorie);
     }
+
+    $actualites = $query
+        ->orderByDesc('date_publication')
+        ->paginate(9)
+        ->withQueryString();
+
+    return view('pages.actualites.index', compact('actualites'));
+}
 
     public function show($id)
     {

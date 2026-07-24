@@ -10,22 +10,34 @@
 
 <section class="max-w-7xl mx-auto px-6 py-16">
 
-    {{-- Filtres --}}
+     {{-- Filtres --}}
     <div class="flex flex-wrap gap-2 mb-10">
-        @foreach(['Tous', 'Actualité', 'Communiqué', 'Offre', 'Soutenance', 'Colloque'] as $filtre)
-        <button class="text-xs font-semibold px-4 py-2 border border-gray-300 hover:border-[#003366] hover:text-[#003366] transition
-            {{ $filtre === 'Tous' ? 'bg-[#003366] text-white border-[#003366]' : 'text-gray-500' }}">
-            {{ $filtre }}
-        </button>
-        @endforeach
-    </div>
+    @foreach(['Tous', 'Actualité', 'Communiqué', 'Offre', 'Soutenance', 'Colloque'] as $filtre)
+
+    <a href="{{ route('actualites.index', ['categorie' => $filtre != 'Tous' ? $filtre : null]) }}"
+       class="text-xs font-semibold px-4 py-2 border
+       {{ request('categorie') == $filtre || ($filtre == 'Tous' && !request('categorie'))
+            ? 'bg-[#003366] text-white border-[#003366]'
+            : 'border-gray-300 text-gray-500 hover:border-[#003366] hover:text-[#003366]' }}">
+        {{ $filtre }}
+    </a>
+
+    @endforeach
+</div>
+
 
     @if($actualites->count())
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         @foreach($actualites as $actu)
         <article class="group border-t-2 border-gray-200 hover:border-[#003366] pt-5 transition">
             @if($actu->image)
-            <img src="{{ $actu->image }}" alt="{{ $actu->titre }}" class="w-full h-44 object-cover mb-4">
+<img
+    src="{{ Str::startsWith($actu->image, ['http://', 'https://'])
+        ? $actu->image
+        : asset('storage/' . $actu->image) }}"
+    alt="{{ $actu->titre }}"
+    class="w-full h-44 object-cover mb-4">
+    
             @else
             <div class="w-full h-44 bg-gray-100 flex items-center justify-center mb-4 text-3xl">📰</div>
             @endif

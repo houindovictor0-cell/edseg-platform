@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Actualite extends Model
 {
     protected $fillable = [
-        'titre', 'contenu', 'image', 'categorie',
+        'titre', 'contenu', 'image', 'document','document_nom','categorie',
         'publiee', 'date_publication', 'user_id'
     ];
 

@@ -12,20 +12,35 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('enseignants', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->string('matricule')->unique();
-        $table->string('nom');
-        $table->string('prenom');
-        $table->string('telephone')->nullable();
-        $table->string('photo')->nullable();
-        $table->string('grade'); // Maître de conférences, Professeur titulaire...
-        $table->string('specialite');
-        $table->boolean('est_directeur_these')->default(false);
-        $table->integer('quota_theses')->default(5);
-        $table->text('biographie')->nullable();
-        $table->timestamps();
-    });
+    $table->id();
+
+    $table->foreignId('user_id')
+    ->nullable()
+    ->constrained()
+    ->nullOnDelete();
+
+
+   $table->string('matricule')->nullable()->unique();
+    $table->string('nom');
+    $table->string('prenom');
+    $table->string('telephone')->nullable();
+    $table->string('photo')->nullable();
+
+    $table->string('grade');
+    $table->string('specialite');
+
+    // Nouvelles colonnes
+    $table->string('etablissement')->nullable();
+    $table->boolean('est_directeur_these')->default(false);
+    $table->integer('quota_theses')->default(5);
+    $table->string('option')->nullable();
+    $table->string('provenance')->nullable();
+$table->string('pays')->nullable();
+    $table->text('biographie')->nullable();
+
+    $table->timestamps();
+});
+
     }
 
     /**
@@ -36,3 +51,4 @@ return new class extends Migration
         Schema::dropIfExists('enseignants');
     }
 };
+

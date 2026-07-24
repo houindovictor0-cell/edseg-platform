@@ -17,6 +17,11 @@ class RapportAvancement extends Model
         'date_validation' => 'datetime',
     ];
 
+    
+
+    protected $table = 'rapports_avancement';
+
+
     public function doctorant()
     {
         return $this->belongsTo(Doctorant::class);

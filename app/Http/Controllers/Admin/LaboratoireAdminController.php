@@ -32,21 +32,41 @@ class LaboratoireAdminController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $lab  = Laboratoire::findOrFail($id);
-        $data = $request->except('image');
+{
 
-        if ($request->hasFile('image')) {
-            if ($lab->image && !str_starts_with($lab->image, 'http')) {
-                Storage::disk('public')->delete($lab->image);
-            }
-            $data['image'] = $request->file('image')->store('laboratoires', 'public');
+    $lab = Laboratoire::findOrFail($id);
+
+    $data = $request->validate([
+        'nom' => 'required|string|max:255',
+        'responsable' => 'nullable|string|max:255',
+        'site_web' => 'nullable|url|max:255',
+        'description' => 'nullable|string',
+        'axes_recherche' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+    ]);
+
+    // Remplacement de l'image
+    if ($request->hasFile('image')) {
+
+        if ($lab->image && Storage::disk('public')->exists($lab->image)) {
+            Storage::disk('public')->delete($lab->image);
         }
 
-        $lab->update($data);
-        Logger::log("Laboratoire modifié — {$lab->nom}", 'Laboratoire', $id);
-        return redirect()->route('admin.laboratoires')->with('success', 'Laboratoire mis à jour.');
+        $data['image'] = $request->file('image')->store('laboratoires', 'public');
+    } else {
+        unset($data['image']);
     }
+
+    $lab->update($data);
+
+    Logger::log("Laboratoire modifié — {$lab->nom}", 'Laboratoire', $lab->id);
+
+    return redirect()
+        ->route('admin.laboratoires')
+        ->with('success', 'Laboratoire mis à jour avec succès.');
+}
+
+    
 
     public function destroy($id)
     {

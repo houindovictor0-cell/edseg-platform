@@ -10,7 +10,13 @@ class ActualiteSeeder extends Seeder
 {
     public function run(): void
     {
-        $admin = User::where('email', 'admin@edseg-uac.bj')->first();
+        $admin = User::whereHas('roles', function ($query) {
+    $query->where('name', 'admin');
+})->first();
+
+if (!$admin) {
+    $admin = User::first();
+}
 
         $actualites = [
             [

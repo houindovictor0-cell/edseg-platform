@@ -10,7 +10,11 @@ class ActualiteRicheSeeder extends Seeder
 {
     public function run(): void
     {
-        $admin = User::where('email', 'admin@edseg-uac.bj')->first();
+         $admin = User::first();
+
+    if (!$admin) {
+        throw new \Exception('Aucun utilisateur trouvé. Vérifie UserSeeder.');
+    }
 
         $actualites = [
             [

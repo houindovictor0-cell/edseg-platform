@@ -152,8 +152,7 @@
                                           style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
                                         @csrf
                                         <label class="form-label" style="margin-bottom:0;">Rôle</label>
-                                        <select name="role" class="form-input form-select" style="width:auto; padding:6px 12px;">
-                                            <option value="doctorant" {{ $u->hasRole('doctorant') ? 'selected' : '' }}>Doctorant</option>
+                                        <select name="role_souhaite" class="form-input form-select" style="width:auto; padding:6px 12px;">
                                             <option value="enseignant" {{ $u->hasRole('enseignant') ? 'selected' : '' }}>Enseignant</option>
                                             <option value="admin" {{ $u->hasRole('admin') ? 'selected' : '' }}>Admin</option>
                                         </select>
@@ -194,7 +193,6 @@
                 <div class="form-group">
                     <label class="form-label">Rôle</label>
                     <select name="role" class="form-input form-select" required>
-                        <option value="doctorant">Doctorant</option>
                         <option value="enseignant">Enseignant-chercheur</option>
                         <option value="admin">Administrateur</option>
                     </select>

@@ -586,10 +586,14 @@ body.light-mode .nav-item-text {
 
         <div class="sidebar-section">
             <div class="sidebar-section-label">Vue d'ensemble</div>
+
+
+
             <a href="{{ route('admin.index') }}"
                class="nav-item {{ request()->routeIs('admin.index') ? 'active' : '' }}">
                 <span class="dot"></span> Tableau de bord
             </a>
+            
             <a href="{{ route('admin.chiffres') }}"
                class="nav-item {{ request()->routeIs('admin.chiffres') ? 'active' : '' }}">
                 <span class="dot"></span> Chiffres clés

@@ -5,48 +5,45 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Vider le cache des permissions Spatie
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Compte Admin
+        // Admin principal = Directeur ED-SEG
         $admin = User::create([
-            'name'              => 'Administrateur EDSEG',
-            'email'             => 'admin@edseg-uac.bj',
-            'password'          => Hash::make('Admin@edseg2026'),
+            'name'              => 'Pr. Cossi Emmanuel HOUNKOU',
+            'email'             => 'ecoledoctoraleseguac@gmail.com',
+            'password'          => Hash::make('Admin@EDSEG2026'),
             'email_verified_at' => now(),
-             'is_approved'       => true,  // 👈 admin approuvé d'office
-             'approved_at'       => now(),
+            'is_approved'       => true,
+            'approved_at'       => now(),
         ]);
         $admin->assignRole('admin');
 
-        // Compte Enseignant test
+        // Compte test enseignant
         $enseignant = User::create([
-            'name'              => 'Prof. Kouassi Jean',
-            'email'             => 'j.kouassi@edseg-uac.bj',
+            'name'              => 'Pr. Augustin Foster CHABOSSOU',
+            'email'             => 'a.chabossou@edseg-uac.bj',
             'password'          => Hash::make('Enseignant@2026'),
             'email_verified_at' => now(),
-             'is_approved'       => true,  // 👈 enseignant approuvé d'office
-             'approved_at'       => now(),
+            'is_approved'       => true,
+            'approved_at'       => now(),
         ]);
         $enseignant->assignRole('enseignant');
 
-        // Compte Doctorant test
+        // Compte test doctorant
         $doctorant = User::create([
-            'name'              => 'Ahouandjinou Marc',
-            'email'             => 'm.ahouandjinou@edseg-uac.bj',
+            'name'              => 'Doctorant Test',
+            'email'             => 'doctorant@edseg-uac.bj',
             'password'          => Hash::make('Doctorant@2026'),
             'email_verified_at' => now(),
-             'is_approved'       => true,  // 👈 doctorant approuvé d'office
-             'approved_at'       => now(),
+            'is_approved'       => true,
+            'approved_at'       => now(),
         ]);
         $doctorant->assignRole('doctorant');
     }
-} 
-
+}
 

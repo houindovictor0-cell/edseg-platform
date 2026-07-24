@@ -28,8 +28,31 @@
             </div>
 
             @if($actualite->image)
-            <img src="{{ $actualite->image }}" alt="{{ $actualite->titre }}" class="w-full h-44 object-cover mb-4">
+<img src="{{ asset('storage/' . $actualite->image) }}"
+     alt="{{ $actualite->titre }}"
+     class="w-full h-44 object-cover mb-4">
             @endif
+
+
+@if($actualite->document)
+<div class="document-card mt-8">
+    <div class="document-icon">
+        <i class="fa-regular fa-file-lines">🗎</i>
+    </div>
+
+    <div class="document-content">
+        <span class="document-label">Document joint</span>
+        <h5>{{ $actualite->document_nom }}</h5>
+    </div>
+
+    <a href="{{ asset('storage/'.$actualite->document) }}"
+       target="_blank"
+       class="document-btn">
+        Télécharger
+    </a>
+</div>
+@endif
+
 
             <div class="prose-edseg space-y-5 text-gray-600 text-[15px] leading-relaxed">
                 {!! nl2br(e($actualite->contenu)) !!}

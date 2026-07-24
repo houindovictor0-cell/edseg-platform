@@ -200,7 +200,7 @@
             </a>
         </div>
         <div class="relative">
-            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80"
+            <img src="/images/presentation.png"
                  alt="Étudiants EDSEG"
                  class="w-full h-80 object-cover">
             <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-[#C9962B] -z-10"></div>

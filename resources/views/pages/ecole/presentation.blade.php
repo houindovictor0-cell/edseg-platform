@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="relative">
-            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=80"
+            <img src="/images/etude.png"
                  alt="Étudiants EDSEG"
                  class="w-full h-[500px] object-cover object-center">
             <div class="absolute -bottom-5 -left-5 w-28 h-28 bg-[#C9962B] -z-10"></div>
@@ -64,7 +64,7 @@
             <p class="text-blue-300 text-sm mt-6">— Direction de l'EDSEG</p>
         </div>
         <div>
-            <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=900&q=80"
+            <img src="/images/presentation.png"
                  alt="Remise de diplôme"
                  class="w-full h-72 object-cover object-center">
         </div>

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.main')
 @section('title', 'Thèses encadrées')
 @section('breadcrumb', 'Thèses encadrées')
 
@@ -10,6 +10,12 @@
     <p class="page-desc">
         {{ $theses->count() }} thèse(s) sur {{ $enseignant?->quota_theses ?? 5 }} places autorisées.
     </p>
+<div class="page-actions">
+    <a href="{{ route('enseignant.theses.create') }}" class="btn-add-these">
+        + Nouvelle thèse
+    </a>
+</div>
+
 </div>
 
 <nav style="display:flex;flex-wrap:wrap;gap:1px;background:var(--border);margin-bottom:24px;">

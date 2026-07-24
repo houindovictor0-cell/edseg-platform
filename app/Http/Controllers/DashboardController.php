@@ -18,7 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
+use App\Models\Enseignant;
+use App\Models\Doctorant;
 class DashboardController extends Controller
 {
     // ── ROUTEUR PRINCIPAL ────────────────────────────────────────────────────
@@ -283,6 +284,7 @@ class DashboardController extends Controller
         $user = User::create([
             'name'              => $request->name,
             'email'             => $request->email,
+            'role_souhaite'     => $request->role,
             'password'          => Hash::make($request->password),
             'email_verified_at' => now(),
             'is_approved'       => $request->has('is_approved'),
@@ -311,36 +313,78 @@ class DashboardController extends Controller
             ->with('success', "Compte de {$user->name} créé avec succès.");
     }
 
-    public function approuverUtilisateur($id)
-    {
-        $user = User::findOrFail($id);
+  
+public function approuverUtilisateur($id)
+{
+    $user = User::findOrFail($id);
 
-        $user->update([
-            'is_approved' => true,
-            'approved_at' => now(),
-            'approved_by' => Auth::id(),
-        ]);
+    // Validation du compte
+    $user->update([
+        'is_approved' => true,
+        'approved_at' => now(),
+        'approved_by' => Auth::id(),
+    ]);
 
-        if ($user->role_souhaite && !$user->hasRole($user->role_souhaite)) {
-            $user->assignRole($user->role_souhaite);
-        }
 
-        Logger::log(
-            "Compte approuvé — {$user->name}",
-            'User',
-            $user->id,
-            "Rôle : {$user->role_souhaite}"
-        );
-
-        try {
-            Mail::to($user->email)->send(new CompteApprouve($user));
-        } catch (\Exception $e) {
-            \Log::error('Mail approbation : ' . $e->getMessage());
-        }
-
-        return redirect()->back()
-            ->with('success', "Compte de {$user->name} approuvé. Email envoyé.");
+    // Attribution automatique du rôle Spatie
+    if ($user->role_souhaite && !$user->hasRole($user->role_souhaite)) {
+        $user->assignRole($user->role_souhaite);
     }
+
+
+    // Création automatique du profil enseignant
+    if ($user->role_souhaite === 'enseignant') {
+
+        Enseignant::firstOrCreate(
+            [
+                'user_id' => $user->id
+            ],
+            [
+                'nom'           => $user->name,
+                'prenom'        => '',
+                'grade'         => 'À définir',
+                'specialite'    => 'À définir',
+                'etablissement' => 'À définir',
+            ]
+        );
+    }
+
+
+    // Création automatique du profil doctorant
+    if ($user->role_souhaite === 'doctorant') {
+
+        Doctorant::firstOrCreate(
+            [
+                'user_id' => $user->id
+            ],
+            [
+                'nom'    => $user->name,
+                'prenom' => '',
+            ]
+        );
+    }
+
+
+    Logger::log(
+        "Compte approuvé — {$user->name}",
+        'User',
+        $user->id,
+        "Rôle : {$user->role_souhaite}"
+    );
+
+
+    try {
+        Mail::to($user->email)->send(new CompteApprouve($user));
+    } catch (\Exception $e) {
+        \Log::error('Mail approbation : ' . $e->getMessage());
+    }
+
+
+    return redirect()->back()
+        ->with('success', "Compte de {$user->name} approuvé avec profil créé.");
+}
+
+
 
     public function rejeterUtilisateur($id)
     {
@@ -364,24 +408,66 @@ class DashboardController extends Controller
             ->with('success', "Compte de {$user->name} désactivé. Email envoyé.");
     }
 
-    public function changerRole(Request $request, $id)
-    {
-        $request->validate(['role' => 'required|in:doctorant,enseignant,admin']);
+   public function changerRole(Request $request, $id)
+{
+    $request->validate([
+        'role_souhaite' => 'required|in:doctorant,enseignant,admin'
+    ]);
 
-        $user = User::findOrFail($id);
-        $ancienRole = $user->roles->first()?->name ?? 'aucun';
-        $user->syncRoles([$request->role]);
+    $user = User::findOrFail($id);
 
-        Logger::log(
-            "Rôle modifié — {$user->name}",
-            'User',
-            $user->id,
-            "Ancien : {$ancienRole} → Nouveau : {$request->role}"
+    $ancienRole = $user->roles->first()?->name ?? 'aucun';
+
+    // Changement du rôle Spatie
+    $user->syncRoles([$request->role_souhaite]);
+
+    // Mise à jour du rôle demandé
+    $user->update([
+        'role_souhaite' => $request->role_souhaite
+    ]);
+
+
+    // Création automatique du profil enseignant
+    if ($request->role_souhaite === 'enseignant') {
+
+        Enseignant::firstOrCreate(
+            ['user_id' => $user->id],
+            [
+                'nom'           => $user->name,
+                'prenom'        => '',
+                'grade'         => 'À définir',
+                'specialite'    => 'À définir',
+                'etablissement' => 'À définir',
+            ]
         );
-
-        return redirect()->back()
-            ->with('success', "Rôle mis à jour pour {$user->name}.");
     }
+
+
+    // Création automatique du profil doctorant
+    if ($request->role_souhaite === 'doctorant') {
+
+        Doctorant::firstOrCreate(
+            ['user_id' => $user->id],
+            [
+                'nom'    => $user->name,
+                'prenom' => '',
+            ]
+        );
+    }
+
+
+    Logger::log(
+        "Rôle modifié — {$user->name}",
+        'User',
+        $user->id,
+        "Ancien : {$ancienRole} → Nouveau : {$request->role_souhaite}"
+    );
+
+
+    return redirect()->back()
+        ->with('success', "Rôle mis à jour et profil synchronisé pour {$user->name}.");
+}
+
 
     public function gererActualites()
     {
@@ -390,34 +476,52 @@ class DashboardController extends Controller
     }
 
     public function publierActualite(Request $request)
-    {
-        $request->validate([
-            'titre'     => 'required|string|max:255',
-            'contenu'   => 'required|string',
-            'categorie' => 'required|in:actualite,communique,offre,soutenance,colloque',
-            'image'     => 'nullable|image|max:4096',
-        ]);
+{
+    $request->validate([
+        'titre'     => 'required|string|max:255',
+        'contenu'   => 'required|string',
+        'categorie' => 'required|in:actualite,communique,offre,soutenance,colloque,bourse,mobilite',
+        'image'     => 'nullable|image|max:4096',
+        'document'  => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240',
+    ]);
 
-        $data = $request->except('image');
-        $data['user_id']          = Auth::id();
-        $data['publiee']          = true;
-        $data['date_publication'] = now();
+    $data = $request->except(['image', 'document']);
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('actualites', 'public');
-        }
+    $data['user_id'] = Auth::id();
+    $data['publiee'] = true;
+    $data['date_publication'] = now();
 
-        $actualite = \App\Models\Actualite::create($data);
-
-        Logger::log(
-            "Actualité publiée — {$request->titre}",
-            'Actualite',
-            $actualite->id,
-            "Catégorie : {$request->categorie}"
-        );
-
-        return redirect()->route('admin.actualites')
-            ->with('success', 'Actualité publiée.');
+    // Upload de l'image
+    if ($request->hasFile('image')) {
+        $data['image'] = $request->file('image')
+            ->store('actualites', 'public');
     }
+
+    // Upload du document
+    if ($request->hasFile('document')) {
+
+        $file = $request->file('document');
+
+        // Stockage sécurisé avec nom généré par Laravel
+        $data['document'] = $file->store('actualites/documents', 'public');
+
+        // Conservation du nom original pour l'affichage
+        $data['document_nom'] = $file->getClientOriginalName();
+    }
+
+    $actualite = \App\Models\Actualite::create($data);
+
+    Logger::log(
+        "Actualité publiée — {$actualite->titre}",
+        'Actualite',
+        $actualite->id,
+        "Catégorie : {$actualite->categorie}"
+    );
+
+    return redirect()
+        ->route('admin.actualites')
+        ->with('success', 'Actualité publiée.');
+}
+
 }
 

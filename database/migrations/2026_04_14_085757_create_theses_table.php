@@ -16,10 +16,10 @@ return new class extends Migration
         $table->string('titre');
         $table->text('resume')->nullable();
         $table->string('mot_cles')->nullable();
-        $table->foreignId('doctorant_id')->constrained()->onDelete('cascade');
-        $table->foreignId('directeur_id')->constrained('enseignants')->onDelete('cascade');
+        $table->foreignId('doctorant_id')->nullable()->constrained()->onDelete('cascade');
+        $table->foreignId('directeur_id')->nullable()->constrained('enseignants')->onDelete('cascade');
         $table->enum('statut', ['en_cours', 'soutenue', 'abandonnee'])->default('en_cours');
-        $table->date('date_debut');
+       $table->date('date_debut')->nullable();
         $table->date('date_soutenance')->nullable();
         $table->string('fichier')->nullable(); // PDF de la thèse
         $table->boolean('publiee')->default(false); // visible dans bibliothèque

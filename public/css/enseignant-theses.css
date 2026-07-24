@@ -1,0 +1,919 @@
+/* =====================================================
+   ESPACE ENSEIGNANT - THESES ENCADREES
+   THEME BLANC / BLEU INSTITUTIONNEL
+   ===================================================== */
+
+
+:root {
+    --blue-primary: #003366;
+    --blue-secondary: #0059a8;
+    --blue-light: #eaf4ff;
+    --blue-hover: #f1f8ff;
+
+    --white: #ffffff;
+
+    --border: #d8e4f0;
+
+    --text-primary: #132238;
+    --text-secondary: #52657a;
+    --text-muted: #7c8da3;
+
+    --green: #15803d;
+    --red: #dc2626;
+    --gold: #b8862c;
+}
+
+
+/* =====================================================
+   ENTETE DE PAGE
+   ===================================================== */
+
+.page-header {
+
+    background: linear-gradient(
+        135deg,
+        #00264d,
+        #0059a8
+    );
+
+    padding: 45px 50px;
+
+    border-radius: 14px;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 10px 30px rgba(0,51,102,.18);
+
+    color: white;
+}
+
+
+.page-label {
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: .22em;
+
+    text-transform: uppercase;
+
+    color: #d7eaff;
+
+    margin-bottom: 12px;
+}
+
+
+
+.page-title {
+
+    font-family: 'EB Garamond', serif;
+
+    font-size: 46px;
+
+    line-height: 1.2;
+
+    font-weight: 600;
+
+    color: white;
+
+    margin: 0;
+}
+
+
+
+.page-desc {
+
+    margin-top: 15px;
+
+    font-size: 17px;
+
+    color: #edf6ff;
+}
+
+
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+
+
+nav {
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+
+    margin-bottom: 30px !important;
+}
+
+
+
+nav a {
+
+    font-size: 13px !important;
+
+    font-weight: 700 !important;
+
+    padding: 16px 28px !important;
+
+    background: white !important;
+
+    color: var(--blue-primary) !important;
+
+}
+
+
+
+nav a:hover {
+
+    background: var(--blue-light) !important;
+
+}
+
+
+
+nav a[style*="#003366"] {
+
+    background: var(--blue-primary) !important;
+
+    color: white !important;
+
+}
+
+
+
+/* =====================================================
+   STATISTIQUES
+   ===================================================== */
+
+
+.stat-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4,1fr);
+
+    gap: 22px;
+
+}
+
+
+
+.stat-card {
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 5px 18px rgba(0,51,102,.06);
+
+    transition: .3s ease;
+
+}
+
+
+
+.stat-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: #9cc8f5;
+
+    box-shadow:
+        0 10px 25px rgba(0,51,102,.12);
+
+}
+
+
+
+.stat-label {
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: var(--text-secondary);
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+
+}
+
+
+
+.stat-value {
+
+    font-size: 48px;
+
+    font-weight: 800;
+
+    color: var(--blue-primary);
+
+    margin: 12px 0;
+
+}
+
+
+
+.stat-desc {
+
+    font-size: 14px;
+
+    color: var(--text-muted);
+
+}
+
+
+
+/* =====================================================
+   CARTE PRINCIPALE
+   ===================================================== */
+
+
+.card {
+
+    background: white;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 8px 25px rgba(0,51,102,.08);
+
+}
+
+
+
+/* Bandeau Liste des thèses */
+
+.card-header {
+
+    background: linear-gradient(
+        90deg,
+        #00264d,
+        #0066cc
+    );
+
+    padding: 24px 32px;
+
+    border-bottom:
+
+    4px solid #8fc7ff;
+
+}
+
+
+
+.card-title {
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:800;
+
+    letter-spacing:.15em;
+
+    text-transform:uppercase;
+
+}
+
+
+
+/* =====================================================
+   ELEMENTS DES THESE
+   ===================================================== */
+
+
+.card > div > div[style*="border-bottom"] {
+
+    padding:32px !important;
+
+    border-bottom:1px solid var(--border) !important;
+
+    transition:.25s ease;
+
+}
+
+
+
+.card > div > div[style*="border-bottom"]:hover {
+
+    background:var(--blue-hover) !important;
+
+}
+
+
+
+h4 {
+
+    font-family:'EB Garamond', serif !important;
+
+    font-size:25px !important;
+
+    font-weight:600 !important;
+
+    color:var(--blue-primary) !important;
+
+    line-height:1.35 !important;
+
+}
+
+
+
+/* Informations */
+
+.card div[style*="JetBrains Mono"] {
+
+    font-size:13px !important;
+
+    color:var(--text-secondary) !important;
+
+}
+
+
+
+.card span {
+
+    font-size:13px;
+
+}
+
+
+
+/* =====================================================
+   BADGES
+   ===================================================== */
+
+
+.badge {
+
+    padding:7px 15px;
+
+    border-radius:25px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+
+.badge-blue {
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+}
+
+
+
+.badge-green {
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+
+
+.badge-red {
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+
+
+.badge-gold {
+
+    background:#fff3c4;
+
+    color:#946c00;
+
+}
+
+
+
+.badge-gray {
+
+    background:#edf2f7;
+
+    color:#475569;
+
+}
+
+
+
+/* =====================================================
+   PROGRESSION
+   ===================================================== */
+
+
+.card [style*="width:120px"] {
+
+    width:150px !important;
+
+}
+
+
+
+.card [style*="font-size:32px"] {
+
+    font-size:42px !important;
+
+    font-weight:800 !important;
+
+    color:var(--blue-primary) !important;
+
+}
+
+
+
+.card [style*="background:var(--gold)"] {
+
+    background:var(--blue-primary) !important;
+
+}
+
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+
+@media(max-width:1100px){
+
+
+    .stat-grid {
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+
+
+@media(max-width:700px){
+
+
+    .page-header {
+
+        padding:30px;
+
+    }
+
+
+    .page-title {
+
+        font-size:34px;
+
+    }
+
+
+    .stat-grid {
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .card > div > div[style*="border-bottom"] > div {
+
+        flex-direction:column !important;
+
+    }
+
+}
+
+/* Bouton ajout thèse */
+
+.page-actions {
+    margin-top:25px;
+}
+
+
+.btn-add-these {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:white;
+
+    color:#003366;
+
+    padding:13px 25px;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    text-decoration:none;
+
+    transition:.3s ease;
+
+    border:2px solid white;
+
+}
+
+
+.btn-add-these:hover {
+
+    background:#003366;
+
+    color:white;
+
+    border-color:white;
+
+}
+/* =====================================================
+   FORMULAIRE AJOUT NOUVELLE THESE
+   EXTENSION THEME BLANC / BLEU INSTITUTIONNEL
+   ===================================================== */
+
+
+/* Carte du formulaire */
+
+.these-form-card {
+
+    max-width: 950px;
+
+    margin: 0 auto 40px;
+
+}
+
+
+
+/* Conteneur formulaire */
+
+.form-container {
+
+    padding: 35px 45px;
+
+}
+
+
+
+/* Groupes */
+
+.form-group {
+
+    margin-bottom: 25px;
+
+}
+
+
+
+/* Labels */
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--text-primary);
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+
+/* Champs input et textarea */
+
+.form-group input,
+.form-group textarea {
+
+
+    width: 100%;
+
+    padding: 14px 16px;
+
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+
+    background: white;
+
+    color: var(--text-primary);
+
+
+    font-size: 15px;
+
+
+    transition: .25s ease;
+
+}
+
+
+
+/* Zone résumé */
+
+.form-group textarea {
+
+    resize: vertical;
+
+    min-height: 160px;
+
+}
+
+
+
+/* Effet focus */
+
+.form-group input:focus,
+.form-group textarea:focus {
+
+
+    outline: none;
+
+
+    border-color: var(--blue-secondary);
+
+
+    box-shadow:
+
+        0 0 0 4px rgba(0,89,168,.12);
+
+}
+
+
+
+/* Placeholder */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+
+    color: var(--text-muted);
+
+}
+
+
+
+/* Deux colonnes */
+
+.form-row {
+
+
+    display:grid;
+
+
+    grid-template-columns: repeat(2,1fr);
+
+
+    gap:25px;
+
+
+}
+
+
+
+/* Actions */
+
+.form-actions {
+
+
+    display:flex;
+
+
+    justify-content:flex-end;
+
+
+    align-items:center;
+
+
+    gap:15px;
+
+
+    margin-top:35px;
+
+
+}
+
+
+
+/* Bouton enregistrer */
+
+.form-actions .btn-add-these {
+
+
+    background:var(--blue-primary);
+
+
+    color:white;
+
+
+    border:2px solid var(--blue-primary);
+
+
+    cursor:pointer;
+
+
+}
+
+
+
+.form-actions .btn-add-these:hover {
+
+
+    background:white;
+
+
+    color:var(--blue-primary);
+
+
+}
+
+
+
+/* Bouton annuler */
+
+.btn-secondary {
+
+
+    display:inline-flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+
+    padding:13px 25px;
+
+
+    border-radius:8px;
+
+
+
+    background:#edf4fb;
+
+
+    color:var(--blue-primary);
+
+
+
+    font-size:14px;
+
+
+    font-weight:700;
+
+
+
+    text-decoration:none;
+
+
+
+    border:1px solid var(--border);
+
+
+
+    transition:.3s ease;
+
+
+}
+
+
+
+.btn-secondary:hover {
+
+
+    background:var(--blue-light);
+
+
+}
+
+
+
+/* Messages d'erreur Laravel */
+
+.error-message {
+
+
+    display:block;
+
+
+    margin-top:7px;
+
+
+    color:var(--red);
+
+
+    font-size:13px;
+
+
+    font-weight:600;
+
+
+}
+
+
+
+/* Animation légère */
+
+.these-form-card {
+
+
+    animation: fadeForm .35s ease;
+
+
+}
+
+
+@keyframes fadeForm {
+
+
+    from {
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+
+/* Responsive */
+
+@media(max-width:700px){
+
+
+    .form-container {
+
+        padding:25px;
+
+    }
+
+
+
+    .form-row {
+
+        grid-template-columns:1fr;
+
+    }
+
+
+
+    .form-actions {
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+
+
+    .form-actions button,
+    .form-actions a {
+
+        width:100%;
+
+    }
+
+
+}
+

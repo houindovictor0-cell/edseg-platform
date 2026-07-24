@@ -61,11 +61,12 @@
                         <label class="block text-xs font-medium text-gray-600 mb-2 tracking-wide">Catégorie</label>
                         <select name="categorie" required
                                 class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-[#003366] transition">
-                            @foreach(['actualite' => 'Actualité', 'communique' => 'Communiqué', 'offre' => 'Offre', 'soutenance' => 'Soutenance', 'colloque' => 'Colloque'] as $val => $label)
+                            @foreach(['actualite' => 'Actualité', 'communique' => 'Communiqué', 'offre' => 'Offre', 'soutenance' => 'Soutenance', 'colloque' => 'Colloque', 'bourse'=>'bourse','mobilité'=>'mobilité'] as $val => $label)
                             <option value="{{ $val }}">{{ $label }}</option>
                             @endforeach
                         </select>
                     </div>
+                    
                     <div>
                         <label class="block text-xs font-medium text-gray-600 mb-2 tracking-wide">Contenu</label>
                         <textarea name="contenu" rows="6" required
@@ -78,6 +79,20 @@
                         <input type="file" name="image" accept="image/*"
                                class="w-full border border-gray-300 px-4 py-3 text-sm text-gray-500 focus:outline-none transition">
                     </div>
+
+<div>
+    <label class="block text-xs font-medium text-gray-600 mb-2 tracking-wide">
+        Document <span class="text-gray-400">(facultatif)</span>
+    </label>
+
+    <input
+        type="file"
+        name="document"
+        accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+        class="w-full border rounded-lg px-3 py-2"
+    >
+</div>
+
                     <button type="submit"
                             class="w-full bg-[#003366] hover:bg-[#0055A4] text-white text-xs font-semibold tracking-widest uppercase py-4 transition">
                         Publier l'actualité

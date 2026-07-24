@@ -11,6 +11,30 @@ class CooperationController extends Controller
         return view('pages.cooperation.national', compact('partenaires'));
     }
 
+public function mobilite()
+{
+    $bourses = \App\Models\Bourse::where('active', true)
+        ->orderBy('date_limite', 'asc')
+        ->get();
+
+    $types = $bourses->groupBy('type');
+
+    return view('pages.cooperation.mobilite', compact('bourses', 'types'));
+}
+
+public function bourse($id)
+{
+    $bourse = \App\Models\Bourse::where('active', true)->findOrFail($id);
+
+    $autresBourses = \App\Models\Bourse::where('active', true)
+        ->where('id', '!=', $id)
+        ->orderBy('date_limite', 'asc')
+        ->take(4)->get();
+
+    return view('pages.cooperation.bourse-detail', compact('bourse', 'autresBourses'));
+}
+
+
     public function international()
     {
         $partenaires = Partenaire::where('portee', 'international')->get();
@@ -26,9 +50,4 @@ class CooperationController extends Controller
         return view('pages.cooperation.partenaire-detail', compact('partenaire', 'autres'));
     }
 
-    public function mobilite()
-    {
-        $bourses = Bourse::where('active', true)->orderBy('date_limite')->get();
-        return view('pages.cooperation.mobilite', compact('bourses'));
-    }
 }

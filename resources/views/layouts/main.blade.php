@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="École Doctorale des Sciences Économiques et de Gestion — Université d'Abomey-Calavi">
     <title>@yield('title', 'EDSEG — UAC')</title>
+    <link rel="stylesheet" href="{{ asset('css/enseignant-theses.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -12,6 +13,94 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .garamond { font-family: 'EB Garamond', serif; }
+.document-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:2rem;
+    padding:20px 24px;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-left:5px solid #003366;
+    border-radius:14px;
+    box-shadow:0 8px 30px rgba(0,0,0,.06);
+    transition:.3s ease;
+}
+
+.document-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 40px rgba(0,0,0,.10);
+}
+
+.document-icon{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:#eef5ff;
+    color:#003366;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    flex-shrink:0;
+}
+
+.document-content{
+    flex:1;
+}
+
+.document-label{
+    display:block;
+    color:#C9962B;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.document-content h5{
+    margin:0;
+    color:#1f2937;
+    font-size:16px;
+    font-weight:600;
+    word-break:break-word;
+}
+
+.document-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 20px;
+    background:#003366;
+    color:#fff;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:600;
+    transition:.25s;
+    white-space:nowrap;
+}
+
+.document-btn:hover{
+    background:#C9962B;
+    color:#fff;
+}
+
+@media (max-width:768px){
+
+    .document-card{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .document-btn{
+        width:100%;
+        justify-content:center;
+    }
+}
+
+
     </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">

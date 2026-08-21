@@ -198,7 +198,7 @@
                 <img src="{{ $actu->image_url }}"
                      alt="{{ $actu->titre }}"
                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                     onerror="this.src='https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80'">
+                     onerror="this.src='/images/etudiant.png'">
             </div>
             <div class="border-t-2 border-gray-200 group-hover:border-[#0B6E33] transition-colors duration-300 pt-5">
                 <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[#C99000] mb-3">

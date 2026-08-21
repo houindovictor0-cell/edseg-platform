@@ -1,9 +1,9 @@
 <?php
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
-use App\Models\Filiere;
+use App\Models\Specialite;
 
-class FilieresSeeder extends Seeder
+class SpecialiteSeeder extends Seeder
 {
     public function run(): void
     {
@@ -17,7 +17,7 @@ class FilieresSeeder extends Seeder
         ];
 
         foreach ($filieres as $f) {
-            Filiere::create(array_merge($f, ['duree_annees' => 3, 'active' => true]));
+            Specialite::create(array_merge($f, ['duree_annees' => 3, 'active' => true]));
         }
     }
 } 

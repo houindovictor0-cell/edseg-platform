@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             TheseSeeder::class,
             TheseGestionSeeder::class,
             PartenaireSeeder::class,
-            FilieresSeeder::class,
+            SpecialiteSeeder::class,
             AxesRechercheSeeder::class,
             SeminaireSeeder::class,
             ActualiteRicheSeeder::class,

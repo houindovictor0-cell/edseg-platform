@@ -171,7 +171,7 @@
             <img src="{{ $premiere->image_url }}"
                  alt="{{ $premiere->titre }}"
                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                 onerror="this.src='https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80'">
+                 onerror="this.src='/images/slide.jpg'">
         </div>
         <div class="p-10 lg:p-14 flex flex-col justify-center bg-white">
             <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[#C99000] mb-4">

@@ -47,9 +47,15 @@ class AdmissionController extends Controller
     }
 
     public function calendrier()
-    {
-        return view('pages.admission.calendrier');
-    }
+{
+    $resultats = \App\Models\Document::where('categorie', 'resultat')
+        ->where('acces', 'public')
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ->groupBy('type_resultat');
+
+    return view('pages.admission.calendrier', compact('resultats'));
+}
 }
 
  

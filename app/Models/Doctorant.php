@@ -36,4 +36,9 @@ class Doctorant extends Model
     {
         return $this->hasMany(Soutenance::class);
     }
+
+    public function archives()
+{
+    return $this->morphMany(Archive::class, 'archivable')->orderByDesc('date_evenement');
+}
 }

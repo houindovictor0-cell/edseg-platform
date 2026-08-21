@@ -5,170 +5,227 @@
 @section('content')
 
 <div class="page-header">
-    <div class="page-label">Vue d'ensemble</div>
-    <h1 class="page-title">Tableau de bord</h1>
+    <div class="page-label">Bienvenue</div>
+    <h1 class="page-title">Bonjour, {{ auth()->user()->name }} 👋</h1>
     <p class="page-desc">
-        Bienvenue, {{ auth()->user()->name }} —
-        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-muted);">
-            {{ now()->format('l d M Y, H:i') }}
-        </span>
+        Voici un aperçu des activités de l'École Doctorale — {{ now()->format('l d M Y') }}
     </p>
 </div>
 
 {{-- STATS --}}
-<div class="stat-grid" style="margin-bottom:28px;">
+<div class="stat-grid" style="margin-bottom:24px;">
     @foreach([
-        ['Doctorants inscrits', $stats['doctorants'], 'Total des doctorants actifs'],
-        ['Thèses en cours', $stats['theses'], 'Thèses en préparation'],
-        ['Candidatures en attente', $stats['candidatures'], 'Dossiers à examiner'],
-        ['Utilisateurs', $stats['utilisateurs'], 'Comptes enregistrés'],
-    ] as [$label, $val, $desc])
+        ['Doctorants', $stats['doctorants'], 'Inscrits actuellement', 'var(--green)', '🎓'],
+        ['Encadreurs', $stats['encadreurs'], 'Directeurs de thèse', 'var(--gold)', '👥'],
+        ['Programmes doctoraux', $stats['programmes'], 'Spécialités actives', 'var(--gold-dark)', '📘'],
+        ['Partenariats internationaux', $stats['partenariats'], 'Accords actifs', 'var(--red)', '🤝'],
+        ['Projets de recherche', $stats['projets'], 'En cours', 'var(--green-dark)', '📊'],
+    ] as [$label, $val, $desc, $couleur, $icone])
     <div class="stat-card">
-        <div class="stat-label">{{ $label }}</div>
-        <div class="stat-value">{{ $val }}</div>
-        <div class="stat-desc">{{ $desc }}</div>
+        <div class="stat-icon" style="background:{{ $couleur }};">{{ $icone }}</div>
+        <div>
+            <div class="stat-value">{{ $val }}</div>
+            <div class="stat-label">{{ $label }}</div>
+            <div class="stat-desc">{{ $desc }}</div>
+        </div>
     </div>
     @endforeach
 </div>
 
+{{-- GRAPHIQUES --}}
 <div class="grid-2" style="margin-bottom:24px;">
 
-    {{-- Accès rapides --}}
     <div class="card">
         <div class="card-header">
-            <span class="card-title">Actions rapides</span>
+            <span class="card-title">Évolution des doctorants</span>
+        </div>
+        <div class="card-body">
+            @if($evolutionDoctorants->count())
+            <canvas id="chartEvolution" height="180"></canvas>
+            @else
+            <p style="font-size:13px; color:var(--text-muted); text-align:center; padding:40px 0;">
+                Pas encore assez de données pour tracer une évolution.
+            </p>
+            @endif
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Répartition par spécialité</span>
+        </div>
+        <div class="card-body">
+            @if($repartitionSpecialites->count())
+            <canvas id="chartRepartition" height="180"></canvas>
+            @else
+            <p style="font-size:13px; color:var(--text-muted); text-align:center; padding:40px 0;">
+                Aucun doctorant rattaché à une spécialité pour le moment.
+            </p>
+            @endif
+        </div>
+    </div>
+
+</div>
+
+{{-- ACTIVITÉS / CANDIDATURES / ACTIONS RAPIDES --}}
+<div class="grid-3" style="margin-bottom:24px;">
+
+    {{-- Activités récentes --}}
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Activités récentes</span>
+            <span style="font-size:11px; color:var(--text-muted);">Voir tout</span>
         </div>
         <div style="padding:8px;">
-            @foreach([
-                ['Mettre à jour les chiffres clés', route('admin.chiffres'), 'Données publiques'],
-                ['Gérer les filières', route('admin.filieres'), 'Formation'],
-                ['Axes de recherche', route('admin.recherche'), 'Science'],
-                ['Publier une actualité', route('admin.actualites'), 'Communication'],
-                ['Examiner les candidatures', route('admin.candidatures'), $stats['candidatures'].' en attente'],
-                ['Informations de l\'école', route('admin.ecole'), 'Paramètres'],
-            ] as [$label, $url, $badge])
-            <a href="{{ $url }}"
-               style="display:flex; justify-content:space-between; align-items:center;
-                      padding:12px 16px; border-bottom:1px solid var(--border);
-                      text-decoration:none; transition:background 0.2s;"
-               onmouseover="this.style.background='var(--bg-elevated)'"
-               onmouseout="this.style.background='transparent'">
-                <span style="font-size:12px; color:var(--text-secondary);">{{ $label }}</span>
-                <span style="font-size:10px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;">
-                    {{ $badge }}
-                </span>
-            </a>
-            @endforeach
+            @forelse($activites as $log)
+            <div style="display:flex; gap:12px; padding:12px 16px; border-bottom:1px solid var(--border);">
+                <div style="width:8px; height:8px; border-radius:50%; margin-top:5px; flex-shrink:0;
+                    background:{{ str_contains($log->action, 'créé') || str_contains($log->action, 'approuvé') || str_contains($log->action, 'accepté') ? 'var(--green)' :
+                                 (str_contains($log->action, 'supprimé') || str_contains($log->action, 'rejeté') ? 'var(--red)' : 'var(--gold)') }};">
+                </div>
+                <div style="flex:1; min-width:0;">
+                    <p style="font-size:13px; color:var(--text-primary); line-height:1.4;">{{ $log->action }}</p>
+                    <p style="font-size:11px; color:var(--text-muted); margin-top:3px;">
+                        {{ $log->created_at->diffForHumans() }}
+                    </p>
+                </div>
+            </div>
+            @empty
+            <div style="padding:32px; text-align:center; color:var(--text-muted);">
+                <p style="font-size:13px;">Aucune activité récente.</p>
+            </div>
+            @endforelse
         </div>
     </div>
 
     {{-- Candidatures récentes --}}
     <div class="card">
         <div class="card-header">
-            <span class="card-title">Candidatures récentes</span>
+            <span class="card-title">Candidatures</span>
             <a href="{{ route('admin.candidatures') }}" class="btn btn-sm btn-outline">Voir tout</a>
         </div>
         <div style="padding:8px;">
-            @foreach(\App\Models\Candidature::orderBy('created_at','desc')->take(6)->get() as $c)
-            <div style="display:flex; justify-content:space-between; align-items:center;
-                        padding:10px 16px; border-bottom:1px solid var(--border);">
+            @forelse($candidaturesRecentes as $c)
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:1px solid var(--border);">
                 <div>
-                    <p style="font-size:12px; color:var(--text-primary);">
-                        {{ $c->prenom }} {{ $c->nom }}
-                    </p>
-                    <p style="font-size:10px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-top:2px;">
-                        {{ $c->specialite_souhaitee }}
-                    </p>
+                    <p style="font-size:13px; color:var(--text-primary);">{{ $c->prenom }} {{ $c->nom }}</p>
+                    <p style="font-size:11px; color:var(--text-muted); margin-top:2px;">{{ $c->specialite_souhaitee }}</p>
                 </div>
                 <span class="badge {{ $c->statut === 'acceptee' ? 'badge-green' : ($c->statut === 'rejetee' ? 'badge-red' : ($c->statut === 'en_examen' ? 'badge-gold' : 'badge-blue')) }}">
                     {{ $c->statut }}
                 </span>
             </div>
+            @empty
+            <div style="padding:32px; text-align:center; color:var(--text-muted);">
+                <p style="font-size:13px;">Aucune candidature pour le moment.</p>
+            </div>
+            @endforelse
+        </div>
+    </div>
+
+    {{-- Actions rapides --}}
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Actions rapides</span>
+        </div>
+        <div style="padding:8px;">
+            @foreach([
+                ['Mettre à jour les chiffres clés', route('admin.chiffres'), '📈'],
+                ['Gérer les filières', route('admin.filieres'), '📘'],
+                ['Publier une actualité', route('admin.actualites'), '📰'],
+                ['Examiner les candidatures', route('admin.candidatures'), '📥'],
+                ['Publier un résultat', route('admin.documents'), '📄'],
+                ['Gérer les utilisateurs', route('admin.utilisateurs'), '👥'],
+            ] as [$label, $url, $icone])
+            <a href="{{ $url }}"
+               style="display:flex; align-items:center; gap:12px; padding:12px 16px;
+                      border-bottom:1px solid var(--border); text-decoration:none; transition:background 0.2s;"
+               onmouseover="this.style.background='var(--bg-elevated)'"
+               onmouseout="this.style.background='transparent'">
+                <span style="font-size:16px;">{{ $icone }}</span>
+                <span style="font-size:13px; color:var(--text-secondary); flex:1;">{{ $label }}</span>
+                <span style="color:var(--text-muted);">→</span>
+            </a>
             @endforeach
         </div>
     </div>
 
 </div>
 
-{{-- HISTORIQUE DES ACTIVITÉS --}}
-<div class="card">
-    <div class="card-header">
-        <span class="card-title">Historique des activités</span>
-        <span style="font-size:10px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;">
-            20 dernières actions
-        </span>
+{{-- BANDEAU PROMO --}}
+<div style="background:linear-gradient(135deg, var(--green-dark), var(--green)); border-radius:16px; padding:36px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; color:white;">
+    <div>
+        <p style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:10px;">
+            École Doctorale UAC
+        </p>
+        <p style="font-size:20px; font-weight:700; font-family:'Poppins',sans-serif; line-height:1.4; max-width:480px;">
+            Former les chercheurs d'aujourd'hui pour transformer l'Afrique de demain.
+        </p>
     </div>
-    <div style="padding:0;">
-        @forelse($activites as $log)
-        <div style="display:grid; grid-template-columns:140px 1fr 120px 100px;
-                    align-items:center; padding:14px 24px;
-                    border-bottom:1px solid var(--border); gap:16px;
-                    transition:background 0.2s;"
-             onmouseover="this.style.background='var(--bg-elevated)'"
-             onmouseout="this.style.background='transparent'">
-
-            {{-- Timestamp --}}
-            <div>
-                <p style="font-size:10px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;">
-                    {{ $log->created_at->format('d M Y') }}
-                </p>
-                <p style="font-size:10px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;">
-                    {{ $log->created_at->format('H:i:s') }}
-                </p>
-            </div>
-
-            {{-- Action --}}
-            <div style="display:flex; align-items:center; gap:12px;">
-                {{-- Indicateur couleur --}}
-                <div style="width:6px; height:6px; border-radius:50%; flex-shrink:0;
-                    background:{{ str_contains($log->action, 'créé') || str_contains($log->action, 'approuvé') || str_contains($log->action, 'accepté') ? '#10b981' :
-                                 (str_contains($log->action, 'supprimé') || str_contains($log->action, 'rejeté') || str_contains($log->action, 'désactivé') ? '#ef4444' :
-                                 (str_contains($log->action, 'connexion') ? '#C9962B' : '#3b82f6')) }};">
-                </div>
-                <div>
-                    <p style="font-size:12px; color:var(--text-primary);">{{ $log->action }}</p>
-                    @if($log->details)
-                    <p style="font-size:10px; color:var(--text-muted); margin-top:2px;">
-                        {{ Str::limit($log->details, 60) }}
-                    </p>
-                    @endif
-                </div>
-            </div>
-
-            {{-- Utilisateur --}}
-            <div style="display:flex; align-items:center; gap:8px;">
-                <div style="width:24px; height:24px; background:rgba(59,130,246,0.15); border-radius:4px;
-                            display:flex; align-items:center; justify-content:center;
-                            font-size:9px; font-weight:700; color:#3b82f6; flex-shrink:0;">
-                    {{ strtoupper(substr($log->user?->name ?? 'S', 0, 2)) }}
-                </div>
-                <p style="font-size:11px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-                    {{ $log->user?->name ?? 'Système' }}
-                </p>
-            </div>
-
-            {{-- IP --}}
-            <div>
-                <p style="font-size:10px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;">
-                    {{ $log->ip_address }}
-                </p>
-                @if($log->modele)
-                <span class="badge badge-gray" style="font-size:8px; margin-top:3px;">
-                    {{ $log->modele }}
-                </span>
-                @endif
-            </div>
-
-        </div>
-        @empty
-        <div style="padding:48px; text-align:center; color:var(--text-muted);">
-            <p style="font-size:12px; font-family:'JetBrains Mono',monospace;">
-                Aucune activité enregistrée.
-            </p>
-        </div>
-        @endforelse
-    </div>
+    <a href="/" target="_blank"
+       style="background:var(--gold); color:white; text-decoration:none; padding:14px 28px;
+              font-size:13px; font-weight:700; border-radius:8px; white-space:nowrap; transition:background 0.2s;"
+       onmouseover="this.style.background='var(--gold-dark)'"
+       onmouseout="this.style.background='var(--gold)'">
+        Voir le site public →
+    </a>
 </div>
 
-@endsection
+@if($evolutionDoctorants->count() || $repartitionSpecialites->count())
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+@if($evolutionDoctorants->count())
+new Chart(document.getElementById('chartEvolution'), {
+    type: 'line',
+    data: {
+        labels: {!! json_encode($evolutionDoctorants->pluck('annee_inscription')) !!},
+        datasets: [{
+            label: 'Doctorants inscrits',
+            data: {!! json_encode($evolutionDoctorants->pluck('total')) !!},
+            borderColor: '#0B6E33',
+            backgroundColor: 'rgba(11,110,51,0.08)',
+            borderWidth: 3,
+            pointBackgroundColor: '#F5B400',
+            pointRadius: 5,
+            tension: 0.35,
+            fill: true,
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            y: { beginAtZero: true, grid: { color: '#F0F4F1' } },
+            x: { grid: { display: false } }
+        }
+    }
+});
+@endif
 
+@if($repartitionSpecialites->count())
+new Chart(document.getElementById('chartRepartition'), {
+    type: 'doughnut',
+    data: {
+        labels: {!! json_encode($repartitionSpecialites->pluck('specialite')) !!},
+        datasets: [{
+            data: {!! json_encode($repartitionSpecialites->pluck('total')) !!},
+            backgroundColor: ['#0B6E33', '#F5B400', '#CE1126', '#128A46', '#C99000', '#06421E'],
+            borderWidth: 3,
+            borderColor: '#ffffff',
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'right',
+                labels: { boxWidth: 12, font: { size: 11 } }
+            }
+        }
+    }
+});
+@endif
+</script>
+@endif
+
+@endsection

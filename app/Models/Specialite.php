@@ -1,13 +1,16 @@
 <?php
+// app/Models/Specialite.php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Filiere extends Model
+class Specialite extends Model
 {
+    protected $table = 'specialites';
+
     protected $fillable = [
-        'nom', 'code', 'description', 'accroche', 'debouches',
+        'mention_id', 'nom', 'code', 'description', 'accroche', 'debouches',
         'conditions_acces', 'programme', 'competences',
         'duree_annees', 'active', 'publiee',
         'places_disponibles', 'responsable',
@@ -19,10 +22,15 @@ class Filiere extends Model
         'publiee' => 'boolean',
     ];
 
+    public function mention()
+    {
+        return $this->belongsTo(Mention::class);
+    }
+
     public function getImageUrlAttribute(): string
     {
         if (!$this->image) {
-            return 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=80';
+            return '/images/logo-2.png';
         }
         if (str_starts_with($this->image, 'http')) {
             return $this->image;
@@ -30,4 +38,3 @@ class Filiere extends Model
         return asset('storage/' . $this->image);
     }
 }
-

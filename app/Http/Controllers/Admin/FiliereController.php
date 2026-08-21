@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Logger;
-use App\Models\Filiere;
+use App\Models\Specialite;
+use App\Models\Mention;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,15 +13,17 @@ class FiliereController extends Controller
 {
     public function index()
     {
-        $filieres = Filiere::orderBy('nom')->get();
-        return view('dashboard.admin-filieres', compact('filieres'));
+        $specialites = Specialite::with('mention')->orderBy('nom')->get();
+        $mentions    = Mention::orderBy('nom')->get();
+        return view('dashboard.admin-filieres', compact('specialites', 'mentions'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'mention_id'         => 'required|exists:mentions,id',
             'nom'                => 'required|string|max:200',
-            'code'               => 'required|string|max:20|unique:filieres',
+            'code'               => 'required|string|max:20|unique:specialites',
             'description'        => 'nullable|string',
             'accroche'           => 'nullable|string|max:300',
             'debouches'          => 'nullable|string',
@@ -39,36 +42,38 @@ class FiliereController extends Controller
         $data['publiee'] = $request->has('publiee');
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('filieres', 'public');
+            $data['image'] = $request->file('image')->store('specialites', 'public');
         }
 
-        $filiere = Filiere::create($data);
+        $specialite = Specialite::create($data);
 
         Logger::log(
-            "Filière créée — {$filiere->nom}",
-            'Filiere',
-            $filiere->id,
-            "Code : {$filiere->code}"
+            "Spécialité créée — {$specialite->nom}",
+            'Specialite',
+            $specialite->id,
+            "Code : {$specialite->code}"
         );
 
         return redirect()->route('admin.filieres')
-            ->with('success', 'Filière ajoutée avec succès.');
+            ->with('success', 'Spécialité ajoutée avec succès.');
     }
 
     public function edit($id)
     {
-        $filiere  = Filiere::findOrFail($id);
-        $filieres = Filiere::orderBy('nom')->get();
-        return view('dashboard.admin-filieres', compact('filieres', 'filiere'));
+        $specialite  = Specialite::findOrFail($id);
+        $specialites = Specialite::with('mention')->orderBy('nom')->get();
+        $mentions    = Mention::orderBy('nom')->get();
+        return view('dashboard.admin-filieres', compact('specialites', 'specialite', 'mentions'));
     }
 
     public function update(Request $request, $id)
     {
-        $filiere = Filiere::findOrFail($id);
+        $specialite = Specialite::findOrFail($id);
 
         $request->validate([
+            'mention_id'         => 'required|exists:mentions,id',
             'nom'                => 'required|string|max:200',
-            'code'               => 'required|string|max:20|unique:filieres,code,' . $id,
+            'code'               => 'required|string|max:20|unique:specialites,code,' . $id,
             'description'        => 'nullable|string',
             'accroche'           => 'nullable|string|max:300',
             'debouches'          => 'nullable|string',
@@ -87,43 +92,43 @@ class FiliereController extends Controller
         $data['publiee'] = $request->has('publiee');
 
         if ($request->hasFile('image')) {
-            if ($filiere->image && !str_starts_with($filiere->image, 'http')) {
-                Storage::disk('public')->delete($filiere->image);
+            if ($specialite->image && !str_starts_with($specialite->image, 'http')) {
+                Storage::disk('public')->delete($specialite->image);
             }
-            $data['image'] = $request->file('image')->store('filieres', 'public');
+            $data['image'] = $request->file('image')->store('specialites', 'public');
         }
 
-        $filiere->update($data);
+        $specialite->update($data);
 
         Logger::log(
-            "Filière modifiée — {$filiere->nom}",
-            'Filiere',
+            "Spécialité modifiée — {$specialite->nom}",
+            'Specialite',
             $id,
             "Publiée : " . ($data['publiee'] ? 'oui' : 'non')
         );
 
         return redirect()->route('admin.filieres')
-            ->with('success', 'Filière mise à jour.');
+            ->with('success', 'Spécialité mise à jour.');
     }
 
     public function destroy($id)
     {
-        $filiere = Filiere::findOrFail($id);
+        $specialite = Specialite::findOrFail($id);
 
-        if ($filiere->image && !str_starts_with($filiere->image, 'http')) {
-            Storage::disk('public')->delete($filiere->image);
+        if ($specialite->image && !str_starts_with($specialite->image, 'http')) {
+            Storage::disk('public')->delete($specialite->image);
         }
 
         Logger::log(
-            "Filière supprimée — {$filiere->nom}",
-            'Filiere',
+            "Spécialité supprimée — {$specialite->nom}",
+            'Specialite',
             $id
         );
 
-        $filiere->delete();
+        $specialite->delete();
 
         return redirect()->route('admin.filieres')
-            ->with('success', 'Filière supprimée.');
+            ->with('success', 'Spécialité supprimée.');
     }
 }
 

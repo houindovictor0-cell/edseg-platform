@@ -5,7 +5,11 @@ use App\Models\Laboratoire;
 
 class RechercheController extends Controller
 {
-    public function axes()   { return view('pages.recherche.axes'); }
+    public function axes()
+{
+    $axes = \App\Models\AxeRecherche::where('actif', true)->orderBy('ordre')->get();
+    return view('pages.recherche.axes', compact('axes'));
+}
 
     public function laboratoires()
     {
@@ -13,8 +17,15 @@ class RechercheController extends Controller
         return view('pages.recherche.laboratoires', compact('laboratoires'));
     }
 
-    public function projets() { return view('pages.recherche.projets'); }
+    public function projets()
+{
+    $projets = \App\Models\ProjetRecherche::with('laboratoire')
+        ->where('publie', true)
+        ->orderBy('ordre')
+        ->get();
 
+    return view('pages.recherche.projets', compact('projets'));
+}
     public function theses()
     {
         $theses = These::where('publiee', true)
@@ -27,6 +38,8 @@ class RechercheController extends Controller
 
     public function these($id)
     {
+
+    $these = These::with(['doctorant', 'directeur', 'documents'])->findOrFail($id);
         $these = These::where('publiee', true)
             ->where('statut', 'soutenue')
             ->with(['doctorant', 'directeur'])

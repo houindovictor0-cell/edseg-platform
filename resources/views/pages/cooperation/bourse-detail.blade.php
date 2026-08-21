@@ -3,19 +3,20 @@
 @section('content')
 
 {{-- HERO --}}
+{{-- HERO --}}
 <section class="relative overflow-hidden" style="min-height:480px;">
     <img src="{{ $bourse->image_url }}" alt="{{ $bourse->titre }}"
          class="w-full h-full object-cover object-center absolute inset-0"
-         style="filter:brightness(0.25); min-height:480px;">
+         style="filter:brightness(0.55); min-height:480px;">
     <div class="absolute inset-0"
-         style="background:linear-gradient(135deg, rgba(0,51,102,0.88) 0%, rgba(4,8,15,0.65) 100%);"></div>
+         style="background:linear-gradient(180deg, rgba(6,66,30,0.35) 0%, rgba(6,66,30,0.55) 55%, rgba(6,66,30,0.85) 100%);"></div>
 
     <div class="relative max-w-screen-xl mx-auto px-8 py-20 flex flex-col justify-end"
          style="min-height:480px;">
 
         {{-- Breadcrumb --}}
         <nav style="display:flex; align-items:center; gap:8px; font-size:11px; color:rgba(255,255,255,0.4);
-                    font-family:'JetBrains Mono',monospace; letter-spacing:0.08em;
+                    letter-spacing:0.08em;
                     text-transform:uppercase; margin-bottom:20px;">
             <a href="/" style="color:rgba(255,255,255,0.4); text-decoration:none;">Accueil</a>
             <span>—</span>
@@ -26,18 +27,18 @@
 
         {{-- Badge type --}}
         <div style="display:inline-flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
-            <span style="font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700;
-                         letter-spacing:0.2em; text-transform:uppercase; color:#C9962B;
-                         border:1px solid rgba(201,150,43,0.4); padding:4px 14px;">
+            <span style="font-size:10px; font-weight:700;
+                         letter-spacing:0.2em; text-transform:uppercase; color:#F5B400;
+                         border:1px solid rgba(245,180,0,0.4); padding:4px 14px;">
                 {{ $bourse->type_libelle }}
             </span>
             @if($bourse->isExpired())
-            <span style="background:rgba(239,68,68,0.8); color:white; font-size:9px; font-weight:700;
+            <span style="background:rgba(206,17,38,0.85); color:white; font-size:9px; font-weight:700;
                          letter-spacing:0.1em; text-transform:uppercase; padding:4px 12px;">
                 Clôturée
             </span>
             @elseif($bourse->days_left <= 14)
-            <span style="background:rgba(201,150,43,0.8); color:white; font-size:9px; font-weight:700;
+            <span style="background:rgba(245,180,0,0.85); color:white; font-size:9px; font-weight:700;
                          letter-spacing:0.1em; text-transform:uppercase; padding:4px 12px;">
                 {{ $bourse->days_left }} jours restants
             </span>
@@ -56,15 +57,15 @@
             {{ $bourse->titre }}
         </h1>
 
-        <p style="font-size:14px; color:rgba(255,255,255,0.5); font-family:'JetBrains Mono',monospace;">
+        <p style="font-size:14px; color:rgba(255,255,255,0.5);">
             {{ $bourse->organisme }} @if($bourse->pays) — {{ $bourse->pays }} @endif
         </p>
 
         {{-- Stats rapides --}}
         <div style="display:flex; flex-wrap:wrap; gap:32px; margin-top:24px;">
             @if($bourse->date_limite)
-            <div style="border-left:2px solid rgba(201,150,43,0.5); padding-left:16px;">
-                <p style="font-size:9px; font-family:'JetBrains Mono',monospace; letter-spacing:0.15em;
+            <div style="border-left:2px solid rgba(245,180,0,0.5); padding-left:16px;">
+                <p style="font-size:9px; letter-spacing:0.15em;
                           text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:4px;">Date limite</p>
                 <p style="font-size:16px; color:{{ $bourse->isExpired() ? '#ef4444' : 'white' }}; font-weight:600;">
                     {{ $bourse->date_limite->format('d M Y') }}
@@ -72,15 +73,15 @@
             </div>
             @endif
             @if($bourse->duree)
-            <div style="border-left:2px solid rgba(201,150,43,0.5); padding-left:16px;">
-                <p style="font-size:9px; font-family:'JetBrains Mono',monospace; letter-spacing:0.15em;
+            <div style="border-left:2px solid rgba(245,180,0,0.5); padding-left:16px;">
+                <p style="font-size:9px; letter-spacing:0.15em;
                           text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:4px;">Durée</p>
                 <p style="font-size:16px; color:white; font-weight:600;">{{ $bourse->duree }}</p>
             </div>
             @endif
             @if($bourse->montant)
-            <div style="border-left:2px solid rgba(201,150,43,0.5); padding-left:16px;">
-                <p style="font-size:9px; font-family:'JetBrains Mono',monospace; letter-spacing:0.15em;
+            <div style="border-left:2px solid rgba(245,180,0,0.5); padding-left:16px;">
+                <p style="font-size:9px; letter-spacing:0.15em;
                           text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:4px;">Montant</p>
                 <p style="font-size:16px; color:white; font-weight:600;">
                     {{ number_format($bourse->montant, 0, ',', ' ') }} FCFA
@@ -92,7 +93,7 @@
 </section>
 
 {{-- NAVIGATION STICKY --}}
-<div style="background:#003366; border-bottom:1px solid rgba(255,255,255,0.08);
+<div style="background:#0B6E33; border-bottom:1px solid rgba(255,255,255,0.08);
             position:sticky; top:80px; z-index:40;">
     <div class="max-w-screen-xl mx-auto px-8">
         <div style="display:flex; gap:0; overflow-x:auto;">
@@ -106,7 +107,7 @@
                       letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.5);
                       text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;
                       transition:all 0.2s;"
-               onmouseover="this.style.color='white'; this.style.borderBottomColor='#C9962B';"
+               onmouseover="this.style.color='white'; this.style.borderBottomColor='#F5B400';"
                onmouseout="this.style.color='rgba(255,255,255,0.5)'; this.style.borderBottomColor='transparent';">
                 {{ $label }}
             </a>
@@ -115,11 +116,11 @@
             @if(!$bourse->isExpired() && ($bourse->lien_candidature || $bourse->fichier))
             <a href="{{ $bourse->lien_candidature ?? $bourse->fichier_url }}"
                target="_blank"
-               style="margin-left:auto; display:flex; align-items:center; background:#C9962B; color:white;
+               style="margin-left:auto; display:flex; align-items:center; background:#F5B400; color:white;
                       padding:12px 24px; font-size:10px; font-weight:700; letter-spacing:0.12em;
                       text-transform:uppercase; text-decoration:none; transition:background 0.2s; white-space:nowrap;"
-               onmouseover="this.style.background='#b8851f';"
-               onmouseout="this.style.background='#C9962B';">
+               onmouseover="this.style.background='#C99000';"
+               onmouseout="this.style.background='#F5B400';">
                 Candidater →
             </a>
             @endif
@@ -138,16 +139,16 @@
             @if($bourse->description)
             <div id="description">
                 <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
-                    <span style="font-family:'JetBrains Mono',monospace; font-size:11px;
-                                 color:#C9962B; letter-spacing:0.15em; text-transform:uppercase;">01</span>
+                    <span style="font-size:11px;
+                                 color:#C99000; letter-spacing:0.15em; text-transform:uppercase; font-weight:700;">01</span>
                     <div style="flex:1; height:1px; background:#e5e7eb;"></div>
-                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em;
-                              text-transform:uppercase; color:#C9962B;">Présentation</p>
+                    <p style="font-size:12px; font-weight:700; letter-spacing:0.15em;
+                              text-transform:uppercase; color:#C99000;">Présentation</p>
                 </div>
-                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#003366; margin-bottom:20px;">
+                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#0B6E33; margin-bottom:20px;">
                     À propos de cette bourse
                 </h2>
-                <div style="font-size:15px; color:#475569; line-height:1.9;">
+                <div style="font-size:15px; color:#1A1A1A; line-height:1.9;">
                     {!! nl2br(e($bourse->description)) !!}
                 </div>
             </div>
@@ -157,17 +158,17 @@
             @if($bourse->eligibilite)
             <div id="eligibilite">
                 <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
-                    <span style="font-family:'JetBrains Mono',monospace; font-size:11px;
-                                 color:#C9962B; letter-spacing:0.15em; text-transform:uppercase;">02</span>
+                    <span style="font-size:11px;
+                                 color:#C99000; letter-spacing:0.15em; text-transform:uppercase; font-weight:700;">02</span>
                     <div style="flex:1; height:1px; background:#e5e7eb;"></div>
-                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em;
-                              text-transform:uppercase; color:#C9962B;">Conditions d'éligibilité</p>
+                    <p style="font-size:12px; font-weight:700; letter-spacing:0.15em;
+                              text-transform:uppercase; color:#C99000;">Conditions d'éligibilité</p>
                 </div>
-                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#003366; margin-bottom:20px;">
+                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#0B6E33; margin-bottom:20px;">
                     Qui peut postuler ?
                 </h2>
-                <div style="background:#f8fafc; border-left:3px solid #003366; padding:24px 32px;">
-                    <div style="font-size:15px; color:#475569; line-height:1.9;">
+                <div style="background:#f8fafc; border-left:3px solid #0B6E33; padding:24px 32px;">
+                    <div style="font-size:15px; color:#1A1A1A; line-height:1.9;">
                         {!! nl2br(e($bourse->eligibilite)) !!}
                     </div>
                 </div>
@@ -177,7 +178,7 @@
             {{-- Document téléchargeable --}}
             @if($bourse->fichier)
             <div>
-                <div style="background:#003366; padding:28px 32px;
+                <div style="background:#0B6E33; padding:28px 32px;
                             display:flex; align-items:center; justify-content:space-between;
                             gap:20px; flex-wrap:wrap;">
                     <div>
@@ -189,11 +190,11 @@
                         </p>
                     </div>
                     <a href="{{ $bourse->fichier_url }}" target="_blank" download
-                       style="background:#C9962B; color:white; text-decoration:none; padding:14px 32px;
+                       style="background:#F5B400; color:white; text-decoration:none; padding:14px 32px;
                               font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
                               transition:background 0.2s; flex-shrink:0;"
-                       onmouseover="this.style.background='#b8851f'"
-                       onmouseout="this.style.background='#C9962B'">
+                       onmouseover="this.style.background='#C99000'"
+                       onmouseout="this.style.background='#F5B400'">
                         Télécharger →
                     </a>
                 </div>
@@ -207,9 +208,9 @@
 
             {{-- Infos clés --}}
             <div style="border:1px solid #e5e7eb; overflow:hidden;">
-                <div style="background:#003366; padding:16px 20px;">
-                    <p style="font-size:9px; font-weight:700; letter-spacing:0.15em;
-                              text-transform:uppercase; color:#C9962B;">Informations clés</p>
+                <div style="background:#0B6E33; padding:16px 20px;">
+                    <p style="font-size:12px; font-weight:700; letter-spacing:0.15em;
+                              text-transform:uppercase; color:#F5B400;">Informations clés</p>
                 </div>
                 <div>
                     @foreach([
@@ -223,7 +224,7 @@
                     ] as [$lbl, $val])
                     <div style="display:flex; justify-content:space-between; padding:12px 20px;
                                 border-bottom:1px solid #f1f5f9; font-size:12px;">
-                        <span style="color:#94a3b8;">{{ $lbl }}</span>
+                        <span style="color:#1A1A1A;">{{ $lbl }}</span>
                         <span style="color:#0f172a; font-weight:600; text-align:right; max-width:55%;">{{ $val }}</span>
                     </div>
                     @endforeach
@@ -232,9 +233,9 @@
 
             {{-- CTA Candidature --}}
             @if(!$bourse->isExpired())
-            <div style="background:#003366; padding:24px; text-align:center;">
+            <div style="background:#0B6E33; padding:24px; text-align:center;">
                 <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
-                          color:#C9962B; margin-bottom:10px; font-family:'JetBrains Mono',monospace;">
+                          color:#F5B400; margin-bottom:10px;">
                     Deadline — {{ $bourse->date_limite?->format('d M Y') }}
                 </p>
                 @if($bourse->days_left > 0)
@@ -247,11 +248,11 @@
                 @endif
                 @if($bourse->lien_candidature)
                 <a href="{{ $bourse->lien_candidature }}" target="_blank"
-                   style="display:block; background:#C9962B; color:white; text-decoration:none; padding:14px;
+                   style="display:block; background:#F5B400; color:white; text-decoration:none; padding:14px;
                           font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
                           transition:background 0.2s; margin-bottom:10px;"
-                   onmouseover="this.style.background='#b8851f'"
-                   onmouseout="this.style.background='#C9962B'">
+                   onmouseover="this.style.background='#C99000'"
+                   onmouseout="this.style.background='#F5B400'">
                     Postuler en ligne →
                 </a>
                 @endif
@@ -268,12 +269,12 @@
             </div>
             @else
             <div style="background:#f8fafc; border:1px solid #e5e7eb; padding:24px; text-align:center;">
-                <p style="font-size:12px; color:#94a3b8; font-family:'JetBrains Mono',monospace;">
+                <p style="font-size:12px; color:#CE1126;">
                     Cette bourse est clôturée.<br>Consultez nos autres opportunités.
                 </p>
                 <a href="{{ route('cooperation.mobilite') }}"
-                   style="display:inline-block; margin-top:16px; background:#003366; color:white;
-                          text-decoration:none; padding:10px 24px; font-size:10px; font-weight:700;
+                   style="display:inline-block; margin-top:16px; background:#0B6E33; color:white;
+                          text-decoration:none; padding:10px 24px; font-size:12px; font-weight:700;
                           letter-spacing:0.1em; text-transform:uppercase;">
                     Voir toutes les bourses →
                 </a>
@@ -282,19 +283,19 @@
 
             {{-- Contact EDSEG --}}
             <div style="border:1px solid #e5e7eb; padding:20px;">
-                <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
-                          color:#C9962B; margin-bottom:12px; font-family:'JetBrains Mono',monospace;">
+                <p style="font-size:12px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
+                          color:#C99000; margin-bottom:12px;">
                     Besoin d'aide ?
                 </p>
-                <p style="font-size:13px; color:#374151; margin-bottom:12px; line-height:1.5;">
+                <p style="font-size:13px; color:#1A1A1A; margin-bottom:12px; line-height:1.5;">
                     Le secrétariat de l'EDSEG vous accompagne dans votre démarche de candidature.
                 </p>
                 <a href="{{ route('contact') }}"
-                   style="display:block; text-align:center; border:1px solid #003366; color:#003366;
+                   style="display:block; text-align:center; border:1px solid #0B6E33; color:#0B6E33;
                           text-decoration:none; padding:10px; font-size:10px; font-weight:700;
                           letter-spacing:0.1em; text-transform:uppercase; transition:all 0.2s;"
-                   onmouseover="this.style.background='#003366'; this.style.color='white';"
-                   onmouseout="this.style.background='transparent'; this.style.color='#003366';">
+                   onmouseover="this.style.background='#0B6E33'; this.style.color='white';"
+                   onmouseout="this.style.background='transparent'; this.style.color='#0B6E33';">
                     Contacter le secrétariat
                 </a>
             </div>
@@ -304,7 +305,7 @@
             <div style="border:1px solid #e5e7eb; overflow:hidden;">
                 <div style="background:#f8fafc; padding:12px 20px; border-bottom:1px solid #e5e7eb;">
                     <p style="font-size:9px; font-weight:700; letter-spacing:0.15em;
-                              text-transform:uppercase; color:#94a3b8;">Autres opportunités</p>
+                              text-transform:uppercase; color:#1A1A1A;">Autres opportunités</p>
                 </div>
                 @foreach($autresBourses as $a)
                 <a href="{{ route('cooperation.bourse', $a->id) }}"
@@ -317,11 +318,11 @@
                              style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div style="flex:1; min-width:0;">
-                        <p style="font-size:12px; font-weight:600; color:#003366; line-height:1.3;
+                        <p style="font-size:12px; font-weight:600; color:#0B6E33; line-height:1.3;
                                   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
                             {{ $a->titre }}
                         </p>
-                        <p style="font-size:10px; color:#C9962B; font-family:'JetBrains Mono',monospace; margin-top:2px;">
+                        <p style="font-size:10px; color:#CE1126; margin-top:2px;">
                             {{ $a->date_limite?->format('d M Y') }}
                             @if($a->fichier) · 📎 @endif
                         </p>
@@ -330,7 +331,7 @@
                 @endforeach
                 <a href="{{ route('cooperation.mobilite') }}"
                    style="display:block; padding:12px 16px; font-size:10px; font-weight:600;
-                          letter-spacing:0.1em; text-transform:uppercase; color:#C9962B;
+                          letter-spacing:0.1em; text-transform:uppercase; color:#C99000;
                           text-decoration:none; text-align:center; background:#f8fafc;">
                     Toutes les bourses →
                 </a>

@@ -16,6 +16,10 @@ use App\Http\Controllers\Admin\BourseAdminController;
 use App\Http\Controllers\Admin\TheseAdminController;
 use App\Http\Controllers\Admin\EcoleAdminController;
 use App\Http\Controllers\EnseignantTheseController;
+use App\Http\Controllers\Admin\DocumentController;
+use App\Http\Controllers\Admin\DoctorantAdminController;
+use App\Http\Controllers\Admin\EnseignantAdminController;
+use App\Http\Controllers\Admin\ProjetRechercheController;
 use App\Http\Controllers\Admin\ActualiteController as AdminActualiteController;
 // ─────────────────────────────────────────────────────────
 //  PAGES PUBLIQUES
@@ -52,6 +56,9 @@ Route::prefix('admission')->group(function () {
     Route::post('/candidature', [AdmissionController::class, 'soumettre'])->name('admission.soumettre');
     Route::get('/calendrier', [AdmissionController::class, 'calendrier'])->name('admission.calendrier');
 });
+
+Route::get('/documents/{id}/telecharger', [\App\Http\Controllers\Admin\DocumentController::class, 'telecharger'])->name('documents.telecharger');
+
 // ─────────────────────────────────────────────────────────
 //  RECHERCHE
 // ─────────────────────────────────────────────────────────
@@ -126,11 +133,24 @@ Route::middleware(['auth', 'approved'])->group(function () {
         Route::get('/filieres/{id}/edit', [FiliereController::class, 'edit'])->name('admin.filieres.edit');
         Route::put('/filieres/{id}', [FiliereController::class, 'update'])->name('admin.filieres.update');
         Route::delete('/filieres/{id}', [FiliereController::class, 'destroy'])->name('admin.filieres.destroy');
+        
+        Route::get('/documents', [DocumentController::class, 'index'])->name('admin.documents');
+Route::post('/documents', [DocumentController::class, 'store'])->name('admin.documents.store');
+Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('admin.documents.edit');
+Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('admin.documents.update');
+Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('admin.documents.destroy');
+        
         // Recherche
         Route::get('/recherche', [RechercheAdminController::class, 'index'])->name('admin.recherche');
         Route::post('/recherche', [RechercheAdminController::class, 'store'])->name('admin.recherche.store');
         Route::put('/recherche/{id}', [RechercheAdminController::class, 'update'])->name('admin.recherche.update');
         Route::delete('/recherche/{id}', [RechercheAdminController::class, 'destroy'])->name('admin.recherche.destroy');
+       
+        Route::get('/projets-recherche', [ProjetRechercheController::class, 'index'])->name('admin.projets');
+Route::post('/projets-recherche', [ProjetRechercheController::class, 'store'])->name('admin.projets.store');
+Route::get('/projets-recherche/{id}/edit', [ProjetRechercheController::class, 'edit'])->name('admin.projets.edit');
+Route::put('/projets-recherche/{id}', [ProjetRechercheController::class, 'update'])->name('admin.projets.update');
+Route::delete('/projets-recherche/{id}', [ProjetRechercheController::class, 'destroy'])->name('admin.projets.destroy');
         // Laboratoires
         Route::get('/laboratoires', [LaboratoireAdminController::class, 'index'])->name('admin.laboratoires');
         Route::post('/laboratoires', [LaboratoireAdminController::class, 'store'])->name('admin.laboratoires.store');
@@ -159,9 +179,26 @@ Route::get('/cooperation/mobilite/{id}', [CooperationController::class, 'bourse'
         Route::post('/theses', [TheseAdminController::class, 'store'])->name('admin.theses.store');
         Route::put('/theses/{id}', [TheseAdminController::class, 'update'])->name('admin.theses.update');
         Route::delete('/theses/{id}', [TheseAdminController::class, 'destroy'])->name('admin.theses.destroy');
+       Route::post('/theses/{these}/documents', [TheseAdminController::class, 'storeDocument'])->name('admin.theses.documents.store');
+Route::delete('/theses/documents/{id}', [TheseAdminController::class, 'destroyDocument'])->name('admin.theses.documents.destroy');
+        
         // École
         Route::get('/ecole', [EcoleAdminController::class, 'index'])->name('admin.ecole');
         Route::put('/ecole', [EcoleAdminController::class, 'update'])->name('admin.ecole.update');
+
+        // Inscription
+        Route::get('/doctorants', [DoctorantAdminController::class, 'index'])->name('admin.doctorants');
+Route::post('/doctorants', [DoctorantAdminController::class, 'store'])->name('admin.doctorants.store');
+Route::get('/doctorants/{id}/edit', [DoctorantAdminController::class, 'edit'])->name('admin.doctorants.edit');
+Route::put('/doctorants/{id}', [DoctorantAdminController::class, 'update'])->name('admin.doctorants.update');
+Route::delete('/doctorants/{id}', [DoctorantAdminController::class, 'destroy'])->name('admin.doctorants.destroy');
+
+Route::get('/enseignants', [EnseignantAdminController::class, 'index'])->name('admin.enseignants');
+Route::post('/enseignants', [EnseignantAdminController::class, 'store'])->name('admin.enseignants.store');
+Route::get('/enseignants/{id}/edit', [EnseignantAdminController::class, 'edit'])->name('admin.enseignants.edit');
+Route::put('/enseignants/{id}', [EnseignantAdminController::class, 'update'])->name('admin.enseignants.update');
+Route::delete('/enseignants/{id}', [EnseignantAdminController::class, 'destroy'])->name('admin.enseignants.destroy');
+
         // Actualités
         Route::get('/actualites', [AdminActualiteController::class, 'index'])->name('admin.actualites');
         Route::post('/actualites', [AdminActualiteController::class, 'store'])->name('admin.actualites.publier');

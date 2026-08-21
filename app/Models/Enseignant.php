@@ -44,5 +44,10 @@ protected $fillable = [
     {
         return $this->hasMany(Publication::class);
     }
+
+    public function archives()
+{
+    return $this->morphMany(Archive::class, 'archivable')->orderByDesc('date_evenement');
+}
 }
 

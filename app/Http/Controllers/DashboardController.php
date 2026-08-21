@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Enseignant;
 use App\Models\Doctorant;
+use App\Models\Partenaire;
 class DashboardController extends Controller
 {
     // ── ROUTEUR PRINCIPAL ────────────────────────────────────────────────────
@@ -198,21 +199,48 @@ class DashboardController extends Controller
     // ── ADMIN ────────────────────────────────────────────────────────────────
 
     public function admin()
-    {
-        $stats = [
-            'doctorants'   => \App\Models\Doctorant::count(),
-            'theses'       => These::count(),
-            'candidatures' => Candidature::where('statut', 'soumise')->count(),
-            'utilisateurs' => User::count(),
-        ];
+{
+    $stats = [
+        'doctorants'    => \App\Models\Doctorant::count(),
+        'theses'        => These::count(),
+        'candidatures'  => Candidature::where('statut', 'soumise')->count(),
+        'utilisateurs'  => User::count(),
+        'encadreurs'    => Enseignant::where('est_directeur_these', true)->count(),
+        'programmes'    => \App\Models\Specialite::count(),
+        'partenariats'  => \App\Models\Partenaire::where('portee', 'international')->count(),
+        'projets'       => \App\Models\ProjetRecherche::where('statut', 'en_cours')->count(),
+        'publications'  => Publication::count(),
+    ];
 
-        $activites = ActivityLog::with('user')
-            ->orderBy('created_at', 'desc')
-            ->take(25)
-            ->get();
+    $activites = ActivityLog::with('user')
+        ->orderBy('created_at', 'desc')
+        ->take(8)
+        ->get();
 
-        return view('dashboard.admin', compact('stats', 'activites'));
-    }
+    $candidaturesRecentes = Candidature::orderBy('created_at', 'desc')->take(5)->get();
+
+    // Évolution des doctorants par année d'inscription
+    $evolutionDoctorants = \App\Models\Doctorant::selectRaw('annee_inscription, COUNT(*) as total')
+        ->whereNotNull('annee_inscription')
+        ->groupBy('annee_inscription')
+        ->orderBy('annee_inscription')
+        ->get();
+
+    // Répartition des doctorants par spécialité (top 6)
+    $repartitionSpecialites = \App\Models\Doctorant::selectRaw('specialite, COUNT(*) as total')
+        ->whereNotNull('specialite')
+        ->groupBy('specialite')
+        ->orderByDesc('total')
+        ->take(6)
+        ->get();
+
+    return view('dashboard.admin', compact(
+        'stats', 'activites', 'candidaturesRecentes',
+        'evolutionDoctorants', 'repartitionSpecialites'
+    ));
+}
+
+
 
     public function candidatures()
     {

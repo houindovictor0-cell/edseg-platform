@@ -52,11 +52,16 @@
                             @if($t->publiee)
                             <span class="badge badge-gold">Publiée</span>
                             @endif
+                            @if($t->fichier)
+                            <span class="badge" style="background:rgba(11,110,51,0.12); color:#0B6E33;">
+                                PDF joint
+                            </span>
+                            @endif
                         </div>
                         <p style="font-size:13px; font-weight:600; color:var(--text-primary); margin-bottom:6px; line-height:1.4;">
                             {{ $t->titre }}
                         </p>
-                        <div style="display:flex; flex-wrap:wrap; gap:16px; font-size:10px; color:var(--text-muted); font-family:'JetBrains Mono', monospace;">
+                        <div style="display:flex; flex-wrap:wrap; gap:16px; font-size:10px; color:#1A1A1A;">
                             <span>Doctorant — {{ $t->doctorant?->prenom }} {{ $t->doctorant?->nom }}</span>
                             <span>Directeur — {{ $t->directeur?->prenom }} {{ $t->directeur?->nom }}</span>
                             @if($t->date_debut)
@@ -80,7 +85,7 @@
 
                 {{-- Formulaire inline --}}
                 <div id="these-{{ $t->id }}" style="display:none; margin-top:16px; padding:16px; background:var(--bg-elevated); border-radius:6px;">
-                    <form action="{{ route('admin.theses.update', $t->id) }}" method="POST">
+                    <form action="{{ route('admin.theses.update', $t->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf @method('PUT')
                         <div class="form-group">
                             <label class="form-label">Titre de la thèse</label>
@@ -132,6 +137,17 @@
                             <label class="form-label">Résumé</label>
                             <textarea name="resume" class="form-input form-textarea">{{ $t->resume }}</textarea>
                         </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Fichier PDF de la thèse</label>
+                            @if($t->fichier)
+                            <p style="font-size:11px; color:#0B6E33; margin-bottom:6px;">
+                                📄 Fichier actuel — <a href="{{ asset('storage/'.$t->fichier) }}" target="_blank" style="text-decoration:underline;">voir le PDF</a>
+                            </p>
+                            @endif
+                            <input type="file" name="fichier" accept="application/pdf" class="form-input" style="padding:8px 14px; cursor:pointer;">
+                        </div>
+
                         <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
                             <input type="checkbox" name="publiee" value="1" {{ $t->publiee ? 'checked' : '' }} style="accent-color:var(--gold);">
                             <label style="font-size:12px; color:var(--text-secondary);">
@@ -147,7 +163,7 @@
                 </div>
             </div>
             @empty
-            <div style="padding: 40px; text-align:center; color:var(--text-muted);">
+            <div style="padding: 40px; text-align:center; color:#1A1A1A;">
                 <p style="font-size:12px;">Aucune thèse enregistrée.</p>
             </div>
             @endforelse
@@ -160,7 +176,7 @@
             <span class="card-title">Nouvelle thèse</span>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.theses.store') }}" method="POST">
+            <form action="{{ route('admin.theses.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label class="form-label">Titre de la thèse</label>
@@ -201,21 +217,26 @@
                 </div>
 
                 <div class="form-group">
-    <label class="form-label">Statut</label>
-    <select name="statut" class="form-input form-select" required>
-        <option value="en_cours">En cours</option>
-        <option value="soutenue">Soutenue</option>
-        <option value="abandonnee">Abandonnée</option>
-    </select>
-</div>
+                    <label class="form-label">Fichier PDF de la thèse</label>
+                    <input type="file" name="fichier" accept="application/pdf" class="form-input" style="padding:8px 14px; cursor:pointer;">
+                </div>
 
-<div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
-    <input type="checkbox" name="publiee" value="1" style="accent-color:var(--gold);">
-    <label style="font-size:12px; color:var(--text-secondary);">
-        Publier dans la bibliothèque numérique
-    </label>
-</div>
-                
+                <div class="form-group">
+                    <label class="form-label">Statut</label>
+                    <select name="statut" class="form-input form-select" required>
+                        <option value="en_cours">En cours</option>
+                        <option value="soutenue">Soutenue</option>
+                        <option value="abandonnee">Abandonnée</option>
+                    </select>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+                    <input type="checkbox" name="publiee" value="1" style="accent-color:var(--gold);">
+                    <label style="font-size:12px; color:var(--text-secondary);">
+                        Publier dans la bibliothèque numérique
+                    </label>
+                </div>
+
                 <button type="submit" class="btn btn-gold">Enregistrer la thèse</button>
             </form>
         </div>
@@ -231,3 +252,4 @@ function toggleEdit(id) {
 </script>
 
 @endsection
+

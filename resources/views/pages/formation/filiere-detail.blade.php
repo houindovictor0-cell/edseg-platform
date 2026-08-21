@@ -1,15 +1,15 @@
 @extends('layouts.main')
-@section('title', $filiere->nom . ' — EDSEG / UAC')
+@section('title', $specialite->nom . ' — EDSEG / UAC')
 @section('content')
 
-{{-- HERO FILIÈRE --}}
+{{-- HERO SPÉCIALITÉ --}}
 <section class="relative h-[70vh] min-h-[500px] overflow-hidden">
-    <img src="{{ $filiere->image_url }}"
-         alt="{{ $filiere->nom }}"
+    <img src="{{ $specialite->image_url }}"
+         alt="{{ $specialite->nom }}"
          class="w-full h-full object-cover object-center"
-         style="filter:brightness(0.3);">
+         style="filter:brightness(0.4);">
     <div class="absolute inset-0"
-         style="background:linear-gradient(135deg, rgba(0,51,102,0.85) 0%, rgba(8,13,26,0.6) 100%);">
+         style="background:linear-gradient(135deg, rgba(6,66,30,0.9) 0%, rgba(6,66,30,0.55) 100%);">
     </div>
 
     {{-- Contenu hero --}}
@@ -17,45 +17,52 @@
         <div class="max-w-screen-xl mx-auto px-8 pb-16 w-full">
 
             {{-- Breadcrumb --}}
-            <nav style="display:flex; align-items:center; gap:8px; font-size:11px; color:rgba(255,255,255,0.4); font-family:'JetBrains Mono', monospace; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px;">
-                <a href="/" style="color:rgba(255,255,255,0.4); text-decoration:none; hover:color:white;">Accueil</a>
+            <nav style="display:flex; align-items:center; gap:8px; font-size:11px; color:rgba(255,255,255,0.5); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px;">
+                <a href="/" style="color:rgba(255,255,255,0.5); text-decoration:none;">Accueil</a>
                 <span>—</span>
-                <a href="{{ route('formation.programme') }}" style="color:rgba(255,255,255,0.4); text-decoration:none;">Formation</a>
+                <a href="{{ route('formation.filieres') }}" style="color:rgba(255,255,255,0.5); text-decoration:none;">Filières & Spécialités</a>
+                @if($specialite->mention)
                 <span>—</span>
-                <a href="{{ route('formation.filieres') }}" style="color:rgba(255,255,255,0.4); text-decoration:none;">Filières</a>
+                <span style="color:rgba(255,255,255,0.7);">{{ $specialite->mention->nom }}</span>
+                @endif
                 <span>—</span>
-                <span style="color:white;">{{ $filiere->nom }}</span>
+                <span style="color:white;">{{ $specialite->nom }}</span>
             </nav>
 
-            {{-- Badge code --}}
-            <div style="display:inline-flex; align-items:center; gap:8px; margin-bottom:16px;">
-                <span style="font-family:'JetBrains Mono', monospace; font-size:10px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#C9962B; border:1px solid rgba(201,150,43,0.4); padding:4px 12px;">
-                    {{ $filiere->code }}
+            {{-- Badges Mention + Code --}}
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+                @if($specialite->mention)
+                <span style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:white; background:#F5B400; padding:5px 14px;">
+                    Mention {{ $specialite->mention->nom }}
                 </span>
-                <span style="font-size:10px; color:rgba(255,255,255,0.3); font-family:'JetBrains Mono', monospace; letter-spacing:0.1em;">
-                    DOCTORAT — {{ $filiere->duree_annees }} ANS
+                @endif
+                <span style="font-size:10px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#F5B400; border:1px solid rgba(245,180,0,0.4); padding:4px 12px;">
+                    {{ $specialite->code }}
+                </span>
+                <span style="font-size:10px; color:rgba(255,255,255,0.4); letter-spacing:0.1em;">
+                    DOCTORAT — {{ $specialite->duree_annees }} ANS
                 </span>
             </div>
 
             <h1 class="garamond" style="font-size:clamp(32px, 5vw, 56px); font-weight:400; color:white; line-height:1.1; margin-bottom:16px; max-width:800px;">
-                {{ $filiere->nom }}
+                {{ $specialite->nom }}
             </h1>
 
-            @if($filiere->accroche)
-            <p style="font-size:16px; color:rgba(255,255,255,0.6); font-style:italic; max-width:600px; line-height:1.5;">
-                "{{ $filiere->accroche }}"
+            @if($specialite->accroche)
+            <p style="font-size:16px; color:rgba(255,255,255,0.7); font-style:italic; max-width:600px; line-height:1.5;">
+                "{{ $specialite->accroche }}"
             </p>
             @endif
 
             {{-- Stats rapides --}}
             <div style="display:flex; gap:32px; margin-top:32px; flex-wrap:wrap;">
                 @foreach([
-                    ['Durée', $filiere->duree_annees . ' ans'],
-                    ['Places disponibles', $filiere->places_disponibles],
-                    ['Responsable', $filiere->responsable ?? 'EDSEG'],
+                    ['Durée', $specialite->duree_annees . ' ans'],
+                    ['Places disponibles', $specialite->places_disponibles],
+                    ['Responsable', $specialite->responsable ?? 'EDSEG'],
                 ] as [$lbl, $val])
-                <div style="border-left:2px solid rgba(201,150,43,0.5); padding-left:16px;">
-                    <p style="font-size:9px; font-family:'JetBrains Mono', monospace; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:4px;">{{ $lbl }}</p>
+                <div style="border-left:2px solid rgba(245,180,0,0.5); padding-left:16px;">
+                    <p style="font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:4px;">{{ $lbl }}</p>
                     <p style="font-size:15px; color:white; font-weight:600;">{{ $val }}</p>
                 </div>
                 @endforeach
@@ -65,7 +72,7 @@
 </section>
 
 {{-- NAVIGATION INTERNE --}}
-<div style="background:#003366; border-bottom:1px solid rgba(255,255,255,0.08); position:sticky; top:80px; z-index:40;">
+<div style="background:#0B6E33; border-bottom:1px solid rgba(255,255,255,0.08); position:sticky; top:80px; z-index:40;">
     <div class="max-w-screen-xl mx-auto px-8">
         <div style="display:flex; gap:0; overflow-x:auto;">
             @foreach([
@@ -76,15 +83,15 @@
             ] as [$anchor, $label])
             <a href="#{{ $anchor }}"
                style="display:block; padding:16px 20px; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.5); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap; transition:all 0.2s;"
-               onmouseover="this.style.color='white'; this.style.borderBottomColor='#C9962B';"
+               onmouseover="this.style.color='white'; this.style.borderBottomColor='#F5B400';"
                onmouseout="this.style.color='rgba(255,255,255,0.5)'; this.style.borderBottomColor='transparent';">
                 {{ $label }}
             </a>
             @endforeach
             <a href="{{ route('admission.candidature') }}"
-               style="margin-left:auto; display:flex; align-items:center; background:#C9962B; color:white; padding:12px 24px; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; transition:background 0.2s; white-space:nowrap;"
-               onmouseover="this.style.background='#b8851f';"
-               onmouseout="this.style.background='#C9962B';">
+               style="margin-left:auto; display:flex; align-items:center; background:#F5B400; color:white; padding:12px 24px; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; transition:background 0.2s; white-space:nowrap;"
+               onmouseover="this.style.background='#C99000';"
+               onmouseout="this.style.background='#F5B400';">
                 Candidater →
             </a>
         </div>
@@ -101,60 +108,60 @@
             {{-- PRÉSENTATION --}}
             <section id="présentation">
                 <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-                    <span style="font-family:'JetBrains Mono', monospace; font-size:11px; color:#C9962B; letter-spacing:0.15em; text-transform:uppercase;">01</span>
+                    <span style="font-size:11px; color:#C99000; letter-spacing:0.15em; text-transform:uppercase; font-weight:700;">01</span>
                     <div style="flex:1; height:1px; background:#e5e7eb;"></div>
-                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B;">Présentation</p>
+                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C99000;">Présentation</p>
                 </div>
-                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#003366; margin-bottom:20px; line-height:1.2;">
+                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#0B6E33; margin-bottom:20px; line-height:1.2;">
                     Une formation au cœur des enjeux africains
                 </h2>
-                @if($filiere->description)
+                @if($specialite->description)
                 <div style="font-size:15px; color:#475569; line-height:1.9;">
-                    {!! nl2br(e($filiere->description)) !!}
+                    {!! nl2br(e($specialite->description)) !!}
                 </div>
                 @endif
 
-                @if($filiere->competences)
-                <div style="margin-top:32px; background:#f8fafc; border-left:3px solid #003366; padding:24px 28px;">
-                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#003366; margin-bottom:16px;">
+                @if($specialite->competences)
+                <div style="margin-top:32px; background:#f8fafc; border-left:3px solid #0B6E33; padding:24px 28px;">
+                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#0B6E33; margin-bottom:16px;">
                         Compétences développées
                     </p>
                     <div style="font-size:13px; color:#475569; line-height:1.9;">
-                        {!! nl2br(e($filiere->competences)) !!}
+                        {!! nl2br(e($specialite->competences)) !!}
                     </div>
                 </div>
                 @endif
             </section>
 
             {{-- CONDITIONS D'ACCÈS --}}
-            @if($filiere->conditions_acces)
+            @if($specialite->conditions_acces)
             <section id="conditions">
                 <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-                    <span style="font-family:'JetBrains Mono', monospace; font-size:11px; color:#C9962B; letter-spacing:0.15em; text-transform:uppercase;">02</span>
+                    <span style="font-size:11px; color:#C99000; letter-spacing:0.15em; text-transform:uppercase; font-weight:700;">02</span>
                     <div style="flex:1; height:1px; background:#e5e7eb;"></div>
-                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B;">Conditions d'accès</p>
+                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C99000;">Conditions d'accès</p>
                 </div>
-                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#003366; margin-bottom:20px; line-height:1.2;">
+                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#0B6E33; margin-bottom:20px; line-height:1.2;">
                     Qui peut candidater ?
                 </h2>
                 <div style="font-size:15px; color:#475569; line-height:1.9;">
-                    {!! nl2br(e($filiere->conditions_acces)) !!}
+                    {!! nl2br(e($specialite->conditions_acces)) !!}
                 </div>
 
                 {{-- CTA conditions --}}
-                <div style="margin-top:28px; background:#003366; padding:24px 28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+                <div style="margin-top:28px; background:#0B6E33; padding:24px 28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
                     <div>
                         <p style="font-size:12px; font-weight:700; color:white; margin-bottom:4px;">
                             Vous remplissez les conditions ?
                         </p>
-                        <p style="font-size:11px; color:rgba(255,255,255,0.5);">
+                        <p style="font-size:11px; color:rgba(255,255,255,0.6);">
                             Déposez votre candidature avant le 30 juin 2026
                         </p>
                     </div>
                     <a href="{{ route('admission.candidature') }}"
-                       style="background:#C9962B; color:white; text-decoration:none; padding:12px 24px; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; transition:background 0.2s; white-space:nowrap;"
-                       onmouseover="this.style.background='#b8851f';"
-                       onmouseout="this.style.background='#C9962B';">
+                       style="background:#F5B400; color:white; text-decoration:none; padding:12px 24px; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; transition:background 0.2s; white-space:nowrap;"
+                       onmouseover="this.style.background='#C99000';"
+                       onmouseout="this.style.background='#F5B400';">
                         Déposer ma candidature →
                     </a>
                 </div>
@@ -162,21 +169,20 @@
             @endif
 
             {{-- PROGRAMME --}}
-            @if($filiere->programme)
+            @if($specialite->programme)
             <section id="programme">
                 <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-                    <span style="font-family:'JetBrains Mono', monospace; font-size:11px; color:#C9962B; letter-spacing:0.15em; text-transform:uppercase;">03</span>
+                    <span style="font-size:11px; color:#C99000; letter-spacing:0.15em; text-transform:uppercase; font-weight:700;">03</span>
                     <div style="flex:1; height:1px; background:#e5e7eb;"></div>
-                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B;">Programme</p>
+                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C99000;">Programme</p>
                 </div>
-                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#003366; margin-bottom:20px; line-height:1.2;">
+                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#0B6E33; margin-bottom:20px; line-height:1.2;">
                     Organisation du parcours doctoral
                 </h2>
 
-                {{-- Timeline du programme --}}
                 <div style="space-y:0;">
                     @php
-                        $lignes = array_filter(explode("\n", $filiere->programme));
+                        $lignes = array_filter(explode("\n", $specialite->programme));
                         $i = 0;
                     @endphp
                     @foreach($lignes as $ligne)
@@ -184,14 +190,14 @@
                     @if(!empty($ligne))
                     <div style="display:flex; gap:20px; margin-bottom:16px; align-items:flex-start;">
                         <div style="display:flex; flex-direction:column; align-items:center; flex-shrink:0; padding-top:4px;">
-                            <div style="width:28px; height:28px; background:#003366; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:white; font-family:'JetBrains Mono', monospace;">
+                            <div style="width:28px; height:28px; background:#0B6E33; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:white;">
                                 {{ $i + 1 }}
                             </div>
                             @if(!$loop->last)
                             <div style="width:1px; height:24px; background:#e5e7eb; margin-top:4px;"></div>
                             @endif
                         </div>
-                        <div style="background:#f8fafc; border:1px solid #e5e7eb; padding:14px 18px; flex:1; border-left:3px solid #C9962B;">
+                        <div style="background:#f8fafc; border:1px solid #e5e7eb; padding:14px 18px; flex:1; border-left:3px solid #F5B400;">
                             <p style="font-size:13px; color:#374151; line-height:1.6;">{{ $ligne }}</p>
                         </div>
                     </div>
@@ -203,23 +209,23 @@
             @endif
 
             {{-- DÉBOUCHÉS --}}
-            @if($filiere->debouches)
+            @if($specialite->debouches)
             <section id="debouches">
                 <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-                    <span style="font-family:'JetBrains Mono', monospace; font-size:11px; color:#C9962B; letter-spacing:0.15em; text-transform:uppercase;">04</span>
+                    <span style="font-size:11px; color:#C99000; letter-spacing:0.15em; text-transform:uppercase; font-weight:700;">04</span>
                     <div style="flex:1; height:1px; background:#e5e7eb;"></div>
-                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B;">Débouchés</p>
+                    <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C99000;">Débouchés</p>
                 </div>
-                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#003366; margin-bottom:20px; line-height:1.2;">
+                <h2 class="garamond" style="font-size:32px; font-weight:400; color:#0B6E33; margin-bottom:20px; line-height:1.2;">
                     Que fait-on après le doctorat ?
                 </h2>
 
                 <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:1px; background:#e5e7eb; margin-bottom:24px;">
-                    @foreach(array_filter(array_map('trim', explode(',', $filiere->debouches))) as $debouche)
+                    @foreach(array_filter(array_map('trim', explode(',', $specialite->debouches))) as $debouche)
                     <div style="background:white; padding:20px; position:relative; overflow:hidden; transition:background 0.3s; cursor:default;"
-                         onmouseover="this.style.background='#003366'; this.querySelector('p').style.color='white';"
+                         onmouseover="this.style.background='#0B6E33'; this.querySelector('p').style.color='white';"
                          onmouseout="this.style.background='white'; this.querySelector('p').style.color='#374151';">
-                        <div style="width:24px; height:2px; background:#C9962B; margin-bottom:12px;"></div>
+                        <div style="width:24px; height:2px; background:#F5B400; margin-bottom:12px;"></div>
                         <p style="font-size:12px; color:#374151; font-weight:500; line-height:1.4; transition:color 0.3s;">
                             {{ $debouche }}
                         </p>
@@ -236,17 +242,18 @@
 
             {{-- Infos clés --}}
             <div style="border:1px solid #e5e7eb; overflow:hidden;">
-                <div style="background:#003366; padding:16px 20px;">
-                    <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B;">
+                <div style="background:#0B6E33; padding:16px 20px;">
+                    <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#F5B400;">
                         Informations clés
                     </p>
                 </div>
                 <div style="background:white;">
                     @foreach([
-                        ['Filière', $filiere->nom],
-                        ['Code', $filiere->code],
-                        ['Durée', $filiere->duree_annees . ' ans (max. ' . ($filiere->duree_annees + 2) . ' ans)'],
-                        ['Places', $filiere->places_disponibles . ' places / an'],
+                        ['Mention', $specialite->mention->nom ?? 'Non classée'],
+                        ['Spécialité', $specialite->nom],
+                        ['Code', $specialite->code],
+                        ['Durée', $specialite->duree_annees . ' ans (max. ' . ($specialite->duree_annees + 2) . ' ans)'],
+                        ['Places', $specialite->places_disponibles . ' places / an'],
                         ['Diplôme', 'Doctorat (LMD)'],
                         ['Langue', 'Français'],
                         ['Accréditation', 'CAMES'],
@@ -260,78 +267,78 @@
             </div>
 
             {{-- Responsable --}}
-            @if($filiere->responsable)
+            @if($specialite->responsable)
             <div style="border:1px solid #e5e7eb; padding:20px; background:white;">
-                <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B; margin-bottom:12px;">
-                    Responsable de la filière
+                <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C99000; margin-bottom:12px;">
+                    Responsable de la spécialité
                 </p>
-                <p style="font-size:13px; font-weight:600; color:#003366; margin-bottom:4px;">
-                    {{ $filiere->responsable }}
+                <p style="font-size:13px; font-weight:600; color:#0B6E33; margin-bottom:4px;">
+                    {{ $specialite->responsable }}
                 </p>
-                @if($filiere->email_responsable)
-                <a href="mailto:{{ $filiere->email_responsable }}"
-                   style="font-size:11px; color:#64748b; text-decoration:none; font-family:'JetBrains Mono', monospace; word-break:break-all;">
-                    {{ $filiere->email_responsable }}
+                @if($specialite->email_responsable)
+                <a href="mailto:{{ $specialite->email_responsable }}"
+                   style="font-size:11px; color:#64748b; text-decoration:none; word-break:break-all;">
+                    {{ $specialite->email_responsable }}
                 </a>
                 @endif
             </div>
             @endif
 
             {{-- CTA Candidature --}}
-            <div style="background:#003366; padding:28px 24px; text-align:center;">
-                <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B; margin-bottom:12px;">
+            <div style="background:#0B6E33; padding:28px 24px; text-align:center;">
+                <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#F5B400; margin-bottom:12px;">
                     Campagne 2026–2027
                 </p>
                 <p class="garamond" style="font-size:22px; color:white; margin-bottom:8px; line-height:1.2;">
                     Prêt à rejoindre l'EDSEG ?
                 </p>
-                <p style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:24px; line-height:1.5;">
+                <p style="font-size:12px; color:rgba(255,255,255,0.55); margin-bottom:24px; line-height:1.5;">
                     Dossiers acceptés jusqu'au 30 juin 2026
                 </p>
                 <a href="{{ route('admission.candidature') }}"
-                   style="display:block; background:#C9962B; color:white; text-decoration:none; padding:14px; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; transition:background 0.2s; margin-bottom:10px;"
-                   onmouseover="this.style.background='#b8851f';"
-                   onmouseout="this.style.background='#C9962B';">
+                   style="display:block; background:#F5B400; color:white; text-decoration:none; padding:14px; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; transition:background 0.2s; margin-bottom:10px;"
+                   onmouseover="this.style.background='#C99000';"
+                   onmouseout="this.style.background='#F5B400';">
                     Déposer ma candidature →
                 </a>
                 <a href="{{ route('admission.conditions') }}"
-                   style="display:block; border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.5); text-decoration:none; padding:12px; font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; transition:all 0.2s;"
-                   onmouseover="this.style.borderColor='rgba(255,255,255,0.4)'; this.style.color='rgba(255,255,255,0.8)';"
-                   onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='rgba(255,255,255,0.5)';">
+                   style="display:block; border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.6); text-decoration:none; padding:12px; font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; transition:all 0.2s;"
+                   onmouseover="this.style.borderColor='rgba(255,255,255,0.5)'; this.style.color='rgba(255,255,255,0.9)';"
+                   onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.color='rgba(255,255,255,0.6)';">
                     Conditions d'accès
                 </a>
             </div>
 
-            {{-- Autres filières --}}
-            @if($autresFilieres->count())
+            {{-- Autres spécialités --}}
+            @if($autresSpecialites->count())
             <div style="border:1px solid #e5e7eb; overflow:hidden;">
                 <div style="background:#f8fafc; padding:12px 20px; border-bottom:1px solid #e5e7eb;">
                     <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#94a3b8;">
-                        Autres filières
+                        Autres spécialités
                     </p>
                 </div>
-                @foreach($autresFilieres as $autre)
+                @foreach($autresSpecialites as $autre)
                 <a href="{{ route('formation.filiere', $autre->id) }}"
                    style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #f1f5f9; text-decoration:none; transition:background 0.2s;"
                    onmouseover="this.style.background='#f8fafc';"
                    onmouseout="this.style.background='white';">
-                    <div style="width:40px; height-40px; overflow:hidden; flex-shrink:0;">
+                    <div style="width:40px; height:40px; overflow:hidden; flex-shrink:0;">
                         <img src="{{ $autre->image_url }}" alt="{{ $autre->nom }}"
                              style="width:40px; height:40px; object-fit:cover;">
                     </div>
                     <div>
-                        <p style="font-size:12px; font-weight:600; color:#003366; line-height:1.3;">
+                        <p style="font-size:12px; font-weight:600; color:#0B6E33; line-height:1.3;">
                             {{ Str::limit($autre->nom, 35) }}
                         </p>
-                        <p style="font-size:10px; color:#C9962B; font-family:'JetBrains Mono', monospace; margin-top:2px;">
+                        <p style="font-size:10px; color:#C99000; margin-top:2px;">
                             {{ $autre->code }}
                         </p>
                     </div>
                 </a>
                 @endforeach
                 <a href="{{ route('formation.filieres') }}"
-                   style="display:block; padding:12px 16px; font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#C9962B; text-decoration:none; text-align:center; background:#f8fafc;">
-                    Voir toutes les filières →
+                   style="display:block; padding:12px 16px; font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#C99000; text-decoration:none; text-align:center; background:#f8fafc;">
+                    Voir toutes les spécialités →
                 </a>
             </div>
             @endif

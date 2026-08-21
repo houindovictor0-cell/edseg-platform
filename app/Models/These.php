@@ -14,7 +14,10 @@ class These extends Model
         'date_debut'      => 'date',
         'date_soutenance' => 'date',
     ];
-
+public function documents()
+{
+    return $this->hasMany(DocumentThese::class)->orderBy('ordre');
+}
     public function doctorant() { return $this->belongsTo(Doctorant::class); }
     public function directeur() { return $this->belongsTo(Enseignant::class, 'directeur_id'); }
     public function rapports()  { return $this->hasMany(RapportAvancement::class); }

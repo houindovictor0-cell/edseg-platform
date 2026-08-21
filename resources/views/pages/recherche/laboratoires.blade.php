@@ -5,19 +5,19 @@
 <x-page-hero
     titre="Laboratoires & Unités de Recherche"
     soustitre="Des structures scientifiques actives au service de la production de connaissances"
-    image="https://images.unsplash.com/photo-1532094349884-543559b8f5a0?w=1600&q=80"
-    :breadcrumb="['Recherche' => null, 'Laboratoires' => null]"
+    image="/images/slide.jpg"
+  
 />
 
 <section class="max-w-screen-xl mx-auto px-8 py-20">
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-20">
         <div>
-            <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C9962B] mb-4">Nos structures</p>
-            <h2 class="garamond text-4xl font-medium text-[#003366] leading-snug mb-8">
+            <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C99000] mb-4">Nos structures</p>
+            <h2 class="garamond text-4xl font-medium text-[#0B6E33] leading-snug mb-8">
                 Des laboratoires engagés dans la recherche appliquée au développement
             </h2>
-            <p class="text-gray-600 text-[15px] leading-relaxed">
+            <p class="text-[#1A1A1A] text-[15px] leading-relaxed">
                 Les unités de recherche de l'EDSEG constituent le socle scientifique de l'école doctorale.
                 Chaque laboratoire regroupe des enseignants-chercheurs et des doctorants autour de
                 thématiques de recherche cohérentes et complémentaires, en lien étroit avec les réalités
@@ -42,37 +42,37 @@
             <div class="lg:col-span-8 p-10">
                 <div class="flex items-start justify-between mb-4">
                     <div>
-                        <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C9962B] mb-2">
+                        <p class="text-[15px] font-semibold tracking-widest uppercase text-[#C99000] mb-2">
                             Laboratoire {{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}
                         </p>
-                        <h3 class="garamond text-2xl font-medium text-[#003366] leading-snug">
+                        <h3 class="garamond text-2xl font-medium text-[#0B6E33] leading-snug">
                             {{ $lab->nom }}
                         </h3>
                     </div>
                     @if($lab->site_web)
                     <a href="{{ $lab->site_web }}" target="_blank"
-                       class="text-xs font-medium tracking-widest uppercase border border-gray-300 text-gray-500 hover:border-[#003366] hover:text-[#003366] px-4 py-2 transition flex-shrink-0 ml-6">
+                       class="text-xs font-medium tracking-widest uppercase border border-gray-300 text-[#1A1A1A] hover:border-[#0B6E33] hover:text-[#0B6E33] px-4 py-2 transition flex-shrink-0 ml-6">
                         Site web
                     </a>
                     @endif
                 </div>
 
                 @if($lab->responsable)
-                <p class="text-sm text-gray-500 mb-4">
-                    Responsable — <span class="font-medium text-[#003366]">{{ $lab->responsable }}</span>
+                <p class="text-sm text-[#1A1A1A] mb-4">
+                    Responsable — <span class="font-medium text-[#0B6E33]">{{ $lab->responsable }}</span>
                 </p>
                 @endif
 
                 @if($lab->description)
-                <p class="text-gray-600 text-sm leading-relaxed mb-5">{{ $lab->description }}</p>
+                <p class="text-[#1A1A1A] text-sm leading-relaxed mb-5">{{ $lab->description }}</p>
                 @endif
 
                 @if($lab->axes_recherche)
                 <div class="border-t border-gray-100 pt-5">
-                    <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-3">
+                    <p class="text-[15px] font-semibold tracking-widest uppercase text-[#CE1126] mb-3">
                         Axes de recherche
                     </p>
-                    <p class="text-sm text-gray-500 leading-relaxed">{{ $lab->axes_recherche }}</p>
+                    <p class="text-sm text-[#1A1A1A] leading-relaxed">{{ $lab->axes_recherche }}</p>
                 </div>
                 @endif
             </div>
@@ -81,7 +81,7 @@
     </div>
     @else
     <div class="bg-[#F5F7FA] py-24 text-center">
-        <p class="text-gray-400 text-sm tracking-wide">
+        <p class="text-[#CE1126] text-sm tracking-wide">
             Les laboratoires seront disponibles prochainement.
         </p>
     </div>

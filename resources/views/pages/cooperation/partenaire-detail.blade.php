@@ -19,14 +19,14 @@
             @if($partenaire->description)
             <div>
                 <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#C9962B;letter-spacing:0.15em;text-transform:uppercase;">01</span>
+                    <span style="font-size:11px;color:#C99000;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;">01</span>
                     <div style="flex:1;height:1px;background:#e5e7eb;"></div>
-                    <p style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9962B;">Présentation</p>
+                    <p style="font-size:14px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C99000;">Présentation</p>
                 </div>
-                <h2 class="garamond" style="font-size:32px;font-weight:400;color:#003366;margin-bottom:16px;">
+                <h2 class="garamond" style="font-size:32px;font-weight:400;color:#0B6E33;margin-bottom:16px;">
                     À propos de {{ $partenaire->nom }}
                 </h2>
-                <div style="font-size:15px;color:#475569;line-height:1.9;">
+                <div style="font-size:15px;color:#1A1A1A;line-height:1.9;">
                     {!! nl2br(e($partenaire->description)) !!}
                 </div>
             </div>
@@ -36,12 +36,12 @@
             @if($partenaire->accord)
             <div>
                 <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#C9962B;letter-spacing:0.15em;text-transform:uppercase;">02</span>
+                    <span style="font-size:11px;color:#C99000;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;">02</span>
                     <div style="flex:1;height:1px;background:#e5e7eb;"></div>
-                    <p style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9962B;">Contenu de l'accord</p>
+                    <p style="font-size:14px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C99000;">Contenu de l'accord</p>
                 </div>
-                <div style="background:#f8fafc;border-left:3px solid #003366;padding:28px 32px;">
-                    <div style="font-size:15px;color:#475569;line-height:1.9;">
+                <div style="background:#f8fafc;border-left:3px solid #0B6E33;padding:28px 32px;">
+                    <div style="font-size:15px;color:#1A1A1A;line-height:1.9;">
                         {!! nl2br(e($partenaire->accord)) !!}
                     </div>
                 </div>
@@ -52,17 +52,17 @@
             @if($partenaire->domaines_cooperation)
             <div>
                 <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#C9962B;letter-spacing:0.15em;text-transform:uppercase;">03</span>
+                    <span style="font-size:11px;color:#C99000;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;">03</span>
                     <div style="flex:1;height:1px;background:#e5e7eb;"></div>
-                    <p style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9962B;">Domaines de coopération</p>
+                    <p style="font-size:14px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C99000;">Domaines de coopération</p>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1px;background:#e5e7eb;">
                     @foreach(array_filter(array_map('trim', explode(',', $partenaire->domaines_cooperation))) as $domaine)
                     <div style="background:white;padding:20px;transition:background 0.3s;cursor:default;"
-                         onmouseover="this.style.background='#003366';this.querySelector('p').style.color='white';"
-                         onmouseout="this.style.background='white';this.querySelector('p').style.color='#374151';">
-                        <div style="width:24px;height:2px;background:#C9962B;margin-bottom:12px;"></div>
-                        <p style="font-size:13px;color:#374151;font-weight:500;line-height:1.4;transition:color 0.3s;">
+                         onmouseover="this.style.background='#CE1126';this.querySelector('p').style.color='white';"
+                         onmouseout="this.style.background='white';this.querySelector('p').style.color='#1A1A1A';">
+                        <div style="width:24px;height:2px;background:#F5B400;margin-bottom:12px;"></div>
+                        <p style="font-size:13px;color:#1A1A1A;font-weight:500;line-height:1.4;transition:color 0.3s;">
                             {{ $domaine }}
                         </p>
                     </div>
@@ -84,9 +84,9 @@
 
             {{-- Infos --}}
             <div style="border:1px solid #e5e7eb;overflow:hidden;">
-                <div style="background:#003366;padding:14px 20px;">
-                    <p style="font-size:9px;font-weight:700;letter-spacing:0.15em;
-                              text-transform:uppercase;color:#C9962B;">Fiche partenaire</p>
+                <div style="background:#0B6E33;padding:14px 20px;">
+                    <p style="font-size:12px;font-weight:700;letter-spacing:0.15em;
+                              text-transform:uppercase;color:#F5B400;">Fiche partenaire</p>
                 </div>
                 @foreach([
                     ['Type', ucfirst($partenaire->type)],
@@ -96,18 +96,18 @@
                 ] as [$lbl, $val])
                 <div style="display:flex;justify-content:space-between;padding:12px 20px;
                             border-bottom:1px solid #f1f5f9;font-size:12px;">
-                    <span style="color:#94a3b8;">{{ $lbl }}</span>
+                    <span style="color:#1A1A1A;">{{ $lbl }}</span>
                     <span style="color:#0f172a;font-weight:600;">{{ $val ?? '—' }}</span>
                 </div>
                 @endforeach
                 @if($partenaire->site_web)
                 <div style="padding:16px 20px;">
                     <a href="{{ $partenaire->site_web }}" target="_blank"
-                       style="display:block;text-align:center;background:#003366;color:white;
+                       style="display:block;text-align:center;background:#0B6E33;color:white;
                               text-decoration:none;padding:10px;font-size:10px;font-weight:700;
                               letter-spacing:0.12em;text-transform:uppercase;transition:background 0.2s;"
-                       onmouseover="this.style.background='#0055A4'"
-                       onmouseout="this.style.background='#003366'">
+                       onmouseover="this.style.background='#128A46'"
+                       onmouseout="this.style.background='#0B6E33'">
                         Visiter le site →
                     </a>
                 </div>
@@ -117,16 +117,16 @@
             {{-- Contact --}}
             @if($partenaire->contact_nom)
             <div style="border:1px solid #e5e7eb;padding:20px;">
-                <p style="font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
-                          color:#C9962B;margin-bottom:12px;font-family:'JetBrains Mono',monospace;">
+                <p style="font-size:12px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
+                          color:#C99000;margin-bottom:12px;">
                     Contact référent
                 </p>
-                <p style="font-size:14px;font-weight:600;color:#003366;margin-bottom:4px;">
+                <p style="font-size:14px;font-weight:600;color:#0B6E33;margin-bottom:4px;">
                     {{ $partenaire->contact_nom }}
                 </p>
                 @if($partenaire->contact_email)
                 <a href="mailto:{{ $partenaire->contact_email }}"
-                   style="font-size:12px;color:#6b7280;text-decoration:none;word-break:break-all;">
+                   style="font-size:12px;color:#1A1A1A;text-decoration:none;word-break:break-all;">
                     {{ $partenaire->contact_email }}
                 </a>
                 @endif
@@ -138,7 +138,7 @@
             <div style="border:1px solid #e5e7eb;overflow:hidden;">
                 <div style="background:#f8fafc;padding:12px 20px;border-bottom:1px solid #e5e7eb;">
                     <p style="font-size:9px;font-weight:700;letter-spacing:0.15em;
-                              text-transform:uppercase;color:#94a3b8;">Autres partenaires</p>
+                              text-transform:uppercase;color:#1A1A1A;">Autres partenaires</p>
                 </div>
                 @foreach($autres as $a)
                 <a href="{{ route('cooperation.partenaire', $a->id) }}"
@@ -151,10 +151,10 @@
                              style="width:100%;height:100%;object-fit:cover;">
                     </div>
                     <div>
-                        <p style="font-size:12px;font-weight:600;color:#003366;line-height:1.3;">
+                        <p style="font-size:12px;font-weight:600;color:#0B6E33;line-height:1.3;">
                             {{ Str::limit($a->nom, 35) }}
                         </p>
-                        <p style="font-size:10px;color:#94a3b8;font-family:'JetBrains Mono',monospace;margin-top:2px;">
+                        <p style="font-size:10px;color:#CE1126;margin-top:2px;">
                             {{ $a->pays ?? 'Bénin' }}
                         </p>
                     </div>

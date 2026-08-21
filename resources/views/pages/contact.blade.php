@@ -22,19 +22,19 @@
             @endif
 
             <div style="margin-bottom:40px;">
-                <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B; margin-bottom:8px;">
+                <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C99000; margin-bottom:8px;">
                     Formulaire de contact
                 </p>
-                <h2 class="garamond" style="font-size:36px; font-weight:400; color:#003366;">
+                <h2 class="garamond" style="font-size:36px; font-weight:400; color:#0B6E33;">
                     Envoyez-nous un message
                 </h2>
             </div>
 
             <style>
                 .contact-field { margin-bottom:24px; }
-                .contact-label { display:block; font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#6b7280; margin-bottom:8px; }
+                .contact-label { display:block; font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#1A1A1A; margin-bottom:8px; }
                 .contact-input { width:100%; border:1px solid #d1d5db; padding:12px 16px; font-size:13px; font-family:'Inter',sans-serif; color:#111827; background:white; outline:none; transition:border-color 0.2s; box-sizing:border-box; }
-                .contact-input:focus { border-color:#003366; }
+                .contact-input:focus { border-color:#0B6E33; }
                 .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
                 @media(max-width:640px){ .contact-grid{ grid-template-columns:1fr; } }
             </style>
@@ -46,20 +46,20 @@
                         <label class="contact-label">Nom complet *</label>
                         <input type="text" name="nom" value="{{ old('nom') }}" required
                                class="contact-input" placeholder="Jean Kouassi">
-                        @error('nom')<p style="font-size:11px;color:#dc2626;margin-top:4px;">{{ $message }}</p>@enderror
+                        @error('nom')<p style="font-size:11px;color:#CE1126;margin-top:4px;">{{ $message }}</p>@enderror
                     </div>
                     <div class="contact-field">
                         <label class="contact-label">Email *</label>
                         <input type="email" name="email" value="{{ old('email') }}" required
                                class="contact-input" placeholder="jean@exemple.com">
-                        @error('email')<p style="font-size:11px;color:#dc2626;margin-top:4px;">{{ $message }}</p>@enderror
+                        @error('email')<p style="font-size:11px;color:#CE1126;margin-top:4px;">{{ $message }}</p>@enderror
                     </div>
                 </div>
                 <div class="contact-field">
                     <label class="contact-label">Sujet *</label>
                     <input type="text" name="sujet" value="{{ old('sujet') }}" required
                            class="contact-input" placeholder="Ex: Demande d'information sur les candidatures">
-                    @error('sujet')<p style="font-size:11px;color:#dc2626;margin-top:4px;">{{ $message }}</p>@enderror
+                    @error('sujet')<p style="font-size:11px;color:#CE1126;margin-top:4px;">{{ $message }}</p>@enderror
                 </div>
                 <div class="contact-field">
                     <label class="contact-label">Message *</label>
@@ -67,14 +67,14 @@
                               class="contact-input"
                               style="resize:vertical;"
                               placeholder="Détaillez votre demande...">{{ old('message') }}</textarea>
-                    @error('message')<p style="font-size:11px;color:#dc2626;margin-top:4px;">{{ $message }}</p>@enderror
+                    @error('message')<p style="font-size:11px;color:#CE1126;margin-top:4px;">{{ $message }}</p>@enderror
                 </div>
                 <button type="submit"
-                        style="background:#003366; color:white; border:none; padding:14px 40px;
+                        style="background:#0B6E33; color:white; border:none; padding:14px 40px;
                                font-size:11px; font-weight:700; letter-spacing:0.12em;
                                text-transform:uppercase; cursor:pointer; transition:background 0.2s;"
-                        onmouseover="this.style.background='#0055A4'"
-                        onmouseout="this.style.background='#003366'">
+                        onmouseover="this.style.background='#128A46'"
+                        onmouseout="this.style.background='#0B6E33'">
                     Envoyer le message →
                 </button>
             </form>
@@ -83,23 +83,23 @@
         {{-- Infos de contact --}}
         <aside class="space-y-6">
 
-            <div style="border-top:2px solid #003366; padding-top:20px;">
-                <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B; margin-bottom:16px;">
+            <div style="border-top:2px solid #0B6E33; padding-top:20px;">
+                <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C99000; margin-bottom:16px;">
                     Secrétariat
                 </p>
                 <ul style="space-y:12px;">
-                    <li style="display:flex; gap:12px; margin-bottom:14px; font-size:13px; color:#374151;">
-                        <span style="color:#003366; font-size:16px; flex-shrink:0; margin-top:1px;">📍</span>
+                    <li style="display:flex; gap:12px; margin-bottom:14px; font-size:13px; color:#1A1A1A;">
+                        <span style="color:#0B6E33; font-size:16px; flex-shrink:0; margin-top:1px;">📍</span>
                         {{ $infosEcole['adresse']->valeur ?? 'Campus UAC, Abomey-Calavi, Bénin' }}
                     </li>
-                    <li style="display:flex; gap:12px; margin-bottom:14px; font-size:13px; color:#374151;">
-                        <span style="color:#003366; font-size:16px; flex-shrink:0;">📞</span>
+                    <li style="display:flex; gap:12px; margin-bottom:14px; font-size:13px; color:#1A1A1A;">
+                        <span style="color:#0B6E33; font-size:16px; flex-shrink:0;">📞</span>
                         {{ $infosEcole['telephone']->valeur ?? '+229 XX XX XX XX' }}
                     </li>
                     <li style="display:flex; gap:12px; margin-bottom:14px; font-size:13px;">
-                        <span style="color:#003366; font-size:16px; flex-shrink:0;">✉️</span>
+                        <span style="color:#0B6E33; font-size:16px; flex-shrink:0;">✉️</span>
                         <a href="mailto:{{ $infosEcole['email_contact']->valeur ?? 'contact@edseg-uac.bj' }}"
-                           style="color:#003366; text-decoration:none; font-size:13px;">
+                           style="color:#0B6E33; text-decoration:none; font-size:13px;">
                             {{ $infosEcole['email_contact']->valeur ?? 'contact@edseg-uac.bj' }}
                         </a>
                     </li>
@@ -107,7 +107,7 @@
             </div>
 
             <div style="background:#F5F7FA; padding:24px; border:1px solid #e5e7eb;">
-                <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#003366; margin-bottom:12px;">
+                <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#0B6E33; margin-bottom:12px;">
                     Horaires d'ouverture
                 </p>
                 @foreach([
@@ -116,25 +116,25 @@
                     ['Dimanche', 'Fermé'],
                 ] as [$jour, $heure])
                 <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #e5e7eb; font-size:12px;">
-                    <span style="color:#6b7280;">{{ $jour }}</span>
+                    <span style="color:#CE1126;">{{ $jour }}</span>
                     <span style="color:#111827; font-weight:600;">{{ $heure }}</span>
                 </div>
                 @endforeach
             </div>
 
-            <div style="background:#003366; padding:24px;">
-                <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B; margin-bottom:12px;">
+            <div style="background:#0B6E33; padding:24px;">
+                <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#F5B400; margin-bottom:12px;">
                     Admissions
                 </p>
                 <p style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:16px;">
                     Pour toute question relative aux candidatures, consultez notre page dédiée.
                 </p>
                 <a href="{{ route('admission.candidature') }}"
-                   style="display:block; text-center; background:#C9962B; color:white; text-decoration:none;
+                   style="display:block; background:#F5B400; color:white; text-decoration:none;
                           padding:12px; font-size:10px; font-weight:700; letter-spacing:0.12em;
                           text-transform:uppercase; text-align:center; transition:background 0.2s;"
-                   onmouseover="this.style.background='#b8851f'"
-                   onmouseout="this.style.background='#C9962B'">
+                   onmouseover="this.style.background='#C99000'"
+                   onmouseout="this.style.background='#F5B400'">
                     Déposer une candidature →
                 </a>
             </div>

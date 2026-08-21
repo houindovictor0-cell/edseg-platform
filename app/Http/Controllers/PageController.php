@@ -55,29 +55,32 @@ class PageController extends Controller
     }
 
 
+
 public function filieres()
 {
-    $filieres = \App\Models\Filiere::where('publiee', true)
-        ->where('active', true)
-        ->orderBy('nom')
-        ->get();
-    return view('pages.formation.filieres', compact('filieres'));
+    $mentions = \App\Models\Mention::with(['specialites' => function ($q) {
+        $q->where('publiee', true)->where('active', true)->orderBy('nom');
+    }])->orderBy('nom')->get();
+
+    return view('pages.formation.filieres', compact('mentions'));
 }
 
 public function filiere($id)
 {
-    $filiere = \App\Models\Filiere::where('publiee', true)
+    $specialite = \App\Models\Specialite::with('mention')
+        ->where('publiee', true)
         ->where('active', true)
         ->findOrFail($id);
 
-    $autresFilieres = \App\Models\Filiere::where('publiee', true)
+    $autresSpecialites = \App\Models\Specialite::where('publiee', true)
         ->where('active', true)
         ->where('id', '!=', $id)
         ->take(3)
         ->get();
 
-    return view('pages.formation.filiere-detail', compact('filiere', 'autresFilieres'));
+    return view('pages.formation.filiere-detail', compact('specialite', 'autresSpecialites'));
 }
+
     public function encadrement()
     {
         $directeurs = Enseignant::where('est_directeur_these', true)->get();

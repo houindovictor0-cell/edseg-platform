@@ -3,142 +3,167 @@
 @section('content')
 
 <x-page-hero
-    titre="Filières & Spécialités"
-    soustitre="Six spécialités de doctorat ancrées dans les réalités économiques et managériales de l'Afrique"
-    image="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1600&q=80"
+    titre="Mentions & Spécialités"
+    soustitre="Deux mentions de doctorat — Économie et Gestion — déclinées en spécialités ancrées dans les réalités africaines"
+image="/images/slide.jpg"
     :breadcrumb="['Formation' => null, 'Filières' => null]"
 />
 
 <section class="max-w-screen-xl mx-auto px-8 py-20">
 
     {{-- Intro --}}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-24">
         <div>
-            <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C9962B] mb-4">
-                Nos spécialités
+            <p class="text-[20px] font-semibold tracking-widest uppercase text-[#C99000] mb-4">
+                Nos mentions
             </p>
-            <h2 class="garamond text-4xl font-medium text-[#003366] leading-snug mb-6">
-                Choisissez votre voie vers l'excellence scientifique
+            <h2 class="garamond text-4xl font-medium text-[#0B6E33] leading-snug mb-6">
+                Deux mentions, plusieurs voies vers l'excellence
             </h2>
             <p class="text-gray-600 text-[15px] leading-relaxed">
-                L'EDSEG propose six filières de doctorat couvrant l'ensemble du spectre
-                des sciences économiques et de gestion. Chaque filière est encadrée par
-                des enseignants-chercheurs de haut niveau et adossée à des laboratoires actifs.
+                L'EDSEG structure son offre doctorale autour de deux mentions — Économie et Gestion —
+                chacune déclinée en spécialités encadrées par des enseignants-chercheurs de haut niveau
+                et adossées à des laboratoires actifs.
             </p>
         </div>
         <div class="grid grid-cols-3 gap-px bg-gray-200">
+            @php
+                $totalSpecialites = $mentions->sum(fn($m) => $m->specialites->count());
+            @endphp
             @foreach([
                 [$chiffresEcole['doctorants_inscrits']->valeur ?? '120', 'Doctorants'],
                 [$chiffresEcole['theses_soutenues']->valeur ?? '85', 'Thèses soutenues'],
-                [$filieres->count(), 'Spécialités'],
+                [$totalSpecialites, 'Spécialités'],
             ] as [$val, $lbl])
             <div class="bg-white py-8 text-center">
-                <p class="garamond text-4xl font-medium text-[#003366]">{{ $val }}</p>
-                <p class="text-gray-400 text-xs tracking-widest uppercase mt-2">{{ $lbl }}</p>
+                <p class="garamond text-4xl font-medium text-[#0B6E33]">{{ $val }}</p>
+              <p class="text-[#CE1126] text-xs tracking-widest uppercase mt-2">{{ $lbl }}</p>
             </div>
             @endforeach
         </div>
     </div>
 
-    {{-- Grille des filières --}}
-    @if($filieres->count())
+    {{-- BOUCLE PAR MENTION --}}
+    @forelse($mentions as $mention)
+    <div class="mb-24 last:mb-0">
 
-    {{-- Première filière en grand --}}
-    @php $premiere = $filieres->first(); @endphp
-    <a href="{{ route('formation.filiere', $premiere->id) }}"
-       class="group block mb-8 overflow-hidden border border-gray-200 hover:border-[#003366] transition-colors duration-300">
-        <div class="grid grid-cols-1 lg:grid-cols-2">
-            <div class="overflow-hidden h-72 lg:h-auto relative">
-                <img src="{{ $premiere->image_url }}"
-                     alt="{{ $premiere->nom }}"
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                     style="min-height:320px;">
-                <div class="absolute inset-0 bg-gradient-to-r from-[#003366]/60 to-transparent"></div>
-                <div class="absolute bottom-6 left-6">
-                    <span style="font-family:'JetBrains Mono', monospace; font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B;">
-                        {{ $premiere->code }}
-                    </span>
-                </div>
-            </div>
-            <div class="p-12 lg:p-16 flex flex-col justify-center bg-white">
-                <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[#C9962B] mb-4">
-                    Filière phare — {{ $premiere->duree_annees }} ans — {{ $premiere->places_disponibles }} places
-                </p>
-                <h3 class="garamond text-3xl font-medium text-[#003366] leading-snug mb-4 group-hover:text-[#0055A4] transition-colors">
-                    {{ $premiere->nom }}
-                </h3>
-                @if($premiere->accroche)
-                <p class="text-gray-500 text-sm leading-relaxed mb-6 italic">
-                    "{{ $premiere->accroche }}"
-                </p>
-                @endif
-                <p class="text-gray-500 text-sm leading-relaxed mb-8">
-                    {{ Str::limit($premiere->description, 200) }}
-                </p>
-                <div class="flex items-center gap-3">
-                    <div class="h-px bg-[#C9962B] w-6 group-hover:w-12 transition-all duration-500"></div>
-                    <span class="text-[10px] font-bold tracking-widest uppercase text-[#C9962B]">
-                        Découvrir la filière
-                    </span>
-                </div>
-            </div>
+        {{-- En-tête de mention --}}
+        <div class="flex items-center gap-4 mb-10">
+            <span class="w-3 h-3 rounded-full {{ $mention->code === 'ECO' ? 'bg-[#0B6E33]' : 'bg-[#F5B400]' }}"></span>
+            <h3 class="garamond text-3xl font-medium text-[#0B6E33]">
+                Mention {{ $mention->nom }}
+            </h3>
+            <span class="text-[#CE1126] text-xs tracking-widest uppercase ml-2">
+             {{ $mention->specialites->count() }} spécialité{{ $mention->specialites->count() > 1 ? 's' : '' }}
+            </span>
         </div>
-    </a>
 
-    {{-- Autres filières en grille --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200">
-        @foreach($filieres->skip(1) as $f)
-        <a href="{{ route('formation.filiere', $f->id) }}"
-           class="group bg-white block hover:bg-[#003366] transition-all duration-500">
-            <div class="overflow-hidden h-48 relative">
-                <img src="{{ $f->image_url }}"
-                     alt="{{ $f->nom }}"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                     style="filter:brightness(0.85);">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#003366]/80 to-transparent"></div>
-                <div class="absolute bottom-4 left-5 right-5">
-                    <span style="font-family:'JetBrains Mono', monospace; font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B;">
-                        {{ $f->code }}
-                    </span>
+        @if($mention->specialites->isEmpty())
+        <div class="py-12 text-center text-[#CE1126] border border-dashed border-gray-200">
+         <p class="text-sm tracking-wide">Aucune spécialité publiée pour cette mention pour le moment.</p>
+        </div>
+        @else
+
+        {{-- Première spécialité de la mention en grand --}}
+        @php $premiere = $mention->specialites->first(); @endphp
+        <a href="{{ route('formation.filiere', $premiere->id) }}"
+           class="group block mb-6 overflow-hidden border border-gray-200 hover:border-[#0B6E33] transition-colors duration-300">
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+                <div class="overflow-hidden h-72 lg:h-auto relative">
+                    <img src="{{ $premiere->image_url }}"
+                         alt="{{ $premiere->nom }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                         style="min-height:320px;">
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#0B6E33]/60 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <span style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#F5B400;">
+                            {{ $premiere->code }}
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div class="p-8">
-                <h3 class="font-semibold text-[#003366] text-sm leading-snug mb-3
-                           group-hover:text-white transition-colors duration-300">
-                    {{ $f->nom }}
-                </h3>
-                @if($f->accroche)
-                <p class="text-gray-400 text-xs leading-relaxed mb-4 italic
-                          group-hover:text-blue-200 transition-colors duration-300">
-                    "{{ Str::limit($f->accroche, 80) }}"
-                </p>
-                @endif
-                <div style="display:flex; gap:12px; font-size:10px; font-family:'JetBrains Mono', monospace;"
-                     class="text-gray-300">
-                    <span class="group-hover:text-blue-300 transition-colors duration-300">
-                        {{ $f->duree_annees }} ans
-                    </span>
-                    <span class="text-gray-200">—</span>
-                    <span class="group-hover:text-blue-300 transition-colors duration-300">
-                        {{ $f->places_disponibles }} places
-                    </span>
-                </div>
-                <div class="flex items-center gap-3 mt-6">
-                    <div class="h-px bg-[#C9962B] w-4 group-hover:w-8 transition-all duration-500"></div>
-                    <span class="text-[9px] font-bold tracking-widest uppercase text-[#C9962B]">
-                        En savoir plus
-                    </span>
+                <div class="p-12 lg:p-16 flex flex-col justify-center bg-white">
+                    <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[#C99000] mb-4">
+                        Spécialité phare — {{ $premiere->duree_annees }} ans — {{ $premiere->places_disponibles }} places
+                    </p>
+                    <h3 class="garamond text-3xl font-medium text-[#0B6E33] leading-snug mb-4 group-hover:text-[#128A46] transition-colors">
+                        {{ $premiere->nom }}
+                    </h3>
+                    @if($premiere->accroche)
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6 italic">
+                        "{{ $premiere->accroche }}"
+                    </p>
+                    @endif
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8">
+                        {{ Str::limit($premiere->description, 200) }}
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="h-px bg-[#C99000] w-6 group-hover:w-12 transition-all duration-500"></div>
+                        <span class="text-[20px] font-bold tracking-widest uppercase text-[#C99000]">
+                            Découvrir la spécialité
+                        </span>
+                    </div>
                 </div>
             </div>
         </a>
-        @endforeach
-    </div>
 
-    @else
-    <div class="py-24 text-center text-gray-400">
-        <p class="text-sm tracking-wide">Aucune filière disponible pour le moment.</p>
+        {{-- Autres spécialités de la mention en grille --}}
+        @if($mention->specialites->skip(1)->isNotEmpty())
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200">
+            @foreach($mention->specialites->skip(1) as $s)
+            <a href="{{ route('formation.filiere', $s->id) }}"
+               class="group bg-white block hover:bg-[#0B6E33] transition-all duration-500">
+                <div class="overflow-hidden h-48 relative">
+                    <img src="{{ $s->image_url }}"
+                         alt="{{ $s->nom }}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                         style="filter:brightness(0.85);">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0B6E33]/80 to-transparent"></div>
+                    <div class="absolute bottom-4 left-5 right-5">
+                        <span style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#F5B400;">
+                            {{ $s->code }}
+                        </span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="font-semibold text-[#0B6E33] text-sm leading-snug mb-3
+                               group-hover:text-white transition-colors duration-300">
+                        {{ $s->nom }}
+                    </h3>
+                    @if($s->accroche)
+                    <p class="text-gray-400 text-xs leading-relaxed mb-4 italic
+                              group-hover:text-emerald-100 transition-colors duration-300">
+                        "{{ Str::limit($s->accroche, 80) }}"
+                    </p>
+                    @endif
+                    <div style="display:flex; gap:12px; font-size:10px;"
+                         class="text-gray-300">
+                        <span class="group-hover:text-emerald-200 transition-colors duration-300">
+                            {{ $s->duree_annees }} ans
+                        </span>
+                        <span class="text-gray-200">—</span>
+                        <span class="group-hover:text-emerald-200 transition-colors duration-300">
+                            {{ $s->places_disponibles }} places
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-3 mt-6">
+                        <div class="h-px bg-[#F5B400] w-4 group-hover:w-8 transition-all duration-500"></div>
+                        <span class="text-[15px] font-bold tracking-widest uppercase text-[#F5B400]">
+                            En savoir plus
+                        </span>
+                    </div>
+                </div>
+            </a>
+            @endforeach
+        </div>
+        @endif
+
+        @endif
     </div>
-    @endif
+    @empty
+    <div class="py-24 text-center text-gray-400">
+        <p class="text-sm tracking-wide">Aucune mention disponible pour le moment.</p>
+    </div>
+    @endforelse
 
 </section>
 

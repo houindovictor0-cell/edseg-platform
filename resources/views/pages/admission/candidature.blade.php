@@ -5,7 +5,7 @@
 <x-page-hero
     titre="Déposer ma candidature"
     soustitre="Formulaire de candidature en ligne — Doctorat 2026–2027"
-    image="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1600&q=80"
+image="/images/slide.jpg"
     :breadcrumb="['Admission' => null, 'Candidature' => null]"
 />
 
@@ -26,14 +26,14 @@
     @endif
 
     <div style="margin-bottom:40px;">
-        <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C9962B; margin-bottom:8px;">
+        <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C99000; margin-bottom:8px;">
             Formulaire officiel
         </p>
-        <h2 class="garamond" style="font-size:32px; font-weight:400; color:#003366; margin-bottom:8px;">
+        <h2 class="garamond" style="font-size:32px; font-weight:400; color:#0B6E33; margin-bottom:8px;">
             Formulaire de présélection en ligne
         </h2>
-        <p style="font-size:13px; color:#6b7280;">
-            Tous les champs marqués d'un <span style="color:#dc2626;">*</span> sont obligatoires.
+        <p style="font-size:13px; color:#1A1A1A;">
+            Tous les champs marqués d'un <span style="color:#CE1126;">*</span> sont obligatoires.
         </p>
     </div>
 
@@ -50,19 +50,19 @@
             transition: border-color 0.2s;
             box-sizing: border-box;
         }
-        .cand-input:focus { border-color: #003366; }
-        .cand-input.error { border-color: #dc2626; }
+        .cand-input:focus { border-color: #0B6E33; }
+        .cand-input.error { border-color: #CE1126; }
         .cand-label {
             display: block;
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: #6b7280;
+            color: #1A1A1A;
             margin-bottom: 6px;
         }
         .cand-field { margin-bottom: 20px; }
-        .cand-error { font-size: 11px; color: #dc2626; margin-top: 4px; }
+        .cand-error { font-size: 11px; color: #CE1126; margin-top: 4px; }
         .cand-fieldset {
             border: 1px solid #e5e7eb;
             padding: 24px;
@@ -73,7 +73,7 @@
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: #003366;
+            color: #0B6E33;
             padding: 0 8px;
         }
         .cand-grid-2 {
@@ -85,7 +85,7 @@
             .cand-grid-2 { grid-template-columns: 1fr; }
         }
         .cand-btn {
-            background: #003366;
+            background: #0B6E33;
             color: white;
             border: none;
             padding: 14px 40px;
@@ -97,7 +97,7 @@
             transition: background 0.2s;
             font-family: 'Inter', sans-serif;
         }
-        .cand-btn:hover { background: #0055A4; }
+        .cand-btn:hover { background: #128A46; }
     </style>
 
     <form action="{{ route('admission.soumettre') }}" method="POST" enctype="multipart/form-data">
@@ -109,14 +109,14 @@
 
             <div class="cand-grid-2" style="margin-top:16px;">
                 <div class="cand-field">
-                    <label class="cand-label">Nom <span style="color:#dc2626;">*</span></label>
+                    <label class="cand-label">Nom <span style="color:#CE1126;">*</span></label>
                     <input type="text" name="nom" value="{{ old('nom') }}" required
                            class="cand-input {{ $errors->has('nom') ? 'error' : '' }}"
                            placeholder="Ex: Kouassi">
                     @error('nom')<div class="cand-error">{{ $message }}</div>@enderror
                 </div>
                 <div class="cand-field">
-                    <label class="cand-label">Prénom <span style="color:#dc2626;">*</span></label>
+                    <label class="cand-label">Prénom <span style="color:#CE1126;">*</span></label>
                     <input type="text" name="prenom" value="{{ old('prenom') }}" required
                            class="cand-input {{ $errors->has('prenom') ? 'error' : '' }}"
                            placeholder="Ex: Jean">
@@ -126,7 +126,7 @@
 
             <div class="cand-grid-2">
                 <div class="cand-field">
-                    <label class="cand-label">Email <span style="color:#dc2626;">*</span></label>
+                    <label class="cand-label">Email <span style="color:#CE1126;">*</span></label>
                     <input type="email" name="email" value="{{ old('email') }}" required
                            class="cand-input {{ $errors->has('email') ? 'error' : '' }}"
                            placeholder="votre@email.com">
@@ -153,14 +153,14 @@
 
             <div class="cand-grid-2" style="margin-top:16px;">
                 <div class="cand-field">
-                    <label class="cand-label">Diplôme obtenu <span style="color:#dc2626;">*</span></label>
+                    <label class="cand-label">Diplôme obtenu <span style="color:#CE1126;">*</span></label>
                     <input type="text" name="diplome_obtenu" value="{{ old('diplome_obtenu') }}" required
                            class="cand-input {{ $errors->has('diplome_obtenu') ? 'error' : '' }}"
                            placeholder="Ex: Master 2 Économie">
                     @error('diplome_obtenu')<div class="cand-error">{{ $message }}</div>@enderror
                 </div>
                 <div class="cand-field">
-                    <label class="cand-label">Établissement d'origine <span style="color:#dc2626;">*</span></label>
+                    <label class="cand-label">Établissement d'origine <span style="color:#CE1126;">*</span></label>
                     <input type="text" name="etablissement_origine" value="{{ old('etablissement_origine') }}" required
                            class="cand-input {{ $errors->has('etablissement_origine') ? 'error' : '' }}"
                            placeholder="Ex: Université d'Abomey-Calavi">
@@ -170,7 +170,7 @@
 
             <div class="cand-grid-2">
                 <div class="cand-field">
-                    <label class="cand-label">Spécialité souhaitée <span style="color:#dc2626;">*</span></label>
+                    <label class="cand-label">Spécialité souhaitée <span style="color:#CE1126;">*</span></label>
                     <select name="specialite_souhaitee" required
                             class="cand-input {{ $errors->has('specialite_souhaitee') ? 'error' : '' }}">
                         <option value="">-- Choisir une spécialité --</option>
@@ -222,7 +222,7 @@
                 <input type="file" name="dossier_fichier" accept=".pdf,.zip"
                        class="cand-input" style="padding:8px 14px; cursor:pointer;">
                 @error('dossier_fichier')<div class="cand-error">{{ $message }}</div>@enderror
-                <p style="font-size:11px; color:#9ca3af; margin-top:6px; line-height:1.5;">
+                <p style="font-size:11px; color:#1A1A1A; margin-top:6px; line-height:1.5;">
                     Le dossier doit inclure : CV, lettre de motivation, diplômes,
                     relevés de notes, lettres de recommandation, accord du directeur.
                 </p>
@@ -232,7 +232,7 @@
         {{-- DÉCLARATION --}}
         <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:32px; padding:20px; background:#f9fafb; border:1px solid #e5e7eb;">
             <input type="checkbox" name="declaration" id="declaration" required
-                   style="margin-top:3px; accent-color:#003366; width:16px; height:16px; flex-shrink:0;">
+                   style="margin-top:3px; accent-color:#0B6E33; width:16px; height:16px; flex-shrink:0;">
             <label for="declaration" style="font-size:13px; color:#374151; line-height:1.6; cursor:pointer;">
                 Je certifie que les informations fournies dans ce formulaire sont exactes et
                 complètes. Je m'engage à fournir des documents authentiques et à respecter
@@ -252,4 +252,3 @@
 </section>
 
 @endsection
-

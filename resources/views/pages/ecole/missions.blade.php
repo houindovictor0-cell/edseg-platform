@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Missions — EDSEG / UAC')
+@section('title', 'Missions — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -18,7 +18,7 @@
                     Une institution au service de la science et du continent
                 </h2>
                 <div class="text-gray-600 text-[15px] leading-relaxed">
-                    {!! nl2br(e($infosEcole['missions']->valeur ?? "L'EDSEG a pour vocation de former des chercheurs capables de produire des connaissances scientifiques originales, rigoureuses et pertinentes pour les réalités économiques et managériales du Bénin et de l'Afrique subsaharienne.")) !!}
+                    {!! nl2br(e($infosEcole['missions']->valeur ?? "L'ED-SEG a pour vocation de former des chercheurs capables de produire des connaissances scientifiques originales, rigoureuses et pertinentes pour les réalités économiques et managériales du Bénin et de l'Afrique subsaharienne.")) !!}
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
                 @foreach([
                     ['Formation', 'Offrir une formation doctorale de qualité, structurée autour d\'un encadrement de proximité, de séminaires scientifiques et d\'un suivi rigoureux des travaux de recherche.'],
                     ['Recherche', 'Produire des connaissances scientifiques originales sur les questions économiques et de gestion qui concernent le Bénin et l\'Afrique subsaharienne.'],
-                    ['Rayonnement', 'Positionner l\'EDSEG comme un pôle de référence en Afrique de l\'Ouest et renforcer ses liens avec les institutions académiques mondiales.'],
+                    ['Rayonnement', 'Positionner l\'ED-SEG comme un pôle de référence en Afrique de l\'Ouest et renforcer ses liens avec les institutions académiques mondiales.'],
                 ] as [$titre, $desc])
                 <div class="border-l-2 border-[#0B6E33] pl-8">
                     <h3 class="garamond text-2xl font-medium text-[#0B6E33] mb-3">{{ $titre }}</h3>

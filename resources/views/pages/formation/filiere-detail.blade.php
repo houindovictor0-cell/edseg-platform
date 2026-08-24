@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', $specialite->nom . ' — EDSEG / UAC')
+@section('title', $specialite->nom . ' — ED-SEG / UAC')
 @section('content')
 
 {{-- HERO SPÉCIALITÉ --}}
@@ -59,7 +59,7 @@
                 @foreach([
                     ['Durée', $specialite->duree_annees . ' ans'],
                     ['Places disponibles', $specialite->places_disponibles],
-                    ['Responsable', $specialite->responsable ?? 'EDSEG'],
+                    ['Responsable', $specialite->responsable ?? 'ED-SEG'],
                 ] as [$lbl, $val])
                 <div style="border-left:2px solid rgba(245,180,0,0.5); padding-left:16px;">
                     <p style="font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:4px;">{{ $lbl }}</p>
@@ -290,7 +290,7 @@
                     Campagne 2026–2027
                 </p>
                 <p class="garamond" style="font-size:22px; color:white; margin-bottom:8px; line-height:1.2;">
-                    Prêt à rejoindre l'EDSEG ?
+                    Prêt à rejoindre l'ED-SEG ?
                 </p>
                 <p style="font-size:12px; color:rgba(255,255,255,0.55); margin-bottom:24px; line-height:1.5;">
                     Dossiers acceptés jusqu'au 30 juin 2026

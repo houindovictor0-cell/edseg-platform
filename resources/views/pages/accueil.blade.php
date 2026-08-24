@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Accueil — EDSEG / UAC')
+@section('title', 'Accueil — ED-SEG / UAC')
 
 @section('content')
 
@@ -17,12 +17,12 @@
         </div>
 
         <div class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
-            <img src="/images/etude.png" alt="Doctorante EDSEG" class="w-full h-full object-cover">
+            <img src="/images/etude.png" alt="Doctorante ED-SEG" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-[#06421E]/90 via-[#06421E]/40 to-[#06421E]/20"></div>
         </div>
 
         <div class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
-            <img src="/images/presentation.png" alt="Recherche EDSEG" class="w-full h-full object-cover">
+            <img src="/images/presentation.png" alt="Recherche ED-SEG" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-[#06421E]/90 via-[#06421E]/40 to-[#06421E]/20"></div>
         </div>
 
@@ -78,7 +78,7 @@
             </h2>
             <div class="flex flex-wrap gap-3">
                 <a href="/ecole-doctorale/presentation" class="bg-[#0B6E33] hover:bg-[#06421E] text-white text-sm font-semibold px-6 py-3 rounded transition flex items-center gap-2">
-                    Découvrir l'EDSEG <span>→</span>
+                    Découvrir l'ED-SEG <span>→</span>
                 </a>
                 <a href="/admission/candidature" class="bg-[#F5B400] hover:bg-[#C99000] text-[#1A1A1A] text-sm font-semibold px-6 py-3 rounded transition">
                     Candidater maintenant
@@ -171,7 +171,7 @@
             <img src="{{ $premiere->image_url }}"
                  alt="{{ $premiere->titre }}"
                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                 onerror="this.src='/images/slide.jpg'">
+                 onerror="this.src='/images/edseg.jpg'">
         </div>
         <div class="p-10 lg:p-14 flex flex-col justify-center bg-white">
             <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[#C99000] mb-4">
@@ -227,7 +227,7 @@
             Une école doctorale d'excellence au cœur de l'Afrique
         </h3>
         <p class="text-gray-500 text-sm leading-relaxed mb-4">
-            Fondée au sein de l'Université d'Abomey-Calavi, l'EDSEG forme des docteurs en sciences économiques et en sciences de gestion capables de produire des connaissances originales et de contribuer au développement durable du Bénin et de l'Afrique.
+            Fondée au sein de l'Université d'Abomey-Calavi, l'ED-SEG forme des docteurs en sciences économiques et en sciences de gestion capables de produire des connaissances originales et de contribuer au développement durable du Bénin et de l'Afrique.
         </p>
         <p class="text-gray-500 text-sm leading-relaxed mb-6">
             Elle réunit des enseignants-chercheurs de haut niveau, des laboratoires actifs et un réseau de partenaires nationaux et internationaux de premier plan.
@@ -239,7 +239,7 @@
     </div>
     <div class="relative">
         <img src="/images/presentation.png"
-             alt="Étudiants EDSEG"
+             alt="Étudiants ED-SEG"
              class="w-full h-80 object-cover">
         <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-[#F5B400] -z-10"></div>
         <div class="absolute -top-4 -right-4 w-24 h-24 border-2 border-[#0B6E33] -z-10"></div>
@@ -261,7 +261,7 @@
 
             @foreach([
                 ['01', 'Déposer une candidature', 'Accédez au formulaire de candidature en ligne pour le doctorat 2026–2027.', 'Candidater', '/admission/candidature', '#0B6E33', 'white'],
-                ['02', 'Bibliothèque des thèses', 'Consultez et téléchargez les 85 thèses soutenues au sein de l\'EDSEG.', 'Consulter', '/recherche/theses', '#F5B400', 'dark'],
+                ['02', 'Bibliothèque des thèses', 'Consultez et téléchargez les 85 thèses soutenues au sein de l\'ED-SEG.', 'Consulter', '/recherche/theses', '#F5B400', 'dark'],
                 ['03', 'Séminaires doctoraux', 'Calendrier des séminaires scientifiques et supports des sessions passées.', 'Voir le calendrier', '/formation/seminaires', '#CE1126', 'white'],
                 ['04', 'Espace membres', 'Doctorants et enseignants, accédez à votre espace personnel sécurisé.', 'Se connecter', '/login', '#F5B400', 'dark'],            ] as [$num, $titre, $desc, $cta, $url, $couleur, $ton])
             <a href="{{ $url }}"
@@ -277,8 +277,13 @@
                     <div class="w-8 h-[2px] mb-6 {{ $ton === 'dark' ? 'bg-black/30' : 'bg-white/50' }}"></div>
 
                     @if($ton === 'dark')
-                        <h4 class="font-bold text-base leading-snug mb-4 text-[#1A1A1A]">{{ $titre }}</h4>
-                        <p class="text-xs leading-relaxed flex-1 text-black/60">{{ $desc }}</p>
+                        <h4 class="font-bold text-base leading-snug mb-4 text-[#1A1A1A]">
+    {{ $titre }}
+</h4>
+
+<p class="text-sm leading-relaxed flex-1 text-black/200">
+    {{ $desc }}
+</p>
                     @else
                         <h4 class="font-bold text-base leading-snug mb-4 text-white">{{ $titre }}</h4>
                         <p class="text-xs leading-relaxed flex-1 text-white/85">{{ $desc }}</p>
@@ -286,7 +291,7 @@
 
                     <div class="flex items-center gap-3 mt-8">
                         <div class="h-px w-6 group-hover:w-10 transition-all duration-500 {{ $ton === 'dark' ? 'bg-black/40' : 'bg-white' }}"></div>
-                        <span class="text-[10px] font-bold tracking-widest uppercase {{ $ton === 'dark' ? 'text-[#1A1A1A]' : 'text-white' }}">
+                        <span class="text-[12px] font-bold tracking-widest uppercase {{ $ton === 'dark' ? 'text-[#1A1A1A]' : 'text-white' }}">
                             {{ $cta }}
                         </span>
                     </div>

@@ -15,6 +15,7 @@ class Partenaire extends Model
     {
         if (!$this->image) return 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80';
         if (str_starts_with($this->image, 'http')) return $this->image;
+        if (str_starts_with($this->image, 'images/')) return asset($this->image);
         return asset('storage/' . $this->image);
     }
 }

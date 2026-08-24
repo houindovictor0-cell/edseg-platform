@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Partenariats Internationaux — EDSEG / UAC')
+@section('title', 'Partenariats Internationaux — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -15,7 +15,7 @@
         <div>
             <p class="text-[15px] font-semibold tracking-widest uppercase text-[#C99000] mb-4">Ouverture internationale</p>
             <h2 class="garamond text-4xl font-medium text-[#0B6E33] leading-snug mb-6">
-                L'EDSEG connectée au monde académique
+                L'ED-SEG connectée au monde académique
             </h2>
             <p class="text-[#1A1A1A] text-[15px] leading-relaxed">
                 Des partenariats avec des universités et institutions en Europe, en Amérique

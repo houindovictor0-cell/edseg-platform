@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Mot du Directeur — EDSEG / UAC')
+@section('title', 'Mot du Directeur — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -14,14 +14,14 @@
         {{-- Portrait --}}
         <div class="lg:col-span-1">
             <img src="/images/Directeur.png"
-                 alt="Directeur EDSEG"
+                 alt="Directeur ED-SEG"
                  class="w-full h-80 object-cover object-top mb-6">
             <div class="border-t-2 border-[#0B6E33] pt-5">
                 <p class="font-semibold text-[#0B6E33] text-sm">
                     {{ $infosEcole['nom_directeur']->valeur ?? 'Pr. [Nom du Directeur]' }}
                 </p>
                 <p class="text-gray-400 text-xs mt-1">
-                    {{ $infosEcole['titre_directeur']->valeur ?? 'Directeur de l\'EDSEG' }}
+                    {{ $infosEcole['titre_directeur']->valeur ?? 'Directeur de l\'ED-SEG' }}
                 </p>
                 <p class="text-gray-400 text-xs">Université d'Abomey-Calavi</p>
             </div>

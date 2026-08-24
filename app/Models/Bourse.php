@@ -29,6 +29,7 @@ class Bourse extends Model
             };
         }
         if (str_starts_with($this->image, 'http')) return $this->image;
+        if (str_starts_with($this->image, 'images/')) return asset($this->image);
         return asset('storage/' . $this->image);
     }
 

@@ -7,7 +7,7 @@
 <div class="page-header">
     <div class="page-label">Recherche</div>
     <h1 class="page-title">Projets de recherche</h1>
-    <p class="page-desc">Gérez les projets de recherche menés par les différents laboratoires de l'EDSEG.</p>
+    <p class="page-desc">Gérez les projets de recherche menés par les différents laboratoires de l'ED-SEG.</p>
 </div>
 
 @if(session('success'))

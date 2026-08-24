@@ -18,7 +18,7 @@ class CompteRejete extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Votre demande de compte EDSEG',
+            subject: 'Votre demande de compte ED-SEG',
         );
     }
 

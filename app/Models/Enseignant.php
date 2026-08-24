@@ -12,6 +12,7 @@ protected $fillable = [
     'nom',
     'prenom',
     'telephone',
+    'email',
     'photo',
     'grade',
     'specialite',
@@ -22,6 +23,7 @@ protected $fillable = [
     'provenance',
     'pays',
     'biographie',
+    'notes',
 ];
 
 
@@ -45,9 +47,21 @@ protected $fillable = [
         return $this->hasMany(Publication::class);
     }
 
+    public function specialites()
+    {
+        return $this->belongsToMany(Specialite::class, 'enseignant_specialite');
+    }
+
     public function archives()
 {
     return $this->morphMany(Archive::class, 'archivable')->orderByDesc('date_evenement');
 }
+
+    public function getPhotoUrlAttribute(): string
+    {
+        if (!$this->photo) return '/images/avatar.png';
+        if (str_starts_with($this->photo, 'http')) return $this->photo;
+        return asset('storage/' . $this->photo);
+    }
 }
 

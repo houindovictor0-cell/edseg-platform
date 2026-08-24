@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="École Doctorale des Sciences Économiques et de Gestion — Université d'Abomey-Calavi">
-    <title>@yield('title', 'EDSEG — UAC')</title>
+    <title>@yield('title', 'ED-SEG — UAC')</title>
     <link rel="stylesheet" href="{{ asset('css/enseignant-theses.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -195,7 +195,7 @@
                     <div class="flex-1 p-6 border-r border-gray-100">
                         <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-[#CE1126] mb-4">Institution</p>
                         @foreach([
-                            ['Présentation & Historique', 'Fondation, évolution et valeurs de l\'EDSEG', '/ecole-doctorale/presentation'],
+                            ['Présentation & Historique', 'Fondation, évolution et valeurs de l\'ED-SEG', '/ecole-doctorale/presentation'],
                             ['Missions & Objectifs', 'Former, Rechercher, Rayonner', '/ecole-doctorale/missions'],
                             ['Mot du Directeur', 'Message de bienvenue institutionnel', '/ecole-doctorale/mot-du-directeur'],
                         ] as [$titre, $desc, $url])
@@ -509,7 +509,7 @@
                             <div class="flex-1 bg-[#CE1126]"></div>
                         </div>
                         <div>
-                            <p class="font-semibold text-sm tracking-wider uppercase">EDSEG — UAC</p>
+                            <p class="font-semibold text-sm tracking-wider uppercase">ED-SEG — UAC</p>
                             <p class="text-gray-400 text-xs mt-0.5">Université d'Abomey-Calavi</p>
                         </div>
                     </div>

@@ -16,34 +16,11 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name'              => 'Pr. Cossi Emmanuel HOUNKOU',
             'email'             => 'ecoledoctoraleseguac@gmail.com',
-            'password'          => Hash::make('Admin@EDSEG2026'),
+            'password'          => Hash::make('Admin@ED-SEG2026'),
             'email_verified_at' => now(),
             'is_approved'       => true,
             'approved_at'       => now(),
         ]);
         $admin->assignRole('admin');
-
-        // Compte test enseignant
-        $enseignant = User::create([
-            'name'              => 'Pr. Augustin Foster CHABOSSOU',
-            'email'             => 'a.chabossou@edseg-uac.bj',
-            'password'          => Hash::make('Enseignant@2026'),
-            'email_verified_at' => now(),
-            'is_approved'       => true,
-            'approved_at'       => now(),
-        ]);
-        $enseignant->assignRole('enseignant');
-
-        // Compte test doctorant
-        $doctorant = User::create([
-            'name'              => 'Doctorant Test',
-            'email'             => 'doctorant@edseg-uac.bj',
-            'password'          => Hash::make('Doctorant@2026'),
-            'email_verified_at' => now(),
-            'is_approved'       => true,
-            'approved_at'       => now(),
-        ]);
-        $doctorant->assignRole('doctorant');
     }
 }
-

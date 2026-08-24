@@ -37,7 +37,6 @@
                         <tr>
                             <th style="min-width:180px;">Utilisateur</th>
                             <th style="min-width:200px;">Email</th>
-                            <th style="min-width:120px;">Profil demandé</th>
                             <th style="min-width:110px;">Inscription</th>
                             <th style="min-width:180px;">Actions</th>
                         </tr>
@@ -54,11 +53,6 @@
                                 </div>
                             </td>
                             <td style="font-family:'JetBrains Mono', monospace; font-size:11px;">{{ $u->email }}</td>
-                            <td>
-                                <span class="badge badge-blue">
-                                    {{ $u->role_souhaite ?? 'non précisé' }}
-                                </span>
-                            </td>
                             <td style="font-size:11px; font-family:'JetBrains Mono', monospace;">
                                 {{ $u->created_at->format('d M Y') }}
                             </td>
@@ -119,46 +113,19 @@
                             </td>
                             <td style="font-family:'JetBrains Mono', monospace; font-size:11px;">{{ $u->email }}</td>
                             <td>
-                                <div style="display:flex; flex-wrap:wrap; gap:4px;">
-                                    @foreach($u->roles as $role)
-                                    <span class="badge {{ $role->name === 'admin' ? 'badge-gold' : ($role->name === 'enseignant' ? 'badge-blue' : 'badge-gray') }}">
-                                        {{ $role->name }}
-                                    </span>
-                                    @endforeach
-                                </div>
+                                <span class="badge badge-gold">admin</span>
                             </td>
                             <td style="font-family:'JetBrains Mono', monospace; font-size:11px;">
                                 {{ $u->created_at->format('d M Y') }}
                             </td>
                             <td>
                                 <div class="actions-cell">
-                                    <button onclick="toggleEdit('role-{{ $u->id }}')"
-                                            class="btn btn-sm btn-outline">Rôle</button>
                                     <form action="{{ route('admin.utilisateurs.rejeter', $u->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-danger"
                                                 data-confirm="Désactiver ce compte ?">
                                             Désactiver
                                         </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        {{-- Modifier le rôle inline --}}
-                        <tr id="role-{{ $u->id }}" style="display:none;">
-                            <td colspan="6" style="padding:0; white-space:normal;">
-                                <div style="padding:16px 20px; background:var(--bg-elevated);">
-                                    <form action="{{ route('admin.utilisateurs.changerRole', $u->id) }}" method="POST"
-                                          style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-                                        @csrf
-                                        <label class="form-label" style="margin-bottom:0;">Rôle</label>
-                                        <select name="role_souhaite" class="form-input form-select" style="width:auto; padding:6px 12px;">
-                                            <option value="enseignant" {{ $u->hasRole('enseignant') ? 'selected' : '' }}>Enseignant</option>
-                                            <option value="admin" {{ $u->hasRole('admin') ? 'selected' : '' }}>Admin</option>
-                                        </select>
-                                        <button type="submit" class="btn btn-gold btn-sm">Enregistrer</button>
-                                        <button type="button" onclick="toggleEdit('role-{{ $u->id }}')"
-                                                class="btn btn-outline btn-sm">Annuler</button>
                                     </form>
                                 </div>
                             </td>
@@ -189,13 +156,6 @@
                     <label class="form-label">Email</label>
                     <input type="email" name="email" class="form-input" required
                            placeholder="jean.kouassi@uac.bj">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Rôle</label>
-                    <select name="role" class="form-input form-select" required>
-                        <option value="enseignant">Enseignant-chercheur</option>
-                        <option value="admin">Administrateur</option>
-                    </select>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Mot de passe temporaire</label>

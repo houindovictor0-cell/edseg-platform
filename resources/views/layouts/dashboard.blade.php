@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Administration') — EDSEG</title>
+    <title>@yield('title', 'Administration') — ED-SEG</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -236,6 +236,18 @@
         </div>
 
         <div class="sidebar-section">
+            <div class="sidebar-section-label">Annuaire & Archive</div>
+            <a href="{{ route('admin.doctorants') }}"
+               class="nav-item {{ request()->routeIs('admin.doctorants*') ? 'active' : '' }}">
+                <span class="dot"></span> Doctorants
+            </a>
+            <a href="{{ route('admin.enseignants') }}"
+               class="nav-item {{ request()->routeIs('admin.enseignants*') ? 'active' : '' }}">
+                <span class="dot"></span> Enseignants
+            </a>
+        </div>
+
+        <div class="sidebar-section">
             <div class="sidebar-section-label">Recherche</div>
             <a href="{{ route('admin.recherche') }}"
                class="nav-item {{ request()->routeIs('admin.recherche*') ? 'active' : '' }}">
@@ -315,7 +327,7 @@
     <div class="topbar">
         <button id="burger" class="btn-outline btn-sm" style="display:none;" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
         <div class="topbar-breadcrumb">
-            <span>EDSEG</span>
+            <span>ED-SEG</span>
             <span class="sep">/</span>
             <span>Admin</span>
             <span class="sep">/</span>

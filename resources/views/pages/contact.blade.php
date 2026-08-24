@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Contact — EDSEG / UAC')
+@section('title', 'Contact — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
     titre="Nous contacter"
     soustitre="Notre équipe vous répond dans les meilleurs délais"
-    image="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600&q=80"
+    image="/images/contact.png"
     :breadcrumb="['Contact' => null]"
 />
 

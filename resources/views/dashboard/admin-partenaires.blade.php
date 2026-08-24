@@ -7,7 +7,7 @@
 <div class="page-header">
     <div class="page-label">Coopération</div>
     <h1 class="page-title">Partenaires institutionnels</h1>
-    <p class="page-desc">Gérez les partenariats nationaux et internationaux de l'EDSEG.</p>
+    <p class="page-desc">Gérez les partenariats nationaux et internationaux de l'ED-SEG.</p>
 </div>
 
 @if(session('success'))

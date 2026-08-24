@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Thèses Soutenues — EDSEG / UAC')
+@section('title', 'Thèses Soutenues — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -15,7 +15,7 @@
         <div>
             <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C99000] mb-4">Production scientifique</p>
             <h2 class="garamond text-4xl font-medium text-[#0B6E33] leading-snug mb-6">
-                {{ $theses->total() }} thèse(s) soutenue(s) à l'EDSEG
+                {{ $theses->total() }} thèse(s) soutenue(s) à l'ED-SEG
             </h2>
             <p class="text-[#1A1A1A] text-[15px] leading-relaxed">
                 Cette bibliothèque numérique recense l'ensemble des thèses soutenues.

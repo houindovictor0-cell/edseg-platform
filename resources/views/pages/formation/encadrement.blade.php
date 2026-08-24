@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Encadrement & Tutorat — EDSEG / UAC')
+@section('title', 'Encadrement & Tutorat — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -19,7 +19,7 @@
             </h2>
             <p class="text-[#1A1A1A] text-sm leading-relaxed mb-4">
                 Chaque doctorant est suivi par un directeur de thèse habilité, membre du corps enseignant de
-                l'EDSEG. Un comité de suivi individuel veille à l'avancement des travaux de manière indépendante.
+                l'ED-SEG. Un comité de suivi individuel veille à l'avancement des travaux de manière indépendante.
             </p>
             <p class="text-[#1A1A1A] text-sm leading-relaxed">
                 Le tutorat complète l'encadrement scientifique en accompagnant le doctorant dans son intégration,

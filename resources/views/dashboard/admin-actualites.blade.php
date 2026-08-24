@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Actualités — Administration EDSEG')
+@section('title', 'Actualités — Administration ED-SEG')
 @section('content')
 
 <div class="bg-[#F5F7FA] min-h-screen">

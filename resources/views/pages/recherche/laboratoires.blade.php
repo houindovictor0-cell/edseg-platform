@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Laboratoires & Unités de Recherche — EDSEG / UAC')
+@section('title', 'Laboratoires & Unités de Recherche — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -18,13 +18,13 @@
                 Des laboratoires engagés dans la recherche appliquée au développement
             </h2>
             <p class="text-[#1A1A1A] text-[15px] leading-relaxed">
-                Les unités de recherche de l'EDSEG constituent le socle scientifique de l'école doctorale.
+                Les unités de recherche de l'ED-SEG constituent le socle scientifique de l'école doctorale.
                 Chaque laboratoire regroupe des enseignants-chercheurs et des doctorants autour de
                 thématiques de recherche cohérentes et complémentaires, en lien étroit avec les réalités
                 économiques et managériales du Bénin et de l'Afrique subsaharienne.
             </p>
         </div>
-        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=900&q=80"
+        <img src="/images/lab.png"
              alt="Laboratoire de recherche"
              class="w-full h-80 object-cover object-center">
     </div>

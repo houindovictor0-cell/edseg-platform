@@ -13,8 +13,9 @@ class Seminaire extends Model
 
     public function getAfficheUrlAttribute(): string
     {
-        if (!$this->affiche) return 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80';
+        if (!$this->affiche) return '/images/seminaire.png';
         if (str_starts_with($this->affiche, 'http')) return $this->affiche;
+        if (str_starts_with($this->affiche, 'images/')) return asset($this->affiche);
         return asset('storage/' . $this->affiche);
     }
 }

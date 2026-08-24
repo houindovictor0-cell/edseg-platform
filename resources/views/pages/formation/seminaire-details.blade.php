@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', $seminaire->titre . ' — EDSEG / UAC')
+@section('title', $seminaire->titre . ' — ED-SEG / UAC')
 @section('content')
 
 {{-- HERO avec affiche --}}

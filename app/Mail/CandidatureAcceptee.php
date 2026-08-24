@@ -18,7 +18,7 @@ class CandidatureAcceptee extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Félicitations — Votre candidature au doctorat EDSEG a été acceptée',
+            subject: 'Félicitations — Votre candidature au doctorat ED-SEG a été acceptée',
         );
     }
 

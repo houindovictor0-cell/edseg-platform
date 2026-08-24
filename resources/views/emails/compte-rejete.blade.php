@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Demande de compte — EDSEG</title>
+    <title>Demande de compte — ED-SEG</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f2f5; padding: 40px 20px; }
@@ -30,7 +30,7 @@
     <div class="header">
         <span class="header-bar"></span>
         <span class="header-title">
-            <p>EDSEG — UAC</p>
+            <p>ED-SEG — UAC</p>
             <span>École Doctorale des Sciences Économiques et de Gestion</span>
         </span>
     </div>
@@ -58,7 +58,7 @@
         </div>
 
         <p class="text">
-            Si vous êtes bien un doctorant inscrit ou un enseignant-chercheur de l'EDSEG,
+            Si vous êtes bien un doctorant inscrit ou un enseignant-chercheur de l'ED-SEG,
             merci de vous munir de votre numéro de matricule et de contacter le secrétariat
             pour régulariser votre situation.
         </p>
@@ -66,7 +66,7 @@
         <div class="divider"></div>
 
         <p class="text" style="font-size:13px; color:#94a3b8;">
-            Secrétariat EDSEG —
+            Secrétariat ED-SEG —
             <a href="mailto:contact@edseg-uac.bj" style="color:#0f1f3d;">contact@edseg-uac.bj</a>
         </p>
     </div>

@@ -15,7 +15,6 @@ use App\Http\Controllers\Admin\SeminaireAdminController;
 use App\Http\Controllers\Admin\BourseAdminController;
 use App\Http\Controllers\Admin\TheseAdminController;
 use App\Http\Controllers\Admin\EcoleAdminController;
-use App\Http\Controllers\EnseignantTheseController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\DoctorantAdminController;
 use App\Http\Controllers\Admin\EnseignantAdminController;
@@ -95,25 +94,8 @@ Route::post('/contact', [PageController::class, 'envoyerContact'])->name('contac
 Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Doctorant ──
-    Route::prefix('doctorant')->group(function () {
-        Route::get('/these', [DashboardController::class, 'these'])->name('doctorant.these');
-        Route::get('/rapports', [DashboardController::class, 'rapports'])->name('doctorant.rapports');
-        Route::post('/rapports', [DashboardController::class, 'deposerRapport'])->name('doctorant.rapports.deposer');
-        Route::get('/messages', [DashboardController::class, 'messages'])->name('doctorant.messages');
-        Route::post('/messages', [DashboardController::class, 'envoyerMessage'])->name('doctorant.messages.envoyer');
-    });
-
-    // Enseignant ──
-    Route::prefix('enseignant')->group(function () {
-        Route::get('/theses', [DashboardController::class, 'thesesEncadrees'])->name('enseignant.theses');
-        Route::get('/publications', [DashboardController::class, 'publications'])->name('enseignant.publications');
-        Route::post('/publications', [DashboardController::class, 'deposerPublication'])->name('enseignant.publications.deposer');
-    });
-    
-    
     //  Admin ──
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->middleware('role:admin')->group(function () {
         Route::get('/', [DashboardController::class, 'admin'])->name('admin.index');
         // Candidatures
         Route::get('/candidatures', [DashboardController::class, 'candidatures'])->name('admin.candidatures');
@@ -123,7 +105,6 @@ Route::middleware(['auth', 'approved'])->group(function () {
         Route::post('/utilisateurs', [DashboardController::class, 'storeUtilisateur'])->name('admin.utilisateurs.store');
         Route::post('/utilisateurs/{id}/approuver', [DashboardController::class, 'approuverUtilisateur'])->name('admin.utilisateurs.approuver');
         Route::post('/utilisateurs/{id}/rejeter', [DashboardController::class, 'rejeterUtilisateur'])->name('admin.utilisateurs.rejeter');
-        Route::post('/utilisateurs/{id}/role', [DashboardController::class, 'changerRole'])->name('admin.utilisateurs.changerRole');
         // Chiffres clés
         Route::get('/chiffres', [ChiffresController::class, 'index'])->name('admin.chiffres');
         Route::put('/chiffres', [ChiffresController::class, 'update'])->name('admin.chiffres.update');
@@ -192,6 +173,8 @@ Route::post('/doctorants', [DoctorantAdminController::class, 'store'])->name('ad
 Route::get('/doctorants/{id}/edit', [DoctorantAdminController::class, 'edit'])->name('admin.doctorants.edit');
 Route::put('/doctorants/{id}', [DoctorantAdminController::class, 'update'])->name('admin.doctorants.update');
 Route::delete('/doctorants/{id}', [DoctorantAdminController::class, 'destroy'])->name('admin.doctorants.destroy');
+Route::post('/doctorants/{id}/resultats', [DoctorantAdminController::class, 'storeResultat'])->name('admin.doctorants.resultats.store');
+Route::delete('/doctorants/resultats/{id}', [DoctorantAdminController::class, 'destroyResultat'])->name('admin.doctorants.resultats.destroy');
 
 Route::get('/enseignants', [EnseignantAdminController::class, 'index'])->name('admin.enseignants');
 Route::post('/enseignants', [EnseignantAdminController::class, 'store'])->name('admin.enseignants.store');
@@ -211,16 +194,6 @@ Route::delete('/enseignants/{id}', [EnseignantAdminController::class, 'destroy']
 
 
 });
-
-Route::get('dashboard/enseignant-theses-create',
-    [EnseignantTheseController::class, 'create']
-)->name('enseignant.theses.create');
-
-
-Route::post('/enseignant/theses',
-    [EnseignantTheseController::class, 'store']
-)->name('enseignant.theses.store');
-
 
 // ─────────────────────────────────────────────────────────
 //  AUTH LARAVEL

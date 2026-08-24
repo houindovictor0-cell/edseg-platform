@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', $actualite->titre . ' — EDSEG / UAC')
+@section('title', $actualite->titre . ' — ED-SEG / UAC')
 @section('content')
 @use('Illuminate\Support\Facades\Storage')
 <x-page-hero
@@ -23,15 +23,13 @@
                 </span>
                 <span class="text-[#CE1126]">—</span>
                 <span class="text-xs text-[#1A1A1A]">
-                    Publié par {{ $actualite->auteur?->name ?? 'EDSEG' }}
+                    Publié par {{ $actualite->auteur?->name ?? 'ED-SEG' }}
                 </span>
             </div>
 
             @if($actualite->image)
             <img
- src="{{ Str::startsWith($actualite->image, ['http://', 'https://'])
-        ? $actualite->image
-        : asset('storage/' . $actualite->image) }}"
+    src="{{ $actualite->image_url }}"
     alt="{{ $actualite->titre }}"
     class="w-full h-44 object-cover mb-4">
             @endif

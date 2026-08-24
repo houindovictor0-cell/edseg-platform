@@ -5,16 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Helpers\Logger;
 use App\Models\Enseignant;
-use App\Models\User;
+use App\Models\Specialite;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class EnseignantAdminController extends Controller
 {
     public function index()
     {
-        $enseignants = Enseignant::with('user')->orderBy('nom')->get();
-        return view('dashboard.admin-enseignants', compact('enseignants'));
+        $enseignants = Enseignant::with(['user', 'specialites', 'publications'])->orderBy('nom')->get();
+        $specialites = Specialite::orderBy('nom')->get();
+        return view('dashboard.admin-enseignants', compact('enseignants', 'specialites'));
     }
 
     public function store(Request $request)
@@ -22,10 +23,9 @@ class EnseignantAdminController extends Controller
         $request->validate([
             'nom'                  => 'required|string|max:150',
             'prenom'               => 'required|string|max:150',
-            'email'                => 'nullable|email|unique:users,email',
-            'password'             => 'nullable|min:8|required_with:email',
             'matricule'            => 'nullable|string|max:50|unique:enseignants',
             'telephone'            => 'nullable|string|max:30',
+            'email'                => 'nullable|email|max:255',
             'grade'                => 'required|string|max:100',
             'specialite'           => 'required|string|max:150',
             'etablissement'        => 'required|string|max:200',
@@ -33,32 +33,19 @@ class EnseignantAdminController extends Controller
             'provenance'           => 'nullable|string|max:150',
             'pays'                 => 'nullable|string|max:100',
             'biographie'           => 'nullable|string',
+            'notes'                => 'nullable|string',
             'quota_theses'         => 'nullable|integer|min:0',
+            'photo'                => 'nullable|image|max:2048',
+            'specialites_enseignees' => 'nullable|array',
+            'specialites_enseignees.*' => 'exists:specialites,id',
         ]);
 
-        $userId = null;
-
-        if ($request->filled('email')) {
-            $user = User::create([
-                'name'              => $request->prenom . ' ' . $request->nom,
-                'email'             => $request->email,
-                'password'          => Hash::make($request->password),
-                'role_souhaite'     => 'enseignant',
-                'is_approved'       => true,
-                'approved_at'       => now(),
-                'approved_by'       => auth()->id(),
-                'email_verified_at' => now(),
-            ]);
-            $user->assignRole('enseignant');
-            $userId = $user->id;
-        }
-
-        $enseignant = Enseignant::create([
-            'user_id'             => $userId,
+        $data = [
             'matricule'           => $request->matricule,
             'nom'                 => $request->nom,
             'prenom'              => $request->prenom,
             'telephone'           => $request->telephone,
+            'email'               => $request->email,
             'grade'               => $request->grade,
             'specialite'          => $request->specialite,
             'etablissement'       => $request->etablissement,
@@ -68,7 +55,15 @@ class EnseignantAdminController extends Controller
             'provenance'          => $request->provenance,
             'pays'                => $request->pays,
             'biographie'          => $request->biographie,
-        ]);
+            'notes'               => $request->notes,
+        ];
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('enseignants/photos', 'public');
+        }
+
+        $enseignant = Enseignant::create($data);
+        $enseignant->specialites()->sync($request->input('specialites_enseignees', []));
 
         Logger::log(
             "Enseignant créé — {$enseignant->prenom} {$enseignant->nom}",
@@ -83,9 +78,10 @@ class EnseignantAdminController extends Controller
 
     public function edit($id)
     {
-        $enseignant  = Enseignant::with('user')->findOrFail($id);
-        $enseignants = Enseignant::with('user')->orderBy('nom')->get();
-        return view('dashboard.admin-enseignants', compact('enseignants', 'enseignant'));
+        $enseignant  = Enseignant::with(['user', 'specialites', 'publications'])->findOrFail($id);
+        $enseignants = Enseignant::with(['user', 'specialites', 'publications'])->orderBy('nom')->get();
+        $specialites = Specialite::orderBy('nom')->get();
+        return view('dashboard.admin-enseignants', compact('enseignants', 'enseignant', 'specialites'));
     }
 
     public function update(Request $request, $id)
@@ -97,6 +93,7 @@ class EnseignantAdminController extends Controller
             'prenom'               => 'required|string|max:150',
             'matricule'            => 'nullable|string|max:50|unique:enseignants,matricule,' . $id,
             'telephone'            => 'nullable|string|max:30',
+            'email'                => 'nullable|email|max:255',
             'grade'                => 'required|string|max:100',
             'specialite'           => 'required|string|max:150',
             'etablissement'        => 'required|string|max:200',
@@ -104,14 +101,19 @@ class EnseignantAdminController extends Controller
             'provenance'           => 'nullable|string|max:150',
             'pays'                 => 'nullable|string|max:100',
             'biographie'           => 'nullable|string',
+            'notes'                => 'nullable|string',
             'quota_theses'         => 'nullable|integer|min:0',
+            'photo'                => 'nullable|image|max:2048',
+            'specialites_enseignees' => 'nullable|array',
+            'specialites_enseignees.*' => 'exists:specialites,id',
         ]);
 
-        $enseignant->update([
+        $data = [
             'nom'                 => $request->nom,
             'prenom'              => $request->prenom,
             'matricule'           => $request->matricule,
             'telephone'           => $request->telephone,
+            'email'               => $request->email,
             'grade'               => $request->grade,
             'specialite'          => $request->specialite,
             'etablissement'       => $request->etablissement,
@@ -121,7 +123,18 @@ class EnseignantAdminController extends Controller
             'provenance'          => $request->provenance,
             'pays'                => $request->pays,
             'biographie'          => $request->biographie,
-        ]);
+            'notes'               => $request->notes,
+        ];
+
+        if ($request->hasFile('photo')) {
+            if ($enseignant->photo) {
+                Storage::disk('public')->delete($enseignant->photo);
+            }
+            $data['photo'] = $request->file('photo')->store('enseignants/photos', 'public');
+        }
+
+        $enseignant->update($data);
+        $enseignant->specialites()->sync($request->input('specialites_enseignees', []));
 
         if ($enseignant->user) {
             $enseignant->user->update(['name' => $request->prenom . ' ' . $request->nom]);
@@ -144,10 +157,13 @@ class EnseignantAdminController extends Controller
 
         Logger::log("Enseignant supprimé — {$nom}", 'Enseignant', $id);
 
+        if ($enseignant->photo) {
+            Storage::disk('public')->delete($enseignant->photo);
+        }
+
         $enseignant->delete();
 
         return redirect()->route('admin.enseignants')
             ->with('success', "Profil de {$nom} supprimé.");
     }
 }
-

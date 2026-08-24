@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Séminaires Doctoraux — EDSEG / UAC')
+@section('title', 'Séminaires Doctoraux — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
     titre="Séminaires Doctoraux"
-    soustitre="Des rencontres intellectuelles régulières au cœur de la vie scientifique de l'EDSEG"
-    image="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80"
+    soustitre="Des rencontres intellectuelles régulières au cœur de la vie scientifique de l'ED-SEG"
+    image="/images/seminaire.png"
     :breadcrumb="['Formation' => null, 'Séminaires' => null]"
 />
 
@@ -18,7 +18,7 @@
                 Des échanges qui nourrissent la recherche
             </h2>
             <p class="text-[#1A1A1A] text-[15px] leading-relaxed">
-                Les séminaires doctoraux sont au cœur de la vie intellectuelle de l'EDSEG.
+                Les séminaires doctoraux sont au cœur de la vie intellectuelle de l'ED-SEG.
                 Ils permettent aux doctorants de présenter leurs travaux, de recevoir des
                 retours critiques et d'élargir leur culture scientifique.
             </p>

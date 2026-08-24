@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Axes de Recherche — EDSEG / UAC')
+@section('title', 'Axes de Recherche — ED-SEG / UAC')
 
 @section('content')
 

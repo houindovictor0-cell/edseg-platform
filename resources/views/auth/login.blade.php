@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion — EDSEG / UAC</title>
+    <title>Connexion — ED-SEG / UAC</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -361,7 +361,7 @@
 
         <div class="left-quote left-content">
             <p>"Former les chercheurs qui transforment l'Afrique."</p>
-            <div class="author">EDSEG — UAC</div>
+            <div class="author">ED-SEG — UAC</div>
         </div>
 
         <div class="left-stats left-content">
@@ -441,12 +441,6 @@
                     Se connecter →
                 </button>
             </form>
-
-            <div class="divider"><span>ou</span></div>
-
-            <a href="{{ route('register') }}" class="btn-register">
-                Créer un compte
-            </a>
 
             <a href="/" class="back-link">
                 ← Retour au site public

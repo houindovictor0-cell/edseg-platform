@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compte activé — EDSEG</title>
+    <title>Compte activé — ED-SEG</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f2f5; padding: 40px 20px; }
@@ -32,14 +32,14 @@
     <div class="header">
         <span class="header-bar"></span>
         <span class="header-title">
-            <p>EDSEG — UAC</p>
+            <p>ED-SEG — UAC</p>
             <span>École Doctorale des Sciences Économiques et de Gestion</span>
         </span>
     </div>
 
     <div class="body">
         <div class="tag">Activation de compte</div>
-        <h1 class="title">Bienvenue sur la plateforme de l'EDSEG, {{ $user->name }} !</h1>
+        <h1 class="title">Bienvenue sur la plateforme de l'ED-SEG, {{ $user->name }} !</h1>
 
         <p class="text">
             Nous avons le plaisir de vous informer que votre compte sur la plateforme de l'École
@@ -58,7 +58,7 @@
         <p class="text">
             Vous pouvez désormais accéder à votre espace personnel pour suivre votre thèse,
             déposer vos rapports d'avancement, communiquer avec votre directeur de thèse
-            et accéder à l'ensemble des ressources pédagogiques de l'EDSEG.
+            et accéder à l'ensemble des ressources pédagogiques de l'ED-SEG.
         </p>
 
         <a href="{{ url('/login') }}" class="btn">Accéder à mon espace →</a>

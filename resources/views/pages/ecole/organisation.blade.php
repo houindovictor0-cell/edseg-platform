@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Organisation & Gouvernance — EDSEG / UAC')
+@section('title', 'Organisation & Gouvernance — ED-SEG / UAC')
 
 @section('content')
 
@@ -88,13 +88,14 @@
             <tbody>
                 @php
 
-function centrerPrestige(array $liste): array {
-    $titulaires = array_values(array_filter($liste, fn($e) => str_contains($e[1], 'Titulaire')));
-    $autres = array_values(array_filter($liste, fn($e) => !str_contains($e[1], 'Titulaire')));
-    $milieu = (int) floor(count($autres) / 2);
-    $premiere = array_slice($autres, 0, $milieu);
-    $derniere = array_slice($autres, $milieu);
-    return array_merge($premiere, $titulaires, $derniere);
+function trierParGrade(array $liste): array {
+    $rang = function ($e) {
+        if (str_contains($e[1], 'Titulaire')) return 0;
+        if (str_contains($e[1], 'Agrégé')) return 1;
+        return 2;
+    };
+    usort($liste, fn($a, $b) => $rang($a) <=> $rang($b));
+    return $liste;
 }
 
 
@@ -163,9 +164,9 @@ function centrerPrestige(array $liste): array {
                     ['PILO Mikémina', 'Maître de Conférences Agrégé', 'Économie', 'Université de Kara', 'int', 'Togo'],
                     ['TAHIROU YOUNOUSSI MEDA Adama', 'Maître de Conférences Agrégé', 'Économie', 'Université Daouda Hamani de Tahoua', 'int', 'Niger'],
                 ];
-                $economie_uac = centrerPrestige($economie_uac);
-                $gestion = centrerPrestige($gestion);
-                $etrangers = centrerPrestige($etrangers);
+                $economie_uac = trierParGrade($economie_uac);
+                $gestion = trierParGrade($gestion);
+                $etrangers = trierParGrade($etrangers);
                 $n = 1;
                 @endphp
 

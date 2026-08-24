@@ -9,9 +9,7 @@ use App\Mail\CandidatureAcceptee;
 use App\Mail\CandidatureRejetee;
 use App\Models\ActivityLog;
 use App\Models\Candidature;
-use App\Models\Message;
 use App\Models\Publication;
-use App\Models\RapportAvancement;
 use App\Models\These;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +17,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Enseignant;
-use App\Models\Doctorant;
 use App\Models\Partenaire;
 class DashboardController extends Controller
 {
@@ -27,173 +24,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
-
-        if ($user->hasRole('admin')) {
-            return redirect()->route('admin.index');
-        }
-
-        if ($user->hasRole('enseignant')) {
-            $enseignant  = $user->enseignant;
-            $theses      = These::where('directeur_id', $enseignant?->id)->get();
-            $publications = Publication::where('enseignant_id', $enseignant?->id)->get();
-            return view('dashboard.enseignant', compact('enseignant', 'theses', 'publications'));
-        }
-
-        $doctorant = $user->doctorant;
-        $these     = These::where('doctorant_id', $doctorant?->id)->first();
-        $rapports  = RapportAvancement::where('doctorant_id', $doctorant?->id)
-                        ->orderBy('created_at', 'desc')->get();
-        $messages  = Message::where('destinataire_id', $user->id)
-                        ->orderBy('created_at', 'desc')->take(5)->get();
-
-        return view('dashboard.doctorant', compact('doctorant', 'these', 'rapports', 'messages'));
-    }
-
-    // ── DOCTORANT ────────────────────────────────────────────────────────────
-
-    public function these()
-    {
-        $doctorant = Auth::user()->doctorant;
-        $these     = These::where('doctorant_id', $doctorant?->id)->first();
-        return view('dashboard.doctorant-these', compact('these', 'doctorant'));
-    }
-
-    public function rapports()
-    {
-        $doctorant = Auth::user()->doctorant;
-        $rapports  = RapportAvancement::where('doctorant_id', $doctorant?->id)
-                        ->orderBy('created_at', 'desc')->get();
-        return view('dashboard.doctorant-rapports', compact('rapports', 'doctorant'));
-    }
-
-    public function deposerRapport(Request $request)
-    {
-        $request->validate([
-            'titre'   => 'required|string|max:255',
-            'contenu' => 'nullable|string',
-            'fichier' => 'nullable|file|mimes:pdf|max:20480',
-        ]);
-
-        $doctorant = Auth::user()->doctorant;
-        $these     = These::where('doctorant_id', $doctorant->id)->firstOrFail();
-
-        $data = [
-            'doctorant_id'    => $doctorant->id,
-            'these_id'        => $these->id,
-            'titre'           => $request->titre,
-            'contenu'         => $request->contenu,
-            'statut'          => 'soumis',
-            'date_soumission' => now(),
-        ];
-
-        if ($request->hasFile('fichier')) {
-            $data['fichier'] = $request->file('fichier')->store('rapports', 'private');
-        }
-
-        RapportAvancement::create($data);
-
-        Logger::log(
-            "Rapport soumis — {$request->titre}",
-            'RapportAvancement',
-            null,
-            "Doctorant : {$doctorant->prenom} {$doctorant->nom}"
-        );
-
-        return redirect()->route('doctorant.rapports')
-            ->with('success', 'Rapport soumis avec succès.');
-    }
-
-    public function messages()
-    {
-        $messages = Message::where('destinataire_id', Auth::id())
-                        ->orderBy('created_at', 'desc')->get();
-
-        // Marquer comme lus
-        Message::where('destinataire_id', Auth::id())
-                ->where('lu', false)
-                ->update(['lu' => true, 'date_lecture' => now()]);
-
-        return view('dashboard.messages', compact('messages'));
-    }
-
-    public function envoyerMessage(Request $request)
-    {
-        $request->validate([
-            'destinataire_id' => 'required|exists:users,id',
-            'sujet'           => 'required|string|max:255',
-            'contenu'         => 'required|string',
-        ]);
-
-        $message = Message::create([
-            'expediteur_id'   => Auth::id(),
-            'destinataire_id' => $request->destinataire_id,
-            'sujet'           => $request->sujet,
-            'contenu'         => $request->contenu,
-        ]);
-
-        $destinataire = User::find($request->destinataire_id);
-
-        Logger::log(
-            "Message envoyé — {$request->sujet}",
-            'Message',
-            $message->id,
-            "À : {$destinataire?->name}"
-        );
-
-        return redirect()->back()->with('success', 'Message envoyé.');
-    }
-
-    // ── ENSEIGNANT ───────────────────────────────────────────────────────────
-
-    public function thesesEncadrees()
-    {
-        $enseignant = Auth::user()->enseignant;
-        $theses     = These::where('directeur_id', $enseignant?->id)
-                        ->with('doctorant')->get();
-        return view('dashboard.enseignant-theses', compact('theses', 'enseignant'));
-    }
-
-    public function publications()
-    {
-        $enseignant   = Auth::user()->enseignant;
-        $publications = Publication::where('enseignant_id', $enseignant?->id)
-                            ->orderBy('annee_publication', 'desc')->get();
-        return view('dashboard.enseignant-publications', compact('publications', 'enseignant'));
-    }
-
-    public function deposerPublication(Request $request)
-    {
-        $request->validate([
-            'titre'             => 'required|string|max:255',
-            'auteurs'           => 'required|string|max:255',
-            'type'              => 'required|in:article,ouvrage,chapitre,conference',
-            'annee_publication' => 'required|integer|min:2000|max:2099',
-            'revue'             => 'nullable|string|max:255',
-            'doi'               => 'nullable|string|max:255',
-            'lien_externe'      => 'nullable|url',
-            'fichier'           => 'nullable|file|mimes:pdf|max:20480',
-        ]);
-
-        $enseignant = Auth::user()->enseignant;
-        $data       = $request->except('fichier');
-        $data['enseignant_id'] = $enseignant->id;
-
-        if ($request->hasFile('fichier')) {
-            $data['fichier'] = $request->file('fichier')->store('publications', 'private');
-        }
-
-        Publication::create($data);
-
-        Logger::log(
-            "Publication déposée — {$request->titre}",
-            'Publication',
-            null,
-            "Enseignant : {$enseignant->prenom} {$enseignant->nom}"
-        );
-
-        return redirect()->route('enseignant.publications')
-            ->with('success', 'Publication ajoutée avec succès.');
+        return redirect()->route('admin.index');
     }
 
     // ── ADMIN ────────────────────────────────────────────────────────────────
@@ -305,14 +136,12 @@ class DashboardController extends Controller
         $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
-            'role'     => 'required|in:doctorant,enseignant,admin',
             'password' => 'required|confirmed|min:8',
         ]);
 
         $user = User::create([
             'name'              => $request->name,
             'email'             => $request->email,
-            'role_souhaite'     => $request->role,
             'password'          => Hash::make($request->password),
             'email_verified_at' => now(),
             'is_approved'       => $request->has('is_approved'),
@@ -320,10 +149,10 @@ class DashboardController extends Controller
             'approved_by'       => Auth::id(),
         ]);
 
-        $user->assignRole($request->role);
+        $user->assignRole('admin');
 
         Logger::log(
-            "Utilisateur créé — {$user->name} ({$request->role})",
+            "Utilisateur créé — {$user->name}",
             'User',
             $user->id,
             "Email : {$user->email}"
@@ -341,78 +170,35 @@ class DashboardController extends Controller
             ->with('success', "Compte de {$user->name} créé avec succès.");
     }
 
-  
-public function approuverUtilisateur($id)
-{
-    $user = User::findOrFail($id);
+    public function approuverUtilisateur($id)
+    {
+        $user = User::findOrFail($id);
 
-    // Validation du compte
-    $user->update([
-        'is_approved' => true,
-        'approved_at' => now(),
-        'approved_by' => Auth::id(),
-    ]);
+        $user->update([
+            'is_approved' => true,
+            'approved_at' => now(),
+            'approved_by' => Auth::id(),
+        ]);
 
+        if (!$user->hasRole('admin')) {
+            $user->assignRole('admin');
+        }
 
-    // Attribution automatique du rôle Spatie
-    if ($user->role_souhaite && !$user->hasRole($user->role_souhaite)) {
-        $user->assignRole($user->role_souhaite);
-    }
-
-
-    // Création automatique du profil enseignant
-    if ($user->role_souhaite === 'enseignant') {
-
-        Enseignant::firstOrCreate(
-            [
-                'user_id' => $user->id
-            ],
-            [
-                'nom'           => $user->name,
-                'prenom'        => '',
-                'grade'         => 'À définir',
-                'specialite'    => 'À définir',
-                'etablissement' => 'À définir',
-            ]
+        Logger::log(
+            "Compte approuvé — {$user->name}",
+            'User',
+            $user->id
         );
+
+        try {
+            Mail::to($user->email)->send(new CompteApprouve($user));
+        } catch (\Exception $e) {
+            \Log::error('Mail approbation : ' . $e->getMessage());
+        }
+
+        return redirect()->back()
+            ->with('success', "Compte de {$user->name} approuvé.");
     }
-
-
-    // Création automatique du profil doctorant
-    if ($user->role_souhaite === 'doctorant') {
-
-        Doctorant::firstOrCreate(
-            [
-                'user_id' => $user->id
-            ],
-            [
-                'nom'    => $user->name,
-                'prenom' => '',
-            ]
-        );
-    }
-
-
-    Logger::log(
-        "Compte approuvé — {$user->name}",
-        'User',
-        $user->id,
-        "Rôle : {$user->role_souhaite}"
-    );
-
-
-    try {
-        Mail::to($user->email)->send(new CompteApprouve($user));
-    } catch (\Exception $e) {
-        \Log::error('Mail approbation : ' . $e->getMessage());
-    }
-
-
-    return redirect()->back()
-        ->with('success', "Compte de {$user->name} approuvé avec profil créé.");
-}
-
-
 
     public function rejeterUtilisateur($id)
     {
@@ -435,67 +221,6 @@ public function approuverUtilisateur($id)
         return redirect()->back()
             ->with('success', "Compte de {$user->name} désactivé. Email envoyé.");
     }
-
-   public function changerRole(Request $request, $id)
-{
-    $request->validate([
-        'role_souhaite' => 'required|in:doctorant,enseignant,admin'
-    ]);
-
-    $user = User::findOrFail($id);
-
-    $ancienRole = $user->roles->first()?->name ?? 'aucun';
-
-    // Changement du rôle Spatie
-    $user->syncRoles([$request->role_souhaite]);
-
-    // Mise à jour du rôle demandé
-    $user->update([
-        'role_souhaite' => $request->role_souhaite
-    ]);
-
-
-    // Création automatique du profil enseignant
-    if ($request->role_souhaite === 'enseignant') {
-
-        Enseignant::firstOrCreate(
-            ['user_id' => $user->id],
-            [
-                'nom'           => $user->name,
-                'prenom'        => '',
-                'grade'         => 'À définir',
-                'specialite'    => 'À définir',
-                'etablissement' => 'À définir',
-            ]
-        );
-    }
-
-
-    // Création automatique du profil doctorant
-    if ($request->role_souhaite === 'doctorant') {
-
-        Doctorant::firstOrCreate(
-            ['user_id' => $user->id],
-            [
-                'nom'    => $user->name,
-                'prenom' => '',
-            ]
-        );
-    }
-
-
-    Logger::log(
-        "Rôle modifié — {$user->name}",
-        'User',
-        $user->id,
-        "Ancien : {$ancienRole} → Nouveau : {$request->role_souhaite}"
-    );
-
-
-    return redirect()->back()
-        ->with('success', "Rôle mis à jour et profil synchronisé pour {$user->name}.");
-}
-
 
     public function gererActualites()
     {
@@ -552,4 +277,3 @@ public function approuverUtilisateur($id)
 }
 
 }
-

@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Candidature acceptée — EDSEG</title>
+    <title>Candidature acceptée — ED-SEG</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f2f5; padding: 40px 20px; }
@@ -40,7 +40,7 @@
     <div class="header">
         <span class="header-bar"></span>
         <span class="header-title">
-            <p>EDSEG — UAC</p>
+            <p>ED-SEG — UAC</p>
             <span>École Doctorale des Sciences Économiques et de Gestion</span>
         </span>
     </div>
@@ -95,8 +95,8 @@
             <div class="step">
                 <div class="step-num">2</div>
                 <div class="step-text">
-                    <p>Inscription à l'EDSEG</p>
-                    <span>Apportez votre reçu d'inscription UAC au secrétariat de l'EDSEG.</span>
+                    <p>Inscription à l'ED-SEG</p>
+                    <span>Apportez votre reçu d'inscription UAC au secrétariat de l'ED-SEG.</span>
                 </div>
             </div>
             <div class="step">
@@ -108,12 +108,12 @@
             </div>
         </div>
 
-        <a href="{{ url('/') }}" class="btn">Visiter le site de l'EDSEG →</a>
+        <a href="{{ url('/') }}" class="btn">Visiter le site de l'ED-SEG →</a>
 
         <div class="divider"></div>
 
         <p class="text" style="font-size:13px; color:#94a3b8;">
-            Pour toute question — Secrétariat EDSEG :
+            Pour toute question — Secrétariat ED-SEG :
             <a href="mailto:contact@edseg-uac.bj" style="color:#0f1f3d;">contact@edseg-uac.bj</a>
         </p>
     </div>

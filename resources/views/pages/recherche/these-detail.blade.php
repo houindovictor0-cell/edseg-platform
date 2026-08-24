@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', $these->titre . ' — EDSEG / UAC')
+@section('title', $these->titre . ' — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -149,7 +149,7 @@
                     Intéressé par un doctorat ?
                 </p>
                 <p class="garamond" style="font-size:20px;color:white;margin-bottom:12px;">
-                    Rejoindre l'EDSEG
+                    Rejoindre l'ED-SEG
                 </p>
                 <span style="font-size:10px;font-weight:700;letter-spacing:0.12em;
                              text-transform:uppercase;color:#F5B400;">

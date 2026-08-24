@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Partenariats Nationaux — EDSEG / UAC')
+@section('title', 'Partenariats Nationaux — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -18,7 +18,7 @@
                 Des partenariats au service de la recherche béninoise
             </h2>
             <p class="text-[#1A1A1A] text-[15px] leading-relaxed">
-                L'EDSEG entretient des relations de coopération étroites avec les principales
+                L'ED-SEG entretient des relations de coopération étroites avec les principales
                 institutions académiques, les centres de recherche et les organismes publics du Bénin.
                 Cliquez sur un partenaire pour découvrir les détails de l'accord.
             </p>

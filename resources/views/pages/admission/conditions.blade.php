@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', "Conditions d'accès — EDSEG / UAC")
+@section('title', "Conditions d'accès — ED-SEG / UAC")
 @section('content')
 
 <x-page-hero
@@ -40,9 +40,9 @@ image="/images/slide.jpg"
             <div class="space-y-3" x-data="{ open: null }">
                 @foreach([
                     ['Puis-je candidater sans avoir de directeur de thèse ?', 'Non. Il est indispensable d\'avoir préalablement contacté et obtenu l\'accord d\'un directeur de thèse habilité avant de soumettre votre candidature.'],
-                    ['Peut-on faire le doctorat en étant salarié ?', 'Oui, l\'EDSEG accepte des doctorants en régime partiel sous certaines conditions. Un accord spécifique doit être signé entre le doctorant, l\'employeur et l\'école doctorale.'],
-                    ['Les candidats étrangers sont-ils acceptés ?', 'Oui, l\'EDSEG accueille des étudiants étrangers, notamment dans le cadre de programmes de cotutelle. Les candidats doivent justifier d\'une maîtrise du français académique.'],
-                    ['Existe-t-il des bourses pour les doctorants ?', 'L\'EDSEG accompagne ses doctorants dans la recherche de financements. Des bourses de mobilité et des allocations de recherche sont disponibles selon les partenariats actifs.'],
+                    ['Peut-on faire le doctorat en étant salarié ?', 'Oui, l\'ED-SEG accepte des doctorants en régime partiel sous certaines conditions. Un accord spécifique doit être signé entre le doctorant, l\'employeur et l\'école doctorale.'],
+                    ['Les candidats étrangers sont-ils acceptés ?', 'Oui, l\'ED-SEG accueille des étudiants étrangers, notamment dans le cadre de programmes de cotutelle. Les candidats doivent justifier d\'une maîtrise du français académique.'],
+                    ['Existe-t-il des bourses pour les doctorants ?', 'L\'ED-SEG accompagne ses doctorants dans la recherche de financements. Des bourses de mobilité et des allocations de recherche sont disponibles selon les partenariats actifs.'],
                     ['Quel est le délai de traitement des candidatures ?', 'Les dossiers sont examinés dans un délai de 4 à 6 semaines après la clôture des candidatures. Les résultats sont publiés sur le site.'],
                 ] as [$q, $r])
                 <div class="border border-gray-200">

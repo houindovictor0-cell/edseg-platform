@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Programme de Doctorat — EDSEG / UAC')
+@section('title', 'Programme de Doctorat — ED-SEG / UAC')
 
 @section('content')
 
@@ -41,7 +41,7 @@
             </h2>
 
             <p class="text-[#1A1A1A] leading-relaxed text-[15px]">
-                Le doctorat à l'EDSEG est un diplôme national de l'enseignement supérieur préparé au sein
+                Le doctorat à l'ED-SEG est un diplôme national de l'enseignement supérieur préparé au sein
                 d'une unité de recherche. Sa durée normale est de trois ans, renouvelable dans la limite
                 de cinq ans avec l'accord du directeur de thèse et du conseil de l'école doctorale.
             </p>

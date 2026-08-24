@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Bourses & Mobilité — EDSEG / UAC')
+@section('title', 'Bourses & Mobilité — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -21,7 +21,7 @@
                 Des opportunités pour financer votre parcours
             </h2>
             <p class="text-[#1A1A1A] text-[15px] leading-relaxed mb-8">
-                L'EDSEG accompagne ses doctorants dans l'accès à des bourses de mobilité,
+                L'ED-SEG accompagne ses doctorants dans l'accès à des bourses de mobilité,
                 de recherche et de formation. Cliquez sur chaque opportunité pour découvrir
                 les conditions d'éligibilité et télécharger le dossier d'appel à candidature.
             </p>

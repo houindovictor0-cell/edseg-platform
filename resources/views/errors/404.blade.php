@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page introuvable — EDSEG</title>
+    <title>Page introuvable — ED-SEG</title>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Syne:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         *{box-sizing:border-box;margin:0;padding:0;}

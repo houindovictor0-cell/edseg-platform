@@ -15,7 +15,7 @@ class PartenaireSeeder extends Seeder
 
             [
                 'nom'                  => 'Université de Namur (UNamur)',
-                'image'                => 'https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80',
+                'image'                => 'images/partenaires/logo-unamur.png',
                 'type'                 => 'universite',
                 'portee'               => 'international',
                 'pays'                 => 'Belgique',
@@ -30,7 +30,7 @@ class PartenaireSeeder extends Seeder
 
             [
                 'nom'                  => 'African Economic Research Consortium (AERC)',
-                'image'                => 'https://images.unsplash.com/photo-1529089937213-3b8d23de8b61?w=800&q=80',
+                'image'                => 'images/partenaires/logo-aerc.png',
                 'type'                 => 'institution',
                 'portee'               => 'international',
                 'pays'                 => 'Kenya',
@@ -47,7 +47,7 @@ class PartenaireSeeder extends Seeder
 
             [
                 'nom'                  => 'Faculté des Sciences Économiques et de Gestion (FASEG) — UAC',
-                'image'                => 'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=800&q=80',
+                'image'                => 'images/partenaires/logo-faseg.png',
                 'type'                 => 'institution',
                 'portee'               => 'national',
                 'pays'                 => 'Bénin',
@@ -61,12 +61,12 @@ class PartenaireSeeder extends Seeder
 
             [
                 'nom'                  => 'Institut National de la Statistique et de la Démographie (INStaD)',
-                'image'                => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
+                'image'                => 'images/partenaires/logo-instad.jpg',
                 'type'                 => 'institution',
                 'portee'               => 'national',
                 'pays'                 => 'Bénin',
                 'site_web'             => null,
-                'description'          => 'L\'INStaD est le principal producteur de données statistiques officielles au Bénin. Plusieurs alumni de l\'ED-SEG y exercent des fonctions d\'économistes et de statisticiens, témoignant de la pertinence de la formation doctorale de l\'EDSEG pour les besoins des institutions publiques béninoises.',
+                'description'          => 'L\'INStaD est le principal producteur de données statistiques officielles au Bénin. Plusieurs alumni de l\'ED-SEG y exercent des fonctions d\'économistes et de statisticiens, témoignant de la pertinence de la formation doctorale de l\'ED-SEG pour les besoins des institutions publiques béninoises.',
                 'accord'               => null,
                 'domaines_cooperation' => 'Statistiques économiques, Données de recherche, Insertion professionnelle des docteurs',
                 'contact_nom'          => null,

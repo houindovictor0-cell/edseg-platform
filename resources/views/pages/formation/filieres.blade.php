@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Filières de Doctorat — EDSEG / UAC')
+@section('title', 'Filières de Doctorat — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -21,7 +21,7 @@ image="/images/slide.jpg"
                 Deux mentions, plusieurs voies vers l'excellence
             </h2>
             <p class="text-gray-600 text-[15px] leading-relaxed">
-                L'EDSEG structure son offre doctorale autour de deux mentions — Économie et Gestion —
+                L'ED-SEG structure son offre doctorale autour de deux mentions — Économie et Gestion —
                 chacune déclinée en spécialités encadrées par des enseignants-chercheurs de haut niveau
                 et adossées à des laboratoires actifs.
             </p>

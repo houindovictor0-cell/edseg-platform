@@ -18,7 +18,7 @@ class CandidatureRejetee extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Résultat de votre candidature — EDSEG / UAC',
+            subject: 'Résultat de votre candidature — ED-SEG / UAC',
         );
     }
 

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Actualités — EDSEG / UAC')
+@section('title', 'Actualités — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
@@ -32,12 +32,10 @@
         <article class="group border-t-2 border-gray-200 hover:border-[#0B6E33] pt-5 transition">
             @if($actu->image)
 <img
-    src="{{ Str::startsWith($actu->image, ['http://', 'https://'])
-        ? $actu->image
-        : asset('storage/' . $actu->image) }}"
+    src="{{ $actu->image_url }}"
     alt="{{ $actu->titre }}"
     class="w-full h-44 object-cover mb-4">
-    
+
             @else
             <div class="w-full h-44 bg-gray-100 flex items-center justify-center mb-4 text-3xl">📰</div>
             @endif

@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Présentation — EDSEG / UAC')
+@section('title', 'Présentation — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
     titre="Présentation & Historique"
     soustitre="Une institution fondée sur l'excellence académique et l'engagement pour l'Afrique"
-    image="/images/slide.jpg"
+    image="/images/edseg.jpg"
 />
 
 <section class="max-w-screen-xl mx-auto px-8 py-20">
@@ -16,12 +16,12 @@
                 Former les docteurs qui écrivent l'avenir économique de l'Afrique
             </h2>
             <div class="space-y-5 text-gray-600 text-[15px] leading-relaxed">
-                {!! nl2br(e($infosEcole['presentation']->valeur ?? "L'École Doctorale des Sciences Économiques et de Gestion (EDSEG) a été fondée au sein de l'Université d'Abomey-Calavi avec une mission claire : structurer et élever la formation doctorale dans les disciplines économiques et de gestion au Bénin et en Afrique de l'Ouest.")) !!}
+                {!! nl2br(e($infosEcole['presentation']->valeur ?? "L'École Doctorale des Sciences Économiques et de Gestion (ED-SEG) a été fondée au sein de l'Université d'Abomey-Calavi avec une mission claire : structurer et élever la formation doctorale dans les disciplines économiques et de gestion au Bénin et en Afrique de l'Ouest.")) !!}
             </div>
         </div>
         <div class="relative">
             <img src="/images/Pr-Amoussouga.png"
-                 alt="Étudiants EDSEG"
+                 alt="Étudiants ED-SEG"
                  class="w-full h-[500px] object-cover object-center">
             <div class="absolute -bottom-5 -left-5 w-28 h-28 bg-[#F5B400] -z-10"></div>
         </div>
@@ -60,7 +60,7 @@
             <blockquote class="garamond text-3xl font-medium text-white leading-relaxed italic">
                 "Former les chercheurs qui écrivent l'avenir économique de l'Afrique."
             </blockquote>
-            <p class="text-emerald-200 text-sm mt-6">— Direction de l'EDSEG</p>
+            <p class="text-emerald-200 text-sm mt-6">— Direction de l'ED-SEG</p>
         </div>
         <div>
             <img src="/images/presentation.png"
@@ -74,10 +74,10 @@
     <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C99000] mb-8">En savoir plus</p>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-gray-200">
         @foreach([
-            ['Missions & Objectifs', 'Comprendre la vocation et les axes stratégiques de l\'EDSEG', route('ecole.missions')],
+            ['Missions & Objectifs', 'Comprendre la vocation et les axes stratégiques de l\'ED-SEG', route('ecole.missions')],
             ['Mot du Directeur', 'Message de bienvenue du directeur de l\'École Doctorale', route('ecole.directeur')],
             ['Organisation', 'Structure de gouvernance et équipe pédagogique', route('ecole.organisation')],
-            ['Partenaires', 'Réseau national et international de l\'EDSEG', route('ecole.partenaires')],
+            ['Partenaires', 'Réseau national et international de l\'ED-SEG', route('ecole.partenaires')],
         ] as [$titre, $desc, $url])
         <a href="{{ $url }}"
            class="bg-white p-8 group hover:bg-[#0B6E33] transition-all duration-300">

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Candidature — EDSEG / UAC')
+@section('title', 'Candidature — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', $bourse->titre . ' — EDSEG / UAC')
+@section('title', $bourse->titre . ' — ED-SEG / UAC')
 @section('content')
 
 {{-- HERO --}}
@@ -281,14 +281,14 @@
             </div>
             @endif
 
-            {{-- Contact EDSEG --}}
+            {{-- Contact ED-SEG --}}
             <div style="border:1px solid #e5e7eb; padding:20px;">
                 <p style="font-size:12px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
                           color:#C99000; margin-bottom:12px;">
                     Besoin d'aide ?
                 </p>
                 <p style="font-size:13px; color:#1A1A1A; margin-bottom:12px; line-height:1.5;">
-                    Le secrétariat de l'EDSEG vous accompagne dans votre démarche de candidature.
+                    Le secrétariat de l'ED-SEG vous accompagne dans votre démarche de candidature.
                 </p>
                 <a href="{{ route('contact') }}"
                    style="display:block; text-align:center; border:1px solid #0B6E33; color:#0B6E33;

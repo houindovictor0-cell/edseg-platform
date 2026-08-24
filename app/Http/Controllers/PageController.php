@@ -83,7 +83,13 @@ public function filiere($id)
 
     public function encadrement()
     {
-        $directeurs = Enseignant::where('est_directeur_these', true)->get();
+        $directeurs = Enseignant::where('est_directeur_these', true)
+            ->orderByRaw("CASE
+                WHEN grade LIKE '%Titulaire%' THEN 0
+                WHEN grade LIKE '%Agrégé%' THEN 1
+                ELSE 2 END")
+            ->orderBy('nom')
+            ->get();
         return view('pages.formation.encadrement', compact('directeurs'));
     }
 
@@ -127,7 +133,7 @@ public function envoyerContact(Request $request)
             "Message de : {$request->nom} ({$request->email})\n\nSujet : {$request->sujet}\n\n{$request->message}",
             function($m) use ($request) {
                 $m->to(config('mail.from.address'))
-                  ->subject("Contact EDSEG — {$request->sujet}");
+                  ->subject("Contact ED-SEG — {$request->sujet}");
             }
         );
     } catch (\Exception $e) {}

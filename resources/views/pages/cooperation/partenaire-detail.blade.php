@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', $partenaire->nom . ' — EDSEG / UAC')
+@section('title', $partenaire->nom . ' — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero

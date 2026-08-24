@@ -18,7 +18,7 @@ class CompteApprouve extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Votre compte EDSEG a été activé',
+            subject: 'Votre compte ED-SEG a été activé',
         );
     }
 

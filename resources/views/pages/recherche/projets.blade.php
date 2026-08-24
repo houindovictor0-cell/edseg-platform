@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Projets de Recherche — EDSEG / UAC')
+@section('title', 'Projets de Recherche — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
     titre="Projets de Recherche en Cours"
-    soustitre="Des travaux collectifs à l'interface de la science et du développement, menés au sein des laboratoires de l'EDSEG"
-    image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&q=80"
+    soustitre="Des travaux collectifs à l'interface de la science et du développement, menés au sein des laboratoires de l'ED-SEG"
+    image="/images/presentation.png"
     :breadcrumb="['Recherche' => null, 'Projets en cours' => null]"
 />
 
@@ -19,7 +19,7 @@
             </h2>
             <div class="space-y-5 text-[#1A1A1A] text-[15px] leading-relaxed">
                 <p>
-                    Les enseignants-chercheurs et doctorants de l'EDSEG mènent des projets de recherche
+                    Les enseignants-chercheurs et doctorants de l'ED-SEG mènent des projets de recherche
                     collectifs financés par des partenaires nationaux et internationaux. Ces projets
                     produisent des résultats directement utiles aux décideurs publics, aux entreprises
                     et aux organisations de développement.
@@ -31,7 +31,7 @@
                 </p>
             </div>
         </div>
-        <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=900&q=80"
+        <img src="/images/projet.png"
              alt="Projets de recherche"
              class="w-full h-80 object-cover object-center">
     </div>

@@ -1,10 +1,10 @@
 @extends('layouts.main')
-@section('title', 'Intégrité Scientifique & Éthique — EDSEG / UAC')
+@section('title', 'Intégrité Scientifique & Éthique — ED-SEG / UAC')
 @section('content')
 
 <x-page-hero
     titre="Intégrité Scientifique & Éthique"
-    soustitre="Des principes fondamentaux qui garantissent la qualité et la crédibilité de la recherche à l'EDSEG"
+    soustitre="Des principes fondamentaux qui garantissent la qualité et la crédibilité de la recherche à l'ED-SEG"
     image="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600&q=80"
     :breadcrumb="['Recherche' => null, 'Intégrité & Éthique' => null]"
 />
@@ -20,14 +20,14 @@
             </h2>
             <div class="space-y-5 text-[#1A1A1A] text-[15px] leading-relaxed">
                 <p>
-                    L'EDSEG place l'intégrité scientifique au cœur de sa démarche académique. Tout
+                    L'ED-SEG place l'intégrité scientifique au cœur de sa démarche académique. Tout
                     chercheur associé à l'école — doctorant, enseignant ou partenaire — s'engage à
                     respecter les principes éthiques qui fondent la confiance dans la science et
                     garantissent la valeur des résultats de recherche.
                 </p>
                 <p>
                     Ces principes ne sont pas de simples règles formelles. Ils constituent le fondement
-                    d'une culture scientifique exigeante, que l'EDSEG s'attache à transmettre à chacun
+                    d'une culture scientifique exigeante, que l'ED-SEG s'attache à transmettre à chacun
                     de ses doctorants dès leur entrée dans le programme doctoral.
                 </p>
             </div>
@@ -59,7 +59,7 @@
                 [
                     '03',
                     'Gestion des conflits d\'intérêts',
-                    'Déclarer tout lien financier, institutionnel ou personnel susceptible d\'influencer l\'objectivité de la recherche. La transparence sur les sources de financement est une exigence non négociable à l\'EDSEG.',
+                    'Déclarer tout lien financier, institutionnel ou personnel susceptible d\'influencer l\'objectivité de la recherche. La transparence sur les sources de financement est une exigence non négociable à l\'ED-SEG.',
                     '#CE1126',
                 ],
                 [
@@ -88,7 +88,7 @@
             </p>
             <ul class="space-y-4">
                 @foreach([
-                    'Charte d\'intégrité scientifique de l\'EDSEG',
+                    'Charte d\'intégrité scientifique de l\'ED-SEG',
                     'Code de déontologie du chercheur',
                     'Procédures disciplinaires en cas de manquement',
                     'Guide de prévention du plagiat',
@@ -110,7 +110,7 @@
                     Un contrôle systématique avant chaque soutenance
                 </h3>
                 <p class="text-[#1A1A1A] text-sm leading-relaxed">
-                    Tout manuscrit de thèse soumis à l'EDSEG est obligatoirement soumis à une vérification
+                    Tout manuscrit de thèse soumis à l'ED-SEG est obligatoirement soumis à une vérification
                     via un logiciel de détection du plagiat agréé. Le rapport de similarité est transmis
                     au directeur de thèse et à la commission scientifique avant toute autorisation de soutenance.
                 </p>

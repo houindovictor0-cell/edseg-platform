@@ -259,7 +259,7 @@
                         ['Accréditation', 'CAMES'],
                     ] as [$lbl, $val])
                     <div style="display:flex; justify-content:space-between; padding:12px 20px; border-bottom:1px solid #f1f5f9; font-size:12px;">
-                        <span style="color:#94a3b8; font-weight:500;">{{ $lbl }}</span>
+                        <span style="color:#1A1A1A; font-weight:500;">{{ $lbl }}</span>
                         <span style="color:#0f172a; font-weight:600; text-align:right; max-width:60%;">{{ $val }}</span>
                     </div>
                     @endforeach
@@ -313,7 +313,7 @@
             @if($autresSpecialites->count())
             <div style="border:1px solid #e5e7eb; overflow:hidden;">
                 <div style="background:#f8fafc; padding:12px 20px; border-bottom:1px solid #e5e7eb;">
-                    <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#94a3b8;">
+                    <p style="font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#1A1A1A;">
                         Autres spécialités
                     </p>
                 </div>

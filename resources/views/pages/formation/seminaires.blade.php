@@ -61,7 +61,7 @@
             <div class="p-12 lg:p-16 flex flex-col justify-center bg-white">
                 <p style="font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
                           color:#CE1126;margin-bottom:12px;">
-                    {{ $prochain->date?->format('d M Y') }} — {{ $prochain->heure_debut }}
+                    {{ $prochain->date?->format('d M Y') }} — {{ $prochain->heure_debut_lisible }}
                 </p>
                 <h3 class="garamond text-3xl font-medium text-[#0B6E33] leading-snug mb-4
                            group-hover:text-[#128A46] transition-colors">
@@ -89,30 +89,29 @@
     <div class="space-y-px bg-gray-200">
         @foreach($seminaires->where('id', '!=', $prochain?->id ?? 0) as $s)
         <a href="{{ route('formation.seminaire', $s->id) }}"
-           class="group bg-white block hover:bg-[#0B6E33] transition-all duration-300">
+           class="group bg-white block border-l-2 border-transparent hover:border-l-[#0B6E33] hover:bg-[#0B6E33]/4 transition-all duration-300">
             <div class="grid grid-cols-1 md:grid-cols-12 items-center">
                 <div class="md:col-span-2 overflow-hidden h-28">
                     <img src="{{ $s->affiche_url }}" alt="{{ $s->titre }}"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                          style="filter:brightness(0.7);">
                 </div>
-                <div class="md:col-span-2 px-8 py-6 border-r border-gray-100 group-hover:border-white/10">
+                <div class="md:col-span-2 px-8 py-6 border-r border-gray-100">
                     <p style="font-size:9px;letter-spacing:0.15em;
-                              text-transform:uppercase;color:#CE1126;margin-bottom:4px;"
-                       class="group-hover:!text-[#F5B400]">
+                              text-transform:uppercase;color:#CE1126;margin-bottom:4px;">
                         {{ $s->date?->format('d M Y') }}
                     </p>
-                    <p style="font-size:11px;color:#1A1A1A;" class="group-hover:!text-white/80">
-                        {{ $s->heure_debut }}
+                    <p style="font-size:11px;color:#1A1A1A;">
+                        {{ $s->heure_debut_lisible }}
                     </p>
                 </div>
                 <div class="md:col-span-6 px-8 py-6">
                     <h4 style="font-size:14px;font-weight:600;color:#CE1126;margin-bottom:4px;line-height:1.3;"
-                        class="group-hover:text-white transition-colors">
+                        class="group-hover:text-[#0B6E33] transition-colors">
                         {{ $s->titre }}
                     </h4>
                     @if($s->intervenant)
-                    <p style="font-size:12px;color:#1A1A1A;" class="group-hover:!text-white/70 transition-colors">
+                    <p style="font-size:12px;color:#1A1A1A;">
                         {{ $s->intervenant }}
                     </p>
                     @endif

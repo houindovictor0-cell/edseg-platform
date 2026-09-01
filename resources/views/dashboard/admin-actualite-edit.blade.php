@@ -42,7 +42,7 @@
         {{-- Formulaire modification --}}
         <div class="lg:col-span-2">
             <div class="bg-white border-t-2 border-[#003366] p-10">
-                <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-8">
+                <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-500 mb-8">
                     Modifier les informations
                 </p>
 
@@ -87,7 +87,7 @@
 
 <div>
     <label class="block text-xs font-medium text-gray-600 mb-2 tracking-wide">
-        Document <span class="text-gray-400">(facultatif)</span>
+        Document <span class="text-gray-500">(facultatif)</span>
     </label>
 
     <input
@@ -126,7 +126,7 @@
         {{-- Aperçu image actuelle --}}
         <div class="lg:col-span-1 space-y-6">
             <div class="bg-white border-t-2 border-[#C9962B] p-8">
-                <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-5">
+                <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-500 mb-5">
                     Image actuelle
                 </p>
                 @if($actualite->image)
@@ -135,38 +135,38 @@
                      class="w-full h-48 object-cover mb-4">
                 @else
                 <div class="w-full h-48 bg-gray-100 flex items-center justify-center mb-4">
-                    <p class="text-xs text-gray-400 tracking-wide">Aucune image</p>
+                    <p class="text-xs text-gray-500 tracking-wide">Aucune image</p>
                 </div>
                 @endif
-                <p class="text-xs text-gray-400 leading-relaxed">
+                <p class="text-xs text-gray-500 leading-relaxed">
                     Pour modifier l'image, sélectionnez un nouveau fichier dans le formulaire.
                     L'ancienne image sera remplacée automatiquement.
                 </p>
             </div>
 
             <div class="bg-white border-t-2 border-gray-200 p-8">
-                <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-5">
+                <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-500 mb-5">
                     Informations
                 </p>
                 <ul class="space-y-4 text-xs">
                     <li class="flex justify-between border-b border-gray-100 pb-3">
-                        <span class="text-gray-400">Statut</span>
-                        <span class="font-semibold {{ $actualite->publiee ? 'text-green-600' : 'text-gray-400' }}">
+                        <span class="text-gray-500">Statut</span>
+                        <span class="font-semibold {{ $actualite->publiee ? 'text-green-600' : 'text-gray-500' }}">
                             {{ $actualite->publiee ? 'Publiée' : 'Brouillon' }}
                         </span>
                     </li>
                     <li class="flex justify-between border-b border-gray-100 pb-3">
-                        <span class="text-gray-400">Créée le</span>
+                        <span class="text-gray-500">Créée le</span>
                         <span class="font-medium text-gray-600">{{ $actualite->created_at->format('d M Y') }}</span>
                     </li>
                     <li class="flex justify-between border-b border-gray-100 pb-3">
-                        <span class="text-gray-400">Publiée le</span>
+                        <span class="text-gray-500">Publiée le</span>
                         <span class="font-medium text-gray-600">
                             {{ $actualite->date_publication?->format('d M Y') ?? '—' }}
                         </span>
                     </li>
                     <li class="flex justify-between">
-                        <span class="text-gray-400">Catégorie</span>
+                        <span class="text-gray-500">Catégorie</span>
                         <span class="font-medium text-[#C9962B] uppercase tracking-wide">{{ $actualite->categorie }}</span>
                     </li>
                 </ul>

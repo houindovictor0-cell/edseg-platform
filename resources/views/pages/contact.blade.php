@@ -141,6 +141,36 @@
 
         </aside>
     </div>
+
+    {{-- Localisation --}}
+    <div style="margin-top:64px;">
+        <p style="font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#C99000; margin-bottom:8px;">
+            Localisation
+        </p>
+        <h3 class="garamond" style="font-size:28px; font-weight:400; color:#0B6E33; margin-bottom:20px;">
+            Nous trouver sur la carte
+        </h3>
+        @php
+            $adresseCarte = $infosEcole['adresse']->valeur ?? 'Campus UAC, Abomey-Calavi, Bénin';
+            $lienCarte = $infosEcole['google_maps_lien']->valeur ?? '';
+
+            if ($lienCarte && (str_contains($lienCarte, '/maps/embed') || str_contains($lienCarte, 'output=embed'))) {
+                $carteSrc = $lienCarte;
+            } elseif ($lienCarte && preg_match('/(-?\d+\.\d+),\s*(-?\d+\.\d+)/', $lienCarte, $coords)) {
+                $carteSrc = "https://www.google.com/maps?q={$coords[1]},{$coords[2]}&z=16&output=embed";
+            } else {
+                $carteSrc = 'https://www.google.com/maps?q=' . urlencode($adresseCarte) . '&output=embed';
+            }
+        @endphp
+        <div style="border:1px solid #e5e7eb;">
+            <iframe
+                src="{{ $carteSrc }}"
+                width="100%" height="400" style="border:0; display:block;"
+                allowfullscreen loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
 </section>
 
 @endsection

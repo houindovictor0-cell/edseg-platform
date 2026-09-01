@@ -26,15 +26,16 @@ image="/images/slide.jpg"
                 et adossées à des laboratoires actifs.
             </p>
         </div>
-        <div class="grid grid-cols-3 gap-px bg-gray-200">
-            @php
-                $totalSpecialites = $mentions->sum(fn($m) => $m->specialites->count());
-            @endphp
-            @foreach([
+        @php
+            $totalSpecialites = $mentions->sum(fn($m) => $m->specialites->count());
+            $statsFilieres = collect([
                 [$chiffresEcole['doctorants_inscrits']->valeur ?? '120', 'Doctorants'],
                 [$chiffresEcole['theses_soutenues']->valeur ?? '85', 'Thèses soutenues'],
                 [$totalSpecialites, 'Spécialités'],
-            ] as [$val, $lbl])
+            ])->filter(fn($item) => (int) $item[0] > 0 || !is_numeric($item[0]));
+        @endphp
+        <div class="grid gap-px bg-gray-200" style="grid-template-columns:repeat({{ $statsFilieres->count() }}, 1fr);">
+            @foreach($statsFilieres as [$val, $lbl])
             <div class="bg-white py-8 text-center">
                 <p class="garamond text-4xl font-medium text-[#0B6E33]">{{ $val }}</p>
               <p class="text-[#CE1126] text-xs tracking-widest uppercase mt-2">{{ $lbl }}</p>
@@ -53,9 +54,11 @@ image="/images/slide.jpg"
             <h3 class="garamond text-3xl font-medium text-[#0B6E33]">
                 Mention {{ $mention->nom }}
             </h3>
+            @if($mention->specialites->count() > 0)
             <span class="text-[#CE1126] text-xs tracking-widest uppercase ml-2">
              {{ $mention->specialites->count() }} spécialité{{ $mention->specialites->count() > 1 ? 's' : '' }}
             </span>
+            @endif
         </div>
 
         @if($mention->specialites->isEmpty())
@@ -130,17 +133,17 @@ image="/images/slide.jpg"
                         {{ $s->nom }}
                     </h3>
                     @if($s->accroche)
-                    <p class="text-gray-400 text-xs leading-relaxed mb-4 italic
+                    <p class="text-gray-500 text-xs leading-relaxed mb-4 italic
                               group-hover:text-emerald-100 transition-colors duration-300">
                         "{{ Str::limit($s->accroche, 80) }}"
                     </p>
                     @endif
                     <div style="display:flex; gap:12px; font-size:10px;"
-                         class="text-gray-300">
+                         class="text-gray-500">
                         <span class="group-hover:text-emerald-200 transition-colors duration-300">
                             {{ $s->duree_annees }} ans
                         </span>
-                        <span class="text-gray-200">—</span>
+                        <span class="text-gray-400">—</span>
                         <span class="group-hover:text-emerald-200 transition-colors duration-300">
                             {{ $s->places_disponibles }} places
                         </span>
@@ -160,7 +163,7 @@ image="/images/slide.jpg"
         @endif
     </div>
     @empty
-    <div class="py-24 text-center text-gray-400">
+    <div class="py-24 text-center text-gray-500">
         <p class="text-sm tracking-wide">Aucune mention disponible pour le moment.</p>
     </div>
     @endforelse

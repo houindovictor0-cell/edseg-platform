@@ -71,9 +71,13 @@
             <tr id="par-{{ $p->id }}" style="display:none;">
                 <td colspan="5" style="padding:0; white-space:normal;">
                     <div style="padding:20px; background:var(--bg-elevated);">
-                        <form action="{{ route('admin.partenaires.update', $p->id) }}" method="POST">
+                        <form action="{{ route('admin.partenaires.update', $p->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf @method('PUT')
                             <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;">
+                                <div class="form-group">
+                                    <label class="form-label">Logo (fond transparent recommandé)</label>
+                                    <input type="file" name="logo" accept="image/*" class="form-input" style="padding:8px 14px; cursor:pointer;">
+                                </div>
                                 <div class="form-group">
                                     <label class="form-label">Nom</label>
                                     <input type="text" name="nom" value="{{ $p->nom }}" class="form-input" required>
@@ -135,7 +139,15 @@
         <form action="{{ route('admin.partenaires.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label class="form-label">Image / Logo</label>
+                <label class="form-label">Logo (fond transparent recommandé)</label>
+                <input type="file" name="logo" accept="image/*" class="form-input"
+                       style="padding:8px 14px; cursor:pointer;">
+                <p style="font-size:10px; color:var(--text-muted); margin-top:4px;">
+                    Affiché sans recadrage dans les vignettes partenaires. Sans logo, la photo de couverture ci-dessous sert de repli.
+                </p>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Photo de couverture</label>
                 <input type="file" name="image" accept="image/*" class="form-input"
                        style="padding:8px 14px; cursor:pointer;">
             </div>

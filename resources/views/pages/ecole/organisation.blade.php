@@ -80,9 +80,10 @@
                     <th class="px-5 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-white/70">#</th>
                     <th class="px-5 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-white">Nom</th>
                     <th class="px-5 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-white/70">Grade</th>
+                    <th class="px-5 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-white/70">Mention</th>
                     <th class="px-5 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-white/70">Spécialité</th>
                     <th class="px-5 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-white/70">Établissement</th>
-                    <th class="px-5 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-white/70">Domaine</th>
+                    <th class="px-5 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-white/70">Nationalité</th>
                 </tr>
             </thead>
             <tbody>
@@ -172,39 +173,39 @@ function trierParGrade(array $liste): array {
 
                 @foreach($economie_uac as $e)
                 <tr class="row-eco row-all border-b border-gray-100 hover:bg-gray-50 transition">
-                    <td class="px-5 py-3.5 text-xs text-gray-400">{{ $n++ }}</td>
+                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $n++ }}</td>
                     <td class="px-5 py-3.5 text-sm font-medium text-[#1A1A1A]">{{ $e[0] }}</td>
                     <td class="px-5 py-3.5 text-xs font-semibold {{ str_contains($e[1], 'Titulaire') ? 'text-[#C99000]' : 'text-[#CE1126]' }}">{{ $e[1] }}</td>
+                    <td class="px-5 py-3.5"><span class="inline-block text-[9px] font-bold uppercase tracking-wide px-2.5 py-1 rounded bg-emerald-50 text-[#0B6E33] border border-emerald-200">Économie</span></td>
                     <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[2] }}</td>
                     <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[3] }}</td>
-                    <td class="px-5 py-3.5"><span class="inline-block text-[9px] font-bold uppercase tracking-wide px-2.5 py-1 rounded bg-emerald-50 text-[#0B6E33] border border-emerald-200">Économie</span></td>
+                    <td class="px-5 py-3.5 text-xs text-gray-500">Bénin</td>
                 </tr>
                 @endforeach
 
                 @foreach($gestion as $e)
                 <tr class="row-ges row-all border-b border-gray-100 hover:bg-gray-50 transition">
-                    <td class="px-5 py-3.5 text-xs text-gray-400">{{ $n++ }}</td>
+                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $n++ }}</td>
                     <td class="px-5 py-3.5 text-sm font-medium text-[#1A1A1A]">{{ $e[0] }}</td>
                     <td class="px-5 py-3.5 text-xs font-semibold {{ str_contains($e[1], 'Titulaire') ? 'text-[#C99000]' : 'text-[#CE1126]' }}">{{ $e[1] }}</td>
+                    <td class="px-5 py-3.5"><span class="inline-block text-[9px] font-bold uppercase tracking-wide px-2.5 py-1 rounded bg-amber-50 text-[#C99000] border border-amber-200">Gestion</span></td>
                     <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[2] }}</td>
                     <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[3] }}</td>
-                    <td class="px-5 py-3.5"><span class="inline-block text-[9px] font-bold uppercase tracking-wide px-2.5 py-1 rounded bg-amber-50 text-[#C99000] border border-amber-200">Gestion</span></td>
+                    <td class="px-5 py-3.5 text-xs text-gray-500">Bénin</td>
                 </tr>
                 @endforeach
 
                 @foreach($etrangers as $e)
                 <tr class="row-int row-all border-b border-gray-100 hover:bg-gray-50 transition">
-                    <td class="px-5 py-3.5 text-xs text-gray-400">{{ $n++ }}</td>
+                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $n++ }}</td>
                     <td class="px-5 py-3.5 text-sm font-medium text-[#1A1A1A]">{{ $e[0] }}</td>
                     <td class="px-5 py-3.5 text-xs font-semibold {{ str_contains($e[1], 'Titulaire') ? 'text-[#C99000]' : 'text-[#CE1126]' }}">{{ $e[1] }}</td>
-                    <td class="px-5 py-3.5 text-xs text-gray-500">
-                        {{ $e[2] }}
-                        @if(isset($e[5]))
-                            <span class="text-gray-400"> — {{ $e[5] }}</span>
-                        @endif
+                    <td class="px-5 py-3.5">
+                        <span class="inline-block text-[9px] font-bold uppercase tracking-wide px-2.5 py-1 rounded {{ $e[2] === 'Gestion' ? 'bg-amber-50 text-[#C99000] border border-amber-200' : 'bg-emerald-50 text-[#0B6E33] border border-emerald-200' }}">{{ $e[2] }}</span>
                     </td>
+                    <td class="px-5 py-3.5 text-xs text-gray-500">—</td>
                     <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[3] }}</td>
-                    <td class="px-5 py-3.5"><span class="inline-block text-[9px] font-bold uppercase tracking-wide px-2.5 py-1 rounded bg-red-50 text-[#CE1126] border border-red-200">Étranger</span></td>
+                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[5] ?? '—' }}</td>
                 </tr>
                 @endforeach
 
@@ -222,14 +223,14 @@ function trierParGrade(array $liste): array {
             <span class="w-3 h-3 rounded-sm bg-[#CE1126]"></span>
             <span class="text-xs text-gray-500">Maître de Conférences</span>
         </div>
-        <div class="ml-auto text-[10px] text-gray-400">
+        <div class="ml-auto text-[10px] text-gray-500">
             Documents officiels ED-SEG — 31 mars 2026
         </div>
     </div>
 </section>
 
 <style>
-    .ens-tab { color: #9CA3AF; border-color: transparent; }
+    .ens-tab { color: #6B7280; border-color: transparent; }
     .ens-tab.active { color: #0B6E33; border-color: #0B6E33; }
     .ens-tab:hover:not(.active) { color: #0B6E33; }
 </style>

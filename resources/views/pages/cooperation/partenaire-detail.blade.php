@@ -76,10 +76,10 @@
         {{-- Sidebar --}}
         <aside style="align-self:start;position:sticky;top:120px;" class="space-y-6">
 
-            {{-- Logo/Image --}}
-            <div style="overflow:hidden;border:1px solid #e5e7eb;">
-                <img src="{{ $partenaire->image_url }}" alt="{{ $partenaire->nom }}"
-                     style="width:100%;height:200px;object-fit:cover;display:block;">
+            {{-- Logo --}}
+            <div style="border:1px solid #e5e7eb;height:200px;display:flex;align-items:center;justify-content:center;padding:24px;background:white;">
+                <img src="{{ $partenaire->logo_url }}" alt="{{ $partenaire->nom }}"
+                     style="max-width:100%;max-height:100%;object-fit:contain;display:block;">
             </div>
 
             {{-- Infos --}}
@@ -146,9 +146,9 @@
                           text-decoration:none;transition:background 0.2s;"
                    onmouseover="this.style.background='#f8fafc'"
                    onmouseout="this.style.background='white'">
-                    <div style="width:40px;height:40px;overflow:hidden;flex-shrink:0;background:#f1f5f9;">
-                        <img src="{{ $a->image_url }}" alt="{{ $a->nom }}"
-                             style="width:100%;height:100%;object-fit:cover;">
+                    <div style="width:40px;height:40px;overflow:hidden;flex-shrink:0;background:white;border:1px solid #f1f5f9;display:flex;align-items:center;justify-content:center;padding:4px;">
+                        <img src="{{ $a->logo_url }}" alt="{{ $a->nom }}"
+                             style="max-width:100%;max-height:100%;object-fit:contain;">
                     </div>
                     <div>
                         <p style="font-size:12px;font-weight:600;color:#0B6E33;line-height:1.3;">

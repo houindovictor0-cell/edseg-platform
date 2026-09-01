@@ -45,7 +45,7 @@
         {{-- Formulaire nouvelle actualité --}}
         <div class="lg:col-span-1">
             <div class="bg-white border-t-2 border-[#C9962B] p-8">
-                <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-6">
+                <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-500 mb-6">
                     Nouvelle actualité
                 </p>
                 <form action="{{ route('admin.actualites.publier') }}" method="POST"
@@ -82,7 +82,7 @@
 
 <div>
     <label class="block text-xs font-medium text-gray-600 mb-2 tracking-wide">
-        Document <span class="text-gray-400">(facultatif)</span>
+        Document <span class="text-gray-500">(facultatif)</span>
     </label>
 
     <input
@@ -104,7 +104,7 @@
         {{-- Liste des actualités --}}
         <div class="lg:col-span-2">
             <div class="bg-white border-t-2 border-[#003366] p-8">
-                <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-6">
+                <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-500 mb-6">
                     {{ $actualites->total() }} actualité(s) au total
                 </p>
 
@@ -130,14 +130,14 @@
                                         {{ $a->categorie }}
                                     </span>
                                     <span class="text-gray-300 text-xs">—</span>
-                                    <span class="text-xs text-gray-400">
+                                    <span class="text-xs text-gray-500">
                                         {{ $a->date_publication?->format('d M Y') }}
                                     </span>
                                 </div>
                                 <p class="font-medium text-[#003366] text-sm leading-snug mb-1">
                                     {{ $a->titre }}
                                 </p>
-                                <p class="text-xs text-gray-400 leading-relaxed">
+                                <p class="text-xs text-gray-500 leading-relaxed">
                                     {{ Str::limit($a->contenu, 80) }}
                                 </p>
                             </div>
@@ -145,7 +145,7 @@
                             {{-- Actions --}}
                             <div class="col-span-3 flex flex-col items-end gap-2">
                                 <span class="text-[9px] font-semibold uppercase px-2 py-1
-                                    {{ $a->publiee ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400' }}">
+                                    {{ $a->publiee ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
                                     {{ $a->publiee ? 'Publiée' : 'Brouillon' }}
                                 </span>
 
@@ -186,7 +186,7 @@
                 </div>
                 <div class="mt-8">{{ $actualites->links() }}</div>
                 @else
-                <div class="py-16 text-center text-gray-400">
+                <div class="py-16 text-center text-gray-500">
                     <p class="text-sm tracking-wide">Aucune actualité publiée.</p>
                 </div>
                 @endif

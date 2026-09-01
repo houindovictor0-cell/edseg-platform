@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
-use App\Models\InfoEcole;
 use App\Models\ChiffreCle;
+use App\Models\InfoEcole;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,10 +15,10 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             try {
-                $infosEcole   = InfoEcole::all()->keyBy('cle');
-                $chiffresEcole = ChiffreCle::orderBy('ordre')->get()->keyBy('cle');
+                $infosEcole = InfoEcole::all()->keyBy('cle');
+                $chiffresEcole = ChiffreCle::avecComptagesLive();
             } catch (\Exception $e) {
-                $infosEcole   = collect();
+                $infosEcole = collect();
                 $chiffresEcole = collect();
             }
             $view->with(compact('infosEcole', 'chiffresEcole'));

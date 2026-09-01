@@ -141,24 +141,24 @@
 
         {{-- BANDE LOGO (Ministère + ED-SEG centré + UAC) --}}
 <div class="bg-white border-b border-gray-100">
-    <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-4 grid grid-cols-3 items-center gap-4">
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-2 grid grid-cols-3 items-center gap-4">
 
         {{-- COLONNE GAUCHE : Écusson Ministère --}}
         <div class="flex items-center">
-            <img src="/images/logo-ministere.png" alt="Ministère de l'Enseignement Supérieur et de la Recherche Scientifique" class="h-14 md:h-16 w-auto">
+            <img src="/images/logo-ministere.png" alt="Ministère de l'Enseignement Supérieur et de la Recherche Scientifique" class="h-9 md:h-11 w-auto">
         </div>
 
-        {{-- COLONNE CENTRE : Nom de l'école, centré --}}
+        {{-- COLONNE CENTRE : Logo ED-SEG, centré et mis en avant --}}
         <a href="/" class="flex flex-col items-center text-center">
-            <p class="text-2xl md:text-3xl font-extrabold text-[#0B6E33] leading-none" style="font-family:'Poppins',sans-serif;">ED-SEG</p>
-            <p class="text-[10px] md:text-[11px] font-semibold text-gray-900 tracking-wide uppercase mt-1.5 max-w-[280px] leading-snug">École Doctorale des Sciences Économiques et de Gestion</p>
+            <img src="/images/logo-edseg.png" alt="ED-SEG" class="h-12 md:h-16 w-auto">
+            <p class="hidden md:block text-[9px] font-semibold text-gray-900 tracking-wide uppercase mt-1 max-w-[280px] leading-snug">École Doctorale des Sciences Économiques et de Gestion</p>
         </a>
 
         {{-- COLONNE DROITE : Écusson UAC + connexion --}}
         <div class="flex items-center justify-end gap-3 md:gap-5">
             <div class="flex flex-col items-center max-w-[90px] sm:max-w-none">
-    <img src="/images/logo-uac.png" alt="Université d'Abomey-Calavi" class="block h-11 sm:h-12 md:h-14 w-auto">
-    <p class="text-[8px] sm:text-[10px] font-semibold text-gray-900 tracking-wide uppercase mt-1 text-center leading-tight sm:whitespace-nowrap">Université d'Abomey-Calavi</p>
+    <img src="/images/logo-uac.png" alt="Université d'Abomey-Calavi" class="block h-7 sm:h-8 md:h-9 w-auto">
+    <p class="hidden sm:block text-[8px] font-semibold text-gray-900 tracking-wide uppercase mt-0.5 text-center leading-tight whitespace-nowrap">Université d'Abomey-Calavi</p>
 </div>
 
             <button id="burger" class="xl:hidden text-[#0B6E33] p-2 focus:outline-none">
@@ -201,7 +201,7 @@
                         ] as [$titre, $desc, $url])
                         <a href="{{ $url }}" class="block py-3 border-b border-gray-50 group/item last:border-0">
                             <p class="text-xs font-semibold text-[#0B6E33] group-hover/item:text-[#128A46] transition mb-0.5">{{ $titre }}</p>
-                            <p class="text-[11px] text-gray-400 leading-snug">{{ $desc }}</p>
+                            <p class="text-[11px] text-gray-500 leading-snug">{{ $desc }}</p>
                         </a>
                         @endforeach
                     </div>
@@ -213,7 +213,7 @@
                         ] as [$titre, $desc, $url])
                         <a href="{{ $url }}" class="block py-3 border-b border-gray-50 group/item last:border-0">
                             <p class="text-xs font-semibold text-[#0B6E33] group-hover/item:text-[#128A46] transition mb-0.5">{{ $titre }}</p>
-                            <p class="text-[11px] text-gray-400 leading-snug">{{ $desc }}</p>
+                            <p class="text-[11px] text-gray-500 leading-snug">{{ $desc }}</p>
                         </a>
                         @endforeach
                     </div>
@@ -242,7 +242,7 @@
                         ] as [$titre, $desc, $url])
                         <a href="{{ $url }}" class="block py-3 border-b border-gray-50 group/item last:border-0">
                             <p class="text-xs font-semibold text-[#0B6E33] group-hover/item:text-[#128A46] transition mb-0.5">{{ $titre }}</p>
-                            <p class="text-[11px] text-gray-400 leading-snug">{{ $desc }}</p>
+                            <p class="text-[11px] text-gray-500 leading-snug">{{ $desc }}</p>
                         </a>
                         @endforeach
                     </div>
@@ -270,7 +270,7 @@
                         ] as [$titre, $desc, $url])
                         <a href="{{ $url }}" class="block py-3 border-b border-gray-50 group/item last:border-0">
                             <p class="text-xs font-semibold text-[#0B6E33] group-hover/item:text-[#128A46] transition mb-0.5">{{ $titre }}</p>
-                            <p class="text-[11px] text-gray-400 leading-snug">{{ $desc }}</p>
+                            <p class="text-[11px] text-gray-500 leading-snug">{{ $desc }}</p>
                         </a>
                         @endforeach
                     </div>
@@ -278,7 +278,7 @@
                         <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-[#CE1126] mb-4">Calendrier</p>
                         <a href="/admission/calendrier" class="block py-3 group/item">
                             <p class="text-xs font-semibold text-[#0B6E33] group-hover/item:text-[#128A46] transition mb-0.5">Calendrier & Résultats</p>
-                            <p class="text-[11px] text-gray-400 leading-snug">Dates clés de la campagne 2026–2027</p>
+                            <p class="text-[11px] text-gray-500 leading-snug">Dates clés de la campagne 2026–2027</p>
                         </a>
                         <div class="mt-6 bg-amber-50 border border-amber-200 p-4">
                             <p class="text-[10px] font-bold tracking-widest uppercase text-amber-700 mb-1">En cours</p>
@@ -310,7 +310,7 @@
                         ] as [$titre, $desc, $url])
                         <a href="{{ $url }}" class="block py-3 border-b border-gray-50 group/item last:border-0">
                             <p class="text-xs font-semibold text-[#0B6E33] group-hover/item:text-[#128A46] transition mb-0.5">{{ $titre }}</p>
-                            <p class="text-[11px] text-gray-400 leading-snug">{{ $desc }}</p>
+                            <p class="text-[11px] text-gray-500 leading-snug">{{ $desc }}</p>
                         </a>
                         @endforeach
                     </div>
@@ -322,7 +322,7 @@
                         ] as [$titre, $desc, $url])
                         <a href="{{ $url }}" class="block py-3 border-b border-gray-50 group/item last:border-0">
                             <p class="text-xs font-semibold text-[#0B6E33] group-hover/item:text-[#128A46] transition mb-0.5">{{ $titre }}</p>
-                            <p class="text-[11px] text-gray-400 leading-snug">{{ $desc }}</p>
+                            <p class="text-[11px] text-gray-500 leading-snug">{{ $desc }}</p>
                         </a>
                         @endforeach
                     </div>
@@ -351,7 +351,7 @@
                         ] as [$titre, $desc, $url])
                         <a href="{{ $url }}" class="block py-3 border-b border-gray-50 group/item last:border-0">
                             <p class="text-xs font-semibold text-[#0B6E33] group-hover/item:text-[#128A46] transition mb-0.5">{{ $titre }}</p>
-                            <p class="text-[11px] text-gray-400 leading-snug">{{ $desc }}</p>
+                            <p class="text-[11px] text-gray-500 leading-snug">{{ $desc }}</p>
                         </a>
                         @endforeach
                     </div>

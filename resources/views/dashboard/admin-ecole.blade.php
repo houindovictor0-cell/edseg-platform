@@ -52,6 +52,17 @@
                 </div>
                 @endif
                 @endforeach
+                @if(isset($infos['google_maps_lien']))
+                <div class="form-group">
+                    <label class="form-label">{{ $infos['google_maps_lien']->label }}</label>
+                    <input type="url" name="infos[google_maps_lien]"
+                           value="{{ $infos['google_maps_lien']->valeur }}" class="form-input"
+                           placeholder="https://www.google.com/maps/place/...">
+                    <p style="font-size:10px; color:var(--text-muted); margin-top:6px; font-family:'JetBrains Mono', monospace;">
+                        Colle ici le lien de partage Google Maps du campus (bouton "Partager" sur Google Maps). Sinon, la carte du site utilisera le champ Adresse ci-dessus.
+                    </p>
+                </div>
+                @endif
                 @foreach(['facebook', 'linkedin', 'youtube'] as $cle)
                 @if(isset($infos[$cle]))
                 <div class="form-group">

@@ -20,10 +20,10 @@
                 <p class="font-semibold text-[#0B6E33] text-sm">
                     {{ $infosEcole['nom_directeur']->valeur ?? 'Pr. [Nom du Directeur]' }}
                 </p>
-                <p class="text-gray-400 text-xs mt-1">
+                <p class="text-gray-500 text-xs mt-1">
                     {{ $infosEcole['titre_directeur']->valeur ?? 'Directeur de l\'ED-SEG' }}
                 </p>
-                <p class="text-gray-400 text-xs">Université d'Abomey-Calavi</p>
+                <p class="text-gray-500 text-xs">Université d'Abomey-Calavi</p>
             </div>
         </div>
 
@@ -44,11 +44,8 @@
                 <p class="font-semibold text-[#0B6E33] text-sm">
                     {{ $infosEcole['nom_directeur']->valeur ?? 'Pr. [Nom du Directeur]' }}
                 </p>
-                <p class="text-gray-400 text-xs mt-1">
+                <p class="text-gray-500 text-xs mt-1">
                     Directeur de l'École Doctorale des Sciences Économiques et de Gestion
-                </p>
-                <p class="text-gray-400 text-xs">
-                    {{ $infosEcole['email_directeur']->valeur ?? '' }}
                 </p>
             </div>
         </div>

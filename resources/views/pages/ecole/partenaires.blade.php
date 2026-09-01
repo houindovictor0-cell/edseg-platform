@@ -15,7 +15,7 @@
             <div class="border border-gray-200 p-6 text-center hover:border-[#003366] transition group">
                 <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">🏛️</div>
                 <h4 class="font-semibold text-[#003366] text-sm mb-1 group-hover:underline">{{ $p->nom }}</h4>
-                <p class="text-xs text-gray-400">{{ $p->pays ?? 'Bénin' }}</p>
+                <p class="text-xs text-gray-500">{{ $p->pays ?? 'Bénin' }}</p>
                 <span class="inline-block mt-2 text-xs px-2 py-0.5 bg-gray-100 text-gray-500 rounded">
                     {{ $p->type }}
                 </span>
@@ -23,7 +23,7 @@
             @endforeach
         </div>
     @else
-        <div class="text-center py-16 text-gray-400">
+        <div class="text-center py-16 text-gray-500">
             <p class="text-4xl mb-4">🤝</p>
             <p>Les partenaires seront bientôt disponibles.</p>
         </div>

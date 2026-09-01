@@ -118,34 +118,7 @@
 </section>
 
 {{-- CHIFFRES CLÉS --}}
-<section class="bg-white py-10 md:py-12 border-t-4 border-[#F5B400]">
-    <div class="max-w-screen-xl mx-auto px-6 md:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-gray-100 gap-y-6">
-            @foreach([
-                ['doctorants_inscrits', 'Doctorants inscrits', '#0B6E33', 'M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.42A12.083 12.083 0 0121 17.5V19a2 2 0 01-2 2H5a2 2 0 01-2-2v-1.5a12.083 12.083 0 012.84-6.42L12 14z'],
-                ['theses_soutenues', 'Thèses soutenues', '#F5B400', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'],
-                ['enseignants_chercheurs', 'Enseignants-chercheurs', '#CE1126', 'M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-2.13a4 4 0 100-8 4 4 0 000 8zm6 3.13a4 4 0 010 6.74M7 12.13a4 4 0 000 6.74'],
-                ['partenaires_internationaux', 'Partenaires internationaux', '#0B6E33', 'M21 12a9 9 0 11-18 0 9 9 0 0118 0z M3.6 9h16.8 M3.6 15h16.8 M12 3a15 15 0 014 9 15 15 0 01-4 9 15 15 0 01-4-9 15 15 0 014-9z'],
-            ] as [$cle, $label, $couleur, $icone])
-            <div class="flex items-center gap-4 px-2 md:px-4 pt-6 md:pt-0">
-                <div class="w-14 h-14 rounded-full flex items-center justify-center shrink-0" style="background:{{ $couleur }};">
-                    <svg class="w-7 h-7" fill="none" stroke="white" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="{{ $icone }}"/>
-                    </svg>
-                </div>
-                <div>
-                    <p class="garamond text-3xl font-bold text-[#1A1A1A] leading-none">
-                        {{ $chiffres[$cle]->valeur ?? '—' }}
-                    </p>
-                    <p class="text-gray-400 text-xs tracking-wide mt-1.5">
-                        {{ $chiffres[$cle]->label ?? $label }}
-                    </p>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
+<x-chiffres-cles :chiffres="$chiffres" />
 
 {{-- ACTUALITÉS --}}
 <section class="max-w-screen-xl mx-auto px-8 py-10 md:py-14">
@@ -155,7 +128,7 @@
             <h3 class="garamond text-4xl font-medium text-[#0B6E33]">Actualités & Événements</h3>
         </div>
         <a href="/actualites"
-           class="hidden md:flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-gray-400 hover:text-[#0B6E33] transition group">
+           class="hidden md:flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-gray-500 hover:text-[#0B6E33] transition group">
             <span>Toutes les actualités</span>
             <span class="w-6 h-px bg-gray-300 group-hover:w-10 group-hover:bg-[#0B6E33] transition-all duration-300"></span>
         </a>
@@ -207,7 +180,7 @@
                 <h4 class="font-semibold text-gray-900 text-sm leading-snug mb-3 group-hover:text-[#0B6E33] transition-colors">
                     {{ $actu->titre }}
                 </h4>
-                <p class="text-gray-400 text-xs leading-relaxed">
+                <p class="text-gray-500 text-xs leading-relaxed">
                     {{ Str::limit($actu->contenu, 80) }}
                 </p>
             </div>
@@ -246,6 +219,208 @@
     </div>
 </section>
     
+{{-- ÉCOLES PARTENAIRES --}}
+    @if($partenaires->count())
+    <section class="py-16 px-8 bg-[#F7F7F5] border-t border-gray-100">
+        <div class="max-w-screen-xl mx-auto">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C99000] mb-3">Réseau académique</p>
+                    <h3 class="garamond text-3xl font-medium text-[#0B6E33]">Écoles partenaires</h3>
+                </div>
+                <a href="/ecole-doctorale/partenaires"
+                   class="hidden md:flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-gray-500 hover:text-[#0B6E33] transition group">
+                    <span>Tous les partenaires</span>
+                    <span class="w-6 h-px bg-gray-300 group-hover:w-10 group-hover:bg-[#0B6E33] transition-all duration-300"></span>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
+                @foreach($partenaires->take(12) as $partenaire)
+                <a href="/ecole-doctorale/partenaires"
+                   class="flex items-center justify-center h-24 bg-white border border-gray-200 hover:border-[#0B6E33]/40 transition grayscale hover:grayscale-0 p-4">
+                    <img src="{{ $partenaire->logo_url }}" alt="{{ $partenaire->nom }}" class="max-h-full max-w-full object-contain">
+                </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
+    {{-- ALBUM PHOTO --}}
+    @if($photos->count())
+    <section class="py-16 px-8 bg-white">
+        <div class="max-w-screen-xl mx-auto">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C99000] mb-3">En images</p>
+                    <h3 class="garamond text-3xl font-medium text-[#0B6E33]">La vie de l'École</h3>
+                </div>
+                <p class="hidden md:block text-xs text-gray-500 tracking-wide">Cliquez sur une photo pour l'agrandir</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" style="grid-auto-flow:dense;">
+                @foreach($photos as $i => $photo)
+                <button type="button"
+                        onclick="openAlbumLightbox({{ $i }})"
+                        class="album-item relative overflow-hidden h-40 md:h-52 group block w-full text-left p-0 border-0 cursor-zoom-in {{ $i === 0 ? 'md:col-span-2 md:row-span-2 md:h-full' : '' }}"
+                        style="opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease;">
+                    <img src="{{ $photo->image_url }}" alt="{{ $photo->legende ?? 'Photo ED-SEG' }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 flex items-center justify-center">
+                        <div class="w-11 h-11 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-300">
+                            <svg class="w-5 h-5 text-[#0B6E33]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zM11 8v6M8 11h6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    @if($photo->legende)
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+                        <p class="text-white text-xs font-medium">{{ $photo->legende }}</p>
+                    </div>
+                    @endif
+                </button>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    {{-- LIGHTBOX ALBUM --}}
+    <div id="album-lightbox"
+         class="fixed inset-0 z-[100] hidden items-center justify-center"
+         style="background:rgba(6,10,8,0.94);">
+
+        <button type="button" onclick="closeAlbumLightbox()"
+                class="absolute top-6 right-6 w-11 h-11 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+
+        <button type="button" onclick="albumLightboxNav(-1)"
+                class="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <button type="button" onclick="albumLightboxNav(1)"
+                class="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </button>
+
+        <div class="max-w-4xl w-full px-6 md:px-16">
+            <div class="relative">
+                <img id="album-lightbox-img" src="" alt=""
+                     class="w-full max-h-[75vh] object-contain rounded shadow-2xl"
+                     style="opacity:0; transition:opacity 0.25s ease;">
+            </div>
+            <div class="flex items-center justify-between mt-4">
+                <p id="album-lightbox-caption" class="text-white/80 text-sm"></p>
+                <p id="album-lightbox-counter" class="text-[#F5B400] text-xs font-semibold tracking-widest uppercase"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const albumPhotos = @json($photos->map(fn($p) => ['src' => $p->image_url, 'legende' => $p->legende]));
+    let albumCurrent = 0;
+
+    function renderAlbumLightbox() {
+        const photo = albumPhotos[albumCurrent];
+        const img = document.getElementById('album-lightbox-img');
+        img.style.opacity = 0;
+        setTimeout(() => {
+            img.src = photo.src;
+            img.alt = photo.legende || 'Photo ED-SEG';
+            img.onload = () => { img.style.opacity = 1; };
+        }, 120);
+        document.getElementById('album-lightbox-caption').textContent = photo.legende || '';
+        document.getElementById('album-lightbox-counter').textContent = (albumCurrent + 1) + ' / ' + albumPhotos.length;
+    }
+
+    function openAlbumLightbox(index) {
+        albumCurrent = index;
+        const lightbox = document.getElementById('album-lightbox');
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        renderAlbumLightbox();
+    }
+
+    function closeAlbumLightbox() {
+        const lightbox = document.getElementById('album-lightbox');
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+        document.body.style.overflow = '';
+    }
+
+    function albumLightboxNav(dir) {
+        albumCurrent = (albumCurrent + dir + albumPhotos.length) % albumPhotos.length;
+        renderAlbumLightbox();
+    }
+
+    document.getElementById('album-lightbox')?.addEventListener('click', (e) => {
+        if (e.target.id === 'album-lightbox') closeAlbumLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        const lightbox = document.getElementById('album-lightbox');
+        if (!lightbox || lightbox.classList.contains('hidden')) return;
+        if (e.key === 'Escape') closeAlbumLightbox();
+        if (e.key === 'ArrowRight') albumLightboxNav(1);
+        if (e.key === 'ArrowLeft') albumLightboxNav(-1);
+    });
+
+    const albumObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.transform = 'translateY(0)';
+                albumObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.album-item').forEach((el, i) => {
+        setTimeout(() => albumObserver.observe(el), 0);
+    });
+    </script>
+    @endif
+
+    {{-- SÉMINAIRES À VENIR --}}
+    @if($seminairesAVenir->count())
+    <section class="py-16 px-8 bg-[#06421E]">
+        <div class="max-w-screen-xl mx-auto">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <p class="text-[10px] font-semibold tracking-widest uppercase text-[#F5B400] mb-3">Agenda scientifique</p>
+                    <h3 class="garamond text-3xl font-medium text-white">Séminaires à venir</h3>
+                </div>
+                <a href="{{ route('formation.seminaires') }}"
+                   class="hidden md:flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-white/50 hover:text-white transition group">
+                    <span>Tous les séminaires</span>
+                    <span class="w-6 h-px bg-white/30 group-hover:w-10 group-hover:bg-white transition-all duration-300"></span>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                @foreach($seminairesAVenir as $sem)
+                <a href="{{ route('formation.seminaire', $sem->id) }}" class="group block bg-white/5 hover:bg-white/10 border border-white/10 transition p-6">
+                    <p class="text-[#F5B400] text-xs font-semibold uppercase tracking-widest mb-3">
+                        {{ $sem->date?->format('d M Y') }} — {{ $sem->heure_debut_lisible }}
+                    </p>
+                    <h4 class="text-white font-semibold text-base leading-snug mb-3 group-hover:text-[#F5B400] transition">
+                        {{ $sem->titre }}
+                    </h4>
+                    @if($sem->intervenant)
+                    <p class="text-white/60 text-xs mb-2">{{ $sem->intervenant }}</p>
+                    @endif
+                    <p class="text-white/40 text-xs">{{ $sem->lieu }}</p>
+                </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
 {{-- ACCÈS RAPIDES --}}
 {{-- ACCÈS RAPIDES --}}
 <section class="py-20 px-8 bg-white">

@@ -5,17 +5,16 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
     public function up(): void
     {
-        DB::statement("ALTER TABLE documents MODIFY COLUMN categorie ENUM('formulaire','guide','charte','rapport','resultat','autre') NOT NULL DEFAULT 'autre'");
-
         Schema::table('documents', function (Blueprint $table) {
+            $table->enum('categorie', ['formulaire', 'guide', 'charte', 'rapport', 'resultat', 'autre'])
+                ->default('autre')->change();
             $table->enum('type_resultat', ['preselection', 'test_prepa', 'annuel'])
-                  ->nullable()->after('categorie');
+                ->nullable()->after('categorie');
             $table->string('annee', 9)->nullable()->after('type_resultat');
         });
     }
@@ -24,8 +23,8 @@ return new class extends Migration
     {
         Schema::table('documents', function (Blueprint $table) {
             $table->dropColumn(['type_resultat', 'annee']);
+            $table->enum('categorie', ['formulaire', 'guide', 'charte', 'rapport', 'autre'])
+                ->default('autre')->change();
         });
-        DB::statement("ALTER TABLE documents MODIFY COLUMN categorie ENUM('formulaire','guide','charte','rapport','autre') NOT NULL DEFAULT 'autre'");
     }
 };
-

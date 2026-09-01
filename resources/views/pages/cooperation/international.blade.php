@@ -43,10 +43,9 @@
     <a href="{{ route('cooperation.partenaire', $premier->id) }}"
        class="group block mb-8 overflow-hidden border border-gray-200 hover:border-[#0B6E33] transition-colors">
         <div class="grid grid-cols-1 lg:grid-cols-2">
-            <div class="overflow-hidden h-72 lg:h-auto">
-                <img src="{{ $premier->image_url }}" alt="{{ $premier->nom }}"
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                     style="min-height:280px;filter:brightness(0.5);">
+            <div class="h-72 lg:h-auto flex items-center justify-center bg-white p-10" style="min-height:280px;">
+                <img src="{{ $premier->logo_url }}" alt="{{ $premier->nom }}"
+                     class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-700">
             </div>
             <div class="p-12 lg:p-16 flex flex-col justify-center bg-white">
                 <p style="font-size:12px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
@@ -78,19 +77,16 @@
         @foreach($partenaires->skip(1) as $p)
         <a href="{{ route('cooperation.partenaire', $p->id) }}"
            class="group bg-white block hover:bg-[#CE1126] transition-all duration-400">
-            <div class="overflow-hidden h-44 relative">
-                <img src="{{ $p->image_url }}" alt="{{ $p->nom }}"
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
-                     style="filter:brightness(0.55);">
-                <div class="absolute bottom-3 left-5">
-                    <span style="font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
-                                 color:#F5B400;">
-                        {{ $p->pays ?? '—' }}
-                    </span>
-                </div>
+            <div class="h-36 flex items-center justify-center bg-white border-b border-gray-100 p-5">
+                <img src="{{ $p->logo_url }}" alt="{{ $p->nom }}"
+                     class="max-h-full max-w-full object-contain">
             </div>
             <div class="p-7">
-                <h3 style="font-size:14px;font-weight:600;color:#0B6E33;margin-bottom:6px;line-height:1.3;"
+                <span style="font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+                             color:#C99000;">
+                    {{ $p->pays ?? '—' }}
+                </span>
+                <h3 style="font-size:14px;font-weight:600;color:#0B6E33;margin:6px 0;line-height:1.3;"
                     class="group-hover:text-white transition-colors">
                     {{ $p->nom }}
                 </h3>

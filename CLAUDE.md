@@ -15,7 +15,7 @@ composer setup            # composer install, .env, key:generate, migrate, npm i
 # Local dev (runs php serve + queue:listen + pail + vite concurrently)
 composer dev
 
-# PHP tests (Pest/PHPUnit, SQLite in-memory per phpunit.xml)
+# PHP tests (PHPUnit, class-based; SQLite in-memory per phpunit.xml)
 composer test              # clears config cache then runs php artisan test
 php artisan test                                  # run full suite
 php artisan test --filter=TestName                # run a single test
@@ -48,7 +48,3 @@ Default local DB driver is SQLite (`DB_CONNECTION=sqlite`); tests always run aga
 **Controller conventions**: admin controllers (`app/Http/Controllers/Admin/*`) follow a consistent index/store/edit/update/destroy shape without route-model binding (`findOrFail($id)` on plain `{id}` params, not implicit binding). File uploads use `$request->file(...)->store(<dir>, 'public'|'private')`; PDFs go through validated `mimes:pdf` rules with max sizes in KB. Every mutating admin/dashboard action calls `App\Helpers\Logger::log($action, $modelName, $modelId, $details)` to write an `ActivityLog` row — follow this pattern for new mutating actions so the admin activity feed and `voir-logs` permission stay meaningful. Emails (`app/Mail/*`) are dispatched inline in controllers wrapped in try/catch that logs failures via `\Log::error` rather than surfacing them to the user — mail failures must not block the underlying action (approval, candidature decision, etc.).
 
 **Frontend**: Blade templates in `resources/views/`, organized as `pages/<section>/...` for public content, `dashboard/` for the member area, `layouts/` for shared shells (`app`, `guest`, `main`, `dashboard`, `navigation`), `emails/` for Mail views, and `components/` for Blade components (Breeze-provided plus custom ones like `page-hero`). Styling is Tailwind CSS v4 via `@tailwindcss/vite`; JS is Alpine.js; assets are bundled with Vite (`laravel-vite-plugin`), entry points `resources/css/app.css` and `resources/js/app.js`.
-
-## Notes
-
-- `README.md` currently contains an unresolved git merge conflict (default Laravel README vs. `# edseg-platform`) — be aware when reading it, and flag before editing further.

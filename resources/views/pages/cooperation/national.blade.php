@@ -33,21 +33,16 @@
         @foreach($partenaires as $p)
     <a href="{{ route('cooperation.partenaire', $p->id) }}"
    class="group bg-white block transition-all duration-400">
-            <div class="overflow-hidden h-48 relative">
-                <img src="{{ $p->image_url }}" alt="{{ $p->nom }}"
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
-                     style="filter:brightness(0.6);">
-                <div class="absolute inset-0"
-                     style="background:linear-gradient(to top,rgba(6,66,30,0.8),transparent);"></div>
-                <div class="absolute bottom-4 left-5">
-                    <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
-                                 color:#F5B400;">
-                        {{ ucfirst($p->type) }}
-                    </span>
-                </div>
+            <div class="h-40 flex items-center justify-center bg-white border-b border-gray-100 p-6">
+                <img src="{{ $p->logo_url }}" alt="{{ $p->nom }}"
+                     class="max-h-full max-w-full object-contain">
             </div>
             <div class="p-8">
-                <h3 style="font-size:15px;font-weight:600;color:#0B6E33;margin-bottom:8px;line-height:1.3;"
+                <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+                             color:#C99000;">
+                    {{ ucfirst($p->type) }}
+                </span>
+                <h3 style="font-size:15px;font-weight:600;color:#0B6E33;margin:6px 0 8px;line-height:1.3;"
                     class="group-hover:text-white transition-colors duration-300">
                     {{ $p->nom }}
                 </h3>

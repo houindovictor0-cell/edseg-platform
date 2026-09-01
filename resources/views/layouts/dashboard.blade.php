@@ -293,6 +293,10 @@
                class="nav-item {{ request()->routeIs('admin.documents*') ? 'active' : '' }}">
                 <span class="dot"></span> Documents & Résultats
             </a>
+            <a href="{{ route('admin.photos') }}"
+               class="nav-item {{ request()->routeIs('admin.photos*') ? 'active' : '' }}">
+                <span class="dot"></span> Album photo
+            </a>
         </div>
 
     </div>

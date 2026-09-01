@@ -46,7 +46,7 @@
                         </p>
                         @endif
                         <p style="font-size:10px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-top:4px;">
-                            {{ $s->heure_debut }} — {{ $s->heure_fin }} | {{ $s->lieu }}
+                            {{ $s->heure_debut_lisible }} — {{ $s->heure_fin_lisible }} | {{ $s->lieu }}
                         </p>
                     </div>
 
@@ -114,6 +114,33 @@
                             <button type="button" onclick="toggleEdit('sem-{{ $s->id }}')" class="btn btn-outline btn-sm">Annuler</button>
                         </div>
                     </form>
+
+                    {{-- Galerie photos --}}
+                    <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
+                        <p class="form-label" style="margin-bottom:12px;">Galerie photos ({{ $s->images->count() }})</p>
+                        @if($s->images->count())
+                        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(90px, 1fr)); gap:10px; margin-bottom:16px;">
+                            @foreach($s->images as $img)
+                            <div style="position:relative;">
+                                <img src="{{ $img->image_url }}" alt=""
+                                     style="width:100%; height:70px; object-fit:cover; border-radius:6px;">
+                                <form action="{{ route('admin.seminaires.images.destroy', $img->id) }}" method="POST" style="margin-top:4px;">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" style="width:100%; justify-content:center; padding:4px;"
+                                            data-confirm="Supprimer cette photo ?">✕</button>
+                                </form>
+                            </div>
+                            @endforeach
+                        </div>
+                        @endif
+                        <form action="{{ route('admin.seminaires.images.store', $s->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div style="display:flex; gap:8px; align-items:center;">
+                                <input type="file" name="images[]" accept="image/*" multiple class="form-input" style="padding:8px 14px; cursor:pointer;">
+                                <button type="submit" class="btn btn-outline btn-sm">Ajouter</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
             @empty

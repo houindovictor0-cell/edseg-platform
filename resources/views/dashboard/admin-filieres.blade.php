@@ -43,7 +43,7 @@
                                 </span>
                             @else
                                 <span class="badge" style="background:rgba(206,17,38,0.12); color:#CE1126;">
-                                    ⚠ Non classée
+                                    Non classée
                                 </span>
                             @endif
                             <span class="badge {{ $s->publiee ? 'badge-green' : 'badge-gray' }}">

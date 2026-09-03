@@ -142,7 +142,7 @@
                             <label class="form-label">Fichier PDF de la thèse</label>
                             @if($t->fichier)
                             <p style="font-size:11px; color:#0B6E33; margin-bottom:6px;">
-                                📄 Fichier actuel — <a href="{{ asset('storage/'.$t->fichier) }}" target="_blank" style="text-decoration:underline;">voir le PDF</a>
+                                Fichier actuel — <a href="{{ asset('storage/'.$t->fichier) }}" target="_blank" style="text-decoration:underline;">voir le PDF</a>
                             </p>
                             @endif
                             <input type="file" name="fichier" accept="application/pdf" class="form-input" style="padding:8px 14px; cursor:pointer;">

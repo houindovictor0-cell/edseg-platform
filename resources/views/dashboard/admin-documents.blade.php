@@ -22,8 +22,8 @@
         @forelse($documents as $doc)
         <div class="card" style="padding:18px 22px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
             <div style="display:flex; align-items:center; gap:14px; flex:1; min-width:220px;">
-                <div style="width:44px; height:44px; border-radius:10px; background:#E8F5EC; color:#0B6E33; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;">
-                    🗎
+                <div style="width:44px; height:44px; border-radius:11px; background:var(--green-tint); color:var(--green); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                    <x-icon name="doc-text" style="width:20px;height:20px;" />
                 </div>
                 <div>
                     <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">

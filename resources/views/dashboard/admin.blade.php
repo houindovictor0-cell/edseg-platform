@@ -6,7 +6,7 @@
 
 <div class="page-header">
     <div class="page-label">Bienvenue</div>
-    <h1 class="page-title">Bonjour, {{ auth()->user()->name }} 👋</h1>
+    <h1 class="page-title">Bonjour, {{ auth()->user()->name }}</h1>
     <p class="page-desc">
         Voici un aperçu des activités de l'École Doctorale — {{ now()->format('l d M Y') }}
     </p>
@@ -15,14 +15,16 @@
 {{-- STATS --}}
 <div class="stat-grid" style="margin-bottom:24px;">
     @foreach([
-        ['Doctorants', $stats['doctorants'], 'Inscrits actuellement', 'var(--green)', '🎓'],
-        ['Encadreurs', $stats['encadreurs'], 'Directeurs de thèse', 'var(--gold)', '👥'],
-        ['Programmes doctoraux', $stats['programmes'], 'Spécialités actives', 'var(--gold-dark)', '📘'],
-        ['Partenariats internationaux', $stats['partenariats'], 'Accords actifs', 'var(--red)', '🤝'],
-        ['Projets de recherche', $stats['projets'], 'En cours', 'var(--green-dark)', '📊'],
-    ] as [$label, $val, $desc, $couleur, $icone])
+        ['Doctorants', $stats['doctorants'], 'Inscrits actuellement', 'var(--green)', 'var(--green-tint)', 'user'],
+        ['Encadreurs', $stats['encadreurs'], 'Directeurs de thèse', 'var(--gold)', 'var(--gold-tint)', 'user-badge'],
+        ['Programmes doctoraux', $stats['programmes'], 'Spécialités actives', 'var(--blue)', 'var(--blue-tint)', 'book'],
+        ['Partenariats internationaux', $stats['partenariats'], 'Accords actifs', 'var(--red)', 'var(--red-tint)', 'link'],
+        ['Projets de recherche', $stats['projets'], 'En cours', 'var(--green-dark)', 'var(--green-tint)', 'folder'],
+    ] as [$label, $val, $desc, $accent, $tint, $icone])
     <div class="stat-card">
-        <div class="stat-icon" style="background:{{ $couleur }};">{{ $icone }}</div>
+        <div class="stat-icon" style="background:{{ $accent }}; box-shadow:0 3px 8px {{ $tint }};">
+            <x-icon :name="$icone" />
+        </div>
         <div>
             <div class="stat-value">{{ $val }}</div>
             <div class="stat-label">{{ $label }}</div>
@@ -130,21 +132,21 @@
         </div>
         <div style="padding:8px;">
             @foreach([
-                ['Mettre à jour les chiffres clés', route('admin.chiffres'), '📈'],
-                ['Gérer les filières', route('admin.filieres'), '📘'],
-                ['Publier une actualité', route('admin.actualites'), '📰'],
-                ['Examiner les candidatures', route('admin.candidatures'), '📥'],
-                ['Publier un résultat', route('admin.documents'), '📄'],
-                ['Gérer les utilisateurs', route('admin.utilisateurs'), '👥'],
+                ['Mettre à jour les chiffres clés', route('admin.chiffres'), 'chart'],
+                ['Gérer les filières', route('admin.filieres'), 'book'],
+                ['Publier une actualité', route('admin.actualites'), 'newspaper'],
+                ['Examiner les candidatures', route('admin.candidatures'), 'inbox'],
+                ['Publier un résultat', route('admin.documents'), 'doc-text'],
+                ['Gérer les utilisateurs', route('admin.utilisateurs'), 'users'],
             ] as [$label, $url, $icone])
             <a href="{{ $url }}"
                style="display:flex; align-items:center; gap:12px; padding:12px 16px;
                       border-bottom:1px solid var(--border); text-decoration:none; transition:background 0.2s;"
                onmouseover="this.style.background='var(--bg-elevated)'"
                onmouseout="this.style.background='transparent'">
-                <span style="font-size:16px;">{{ $icone }}</span>
+                <x-icon :name="$icone" style="width:15px;height:15px;color:var(--green);flex-shrink:0;" />
                 <span style="font-size:13px; color:var(--text-secondary); flex:1;">{{ $label }}</span>
-                <span style="color:var(--text-muted);">→</span>
+                <span style="color:var(--text-muted); font-size:13px;">›</span>
             </a>
             @endforeach
         </div>
@@ -155,19 +157,19 @@
 {{-- BANDEAU PROMO --}}
 <div style="background:linear-gradient(135deg, var(--green-dark), var(--green)); border-radius:16px; padding:36px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; color:white;">
     <div>
-        <p style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:10px;">
+        <p style="font-size:12px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:10px;">
             École Doctorale UAC
         </p>
-        <p style="font-size:20px; font-weight:700; font-family:'Poppins',sans-serif; line-height:1.4; max-width:480px;">
+        <p style="font-size:20px; font-weight:700; font-family:var(--font); letter-spacing:-0.01em; line-height:1.4; max-width:480px;">
             Former les chercheurs d'aujourd'hui pour transformer l'Afrique de demain.
         </p>
     </div>
     <a href="/" target="_blank"
-       style="background:var(--gold); color:white; text-decoration:none; padding:14px 28px;
-              font-size:13px; font-weight:700; border-radius:8px; white-space:nowrap; transition:background 0.2s;"
+       style="display:inline-flex; align-items:center; gap:8px; background:var(--gold-bright); color:white; text-decoration:none; padding:13px 24px;
+              font-size:13px; font-weight:600; border-radius:10px; white-space:nowrap; transition:background 0.15s;"
        onmouseover="this.style.background='var(--gold-dark)'"
-       onmouseout="this.style.background='var(--gold)'">
-        Voir le site public →
+       onmouseout="this.style.background='var(--gold-bright)'">
+        Voir le site public <x-icon name="external" style="width:14px;height:14px;" />
     </a>
 </div>
 

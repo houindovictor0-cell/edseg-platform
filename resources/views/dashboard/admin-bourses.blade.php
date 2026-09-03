@@ -49,7 +49,7 @@
                             <span class="badge badge-gold" style="font-size:8px;">{{ $b->days_left }}j restants</span>
                             @endif
                             @if($b->fichier)
-                            <span class="badge badge-blue" style="font-size:8px;">📎 PDF</span>
+                            <span class="badge badge-blue" style="font-size:8px;">PDF</span>
                             @endif
                         </div>
                         <p style="font-size:11px; color:var(--gold); font-family:'JetBrains Mono',monospace; margin-bottom:4px;">
@@ -93,7 +93,7 @@
                             <input type="file" name="fichier" accept=".pdf" class="form-input" style="padding:8px 14px; cursor:pointer;">
                             @if($b->fichier)
                             <p style="font-size:10px; color:var(--gold); margin-top:4px;">
-                                <a href="{{ $b->fichier_url }}" target="_blank" style="color:var(--gold);">📎 PDF actuel</a>
+                                <a href="{{ $b->fichier_url }}" target="_blank" style="color:var(--gold);">PDF actuel</a>
                             </p>
                             @endif
                         </div>

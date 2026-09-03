@@ -5,44 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Administration') — ED-SEG</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         :root {
-            --bg-base: #F5F7FA;
-            --bg-card: #ffffff;
-            --bg-elevated: #F0F4F1;
-            --border: rgba(11,110,51,0.10);
-            --border-hover: rgba(11,110,51,0.25);
+            /* ── Surfaces (iOS system grouped background) ── */
+            --bg-base: #F2F2F7;
+            --bg-card: #FFFFFF;
+            --bg-elevated: #F7F7FA;
+            --bg-sidebar: #FBFBFD;
+
+            /* ── Hairlines ── */
+            --border: rgba(60,60,67,0.13);
+            --border-strong: rgba(60,60,67,0.24);
+
+            /* ── Brand accents ── */
             --green: #0B6E33;
             --green-dark: #06421E;
-            --green-soft: rgba(11,110,51,0.10);
-            --gold: #F5B400;
-            --gold-dark: #C99000;
-            --gold-soft: rgba(245,180,0,0.15);
+            --green-tint: rgba(11,110,51,0.15);
+            --gold: #B8860B;
+            --gold-dark: #94690A;
+            --gold-bright: #F5B400;
+            --gold-bright-dark: #DDA000;
+            --gold-tint: rgba(245,180,0,0.20);
             --red: #CE1126;
-            --red-soft: rgba(206,17,38,0.12);
-            --text-primary: #1A1A1A;
-            --text-secondary: #3F3F3F;
-            --text-muted: #6B7280;
-            --sidebar-w: 260px;
+            --red-tint: rgba(206,17,38,0.14);
+            --blue: #0A6CBF;
+            --blue-tint: rgba(10,108,191,0.15);
+
+            /* ── Labels (iOS label hierarchy) ── */
+            --text-primary: #1C1C1E;
+            --text-secondary: rgba(60,60,67,0.68);
+            --text-muted: rgba(60,60,67,0.45);
+
+            --sidebar-w: 264px;
+            --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font);
             background: var(--bg-base);
             color: var(--text-primary);
             min-height: 100vh;
             display: flex;
+            -webkit-font-smoothing: antialiased;
         }
+
+        svg.icon { width: 18px; height: 18px; flex-shrink: 0; }
 
         /* ── TABLEAUX SCROLLABLES ── */
         .table-wrapper { overflow-x: auto; overflow-y: visible; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
         .data-table { width: 100%; border-collapse: collapse; min-width: 700px; }
-        .data-table th { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; background: var(--bg-elevated); }
-        .data-table td { padding: 16px 20px; font-size: 13px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: middle; }
+        .data-table th { font-size: 11px; font-weight: 600; letter-spacing: 0.02em; color: var(--text-muted); padding: 13px 20px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; background: var(--bg-elevated); }
+        .data-table td { padding: 15px 20px; font-size: 13px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: middle; }
         .data-table td.td-wrap { white-space: normal; min-width: 200px; max-width: 320px; }
         .data-table tr:last-child td { border-bottom: none; }
         .data-table tr:hover td { background: var(--bg-elevated); color: var(--text-primary); }
@@ -52,7 +69,8 @@
         .sidebar {
             width: var(--sidebar-w);
             height: 100vh;
-            background: var(--green);
+            background: linear-gradient(180deg, var(--green) 0%, var(--green-dark) 100%);
+            border-right: 1px solid transparent;
             display: flex;
             flex-direction: column;
             position: fixed;
@@ -63,124 +81,154 @@
 
         .sidebar-nav { flex: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; padding-bottom: 16px; }
         .sidebar-nav::-webkit-scrollbar { width: 3px; }
-        .sidebar-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 2px; }
 
         .sidebar-logo {
-            padding: 24px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
+            display: flex; align-items: center; gap: 11px;
+            padding: 20px 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
         }
-        .sidebar-logo .name { font-size: 15px; font-weight: 800; color: white; letter-spacing: 0.03em; font-family: 'Poppins', sans-serif; }
-        .sidebar-logo .sub { font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 3px; letter-spacing: 0.03em; }
+        .sidebar-logo .mark {
+            width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+            background: white;
+            display: flex; align-items: center; justify-content: center;
+            padding: 4px;
+            box-shadow: 0 1px 2px rgba(6,66,30,0.25);
+        }
+        .sidebar-logo .mark img { width: 100%; height: 100%; object-fit: contain; }
+        .sidebar-logo .name { font-size: 14px; font-weight: 700; color: white; letter-spacing: -0.01em; line-height: 1.25; }
+        .sidebar-logo .sub { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 1px; }
 
-        .sidebar-section { padding: 18px 14px 6px; }
+        .sidebar-section { padding: 16px 12px 4px; }
         .sidebar-section-label {
-            font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
-            text-transform: uppercase; color: rgba(255,255,255,0.45);
-            padding: 0 10px; margin-bottom: 6px;
+            font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+            color: rgba(255,255,255,0.55);
+            padding: 0 10px; margin-bottom: 4px;
         }
 
         .nav-item {
             display: flex; align-items: center; gap: 10px;
-            padding: 11px 12px;
+            padding: 8px 11px;
             border-radius: 8px;
-            font-size: 13px; font-weight: 500;
-            color: rgba(255,255,255,0.8);
+            font-size: 13.5px; font-weight: 500;
+            color: rgba(255,255,255,0.82);
             text-decoration: none;
-            transition: all 0.2s;
-            margin-bottom: 2px;
+            transition: background 0.15s, color 0.15s;
+            margin-bottom: 1px;
         }
-        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
-        .nav-item.active { background: var(--gold); color: white; font-weight: 600; }
-        .nav-item .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.5; flex-shrink: 0; }
-        .nav-item.active .dot { opacity: 1; }
+        .nav-item svg { color: rgba(255,255,255,0.65); transition: color 0.15s; }
+        .nav-item:hover { background: rgba(255,255,255,0.1); color: white; }
+        .nav-item:hover svg { color: white; }
+        .nav-item.active { background: white; color: var(--green-dark); font-weight: 600; }
+        .nav-item.active svg { color: var(--green-dark); }
 
-        .sidebar-footer { margin-top: auto; padding: 16px; border-top: 1px solid rgba(255,255,255,0.12); }
+        .sidebar-footer { margin-top: auto; padding: 14px; border-top: 1px solid rgba(255,255,255,0.15); }
 
-        .user-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,0.08); border-radius: 10px; }
-        .user-avatar { width: 34px; height: 34px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; flex-shrink: 0; }
-        .user-name { font-size: 12px; font-weight: 600; color: white; }
-        .user-role { font-size: 10px; color: rgba(255,255,255,0.65); }
+        .user-card { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 10px; }
+        .user-avatar { width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--green-dark); flex-shrink: 0; }
+        .user-name { font-size: 12.5px; font-weight: 600; color: white; }
+        .user-role { font-size: 11px; color: rgba(255,255,255,0.6); }
+
+        .btn-logout-link {
+            display: flex; align-items: center; gap: 8px; width: 100%;
+            padding: 9px 11px; margin-top: 4px; border-radius: 8px; border: none;
+            background: transparent; cursor: pointer; text-align: left;
+            font-family: var(--font); font-size: 13px; font-weight: 500; color: #FFD1D6;
+            transition: background 0.15s;
+        }
+        .btn-logout-link:hover { background: rgba(255,255,255,0.1); }
 
         /* ── MAIN ── */
         .main-content { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
 
         /* ── TOPBAR ── */
-        .topbar { height: 68px; background: var(--bg-card); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; gap: 16px; position: sticky; top: 0; z-index: 40; }
-        .topbar-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
+        .topbar {
+            height: 60px; display: flex; align-items: center; padding: 0 32px; gap: 16px;
+            position: sticky; top: 0; z-index: 40;
+            background: rgba(242,242,247,0.78);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .topbar-breadcrumb { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--text-muted); }
         .topbar-breadcrumb .current { color: var(--text-primary); font-weight: 600; }
         .topbar-breadcrumb .sep { color: var(--text-muted); }
         .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+        .topbar-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-secondary); text-decoration: none; font-weight: 500; }
+        .topbar-link:hover { color: var(--green); }
 
-        .btn-logout { font-size: 11px; font-weight: 600; letter-spacing: 0.03em; color: var(--text-secondary); border: 1px solid var(--border); padding: 8px 16px; background: transparent; cursor: pointer; transition: all 0.2s; border-radius: 6px; font-family: 'Inter', sans-serif; }
-        .btn-logout:hover { border-color: var(--red); color: var(--red); }
+        .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; border: none; background: transparent; color: var(--text-secondary); cursor: pointer; }
+        .icon-btn:hover { background: var(--bg-elevated); }
 
         /* ── PAGE CONTENT ── */
-        .page-content { padding: 32px; flex: 1; }
-        .page-header { margin-bottom: 28px; }
-        .page-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 8px; }
-        .page-title { font-family: 'Poppins', sans-serif; font-size: 30px; font-weight: 700; color: var(--text-primary); line-height: 1.15; }
-        .page-desc { font-size: 13px; color: var(--text-secondary); margin-top: 6px; }
+        .page-content { padding: 28px 32px 40px; flex: 1; }
+        .page-header { margin-bottom: 26px; }
+        .page-label { font-size: 12px; font-weight: 600; letter-spacing: 0.01em; color: var(--text-secondary); margin-bottom: 4px; }
+        .page-title { font-family: var(--font); font-size: 27px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); line-height: 1.2; }
+        .page-desc { font-size: 13px; color: var(--text-secondary); margin-top: 5px; }
 
         /* ── CARDS ── */
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-        .card-header { padding: 18px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-        .card-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
-        .card-body { padding: 24px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+        .card-header { padding: 16px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .card-title { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: var(--text-primary); }
+        .card-body { padding: 22px; }
 
         /* ── STAT CARDS ── */
-        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-        .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; display: flex; gap: 14px; align-items: flex-start; transition: box-shadow 0.2s; }
-        .stat-card:hover { box-shadow: 0 8px 24px rgba(11,110,51,0.08); }
-        .stat-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; color: white; }
-        .stat-label { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 2px; }
-        .stat-value { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 800; color: var(--text-primary); line-height: 1; }
-        .stat-desc { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: flex; gap: 14px; align-items: flex-start; }
+        .stat-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: white; }
+        .stat-icon svg { width: 20px; height: 20px; stroke: white; }
+        .stat-label { font-size: 11.5px; font-weight: 500; color: var(--text-secondary); margin-top: 3px; }
+        .stat-value { font-family: var(--font); font-size: 24px; font-weight: 700; letter-spacing: -0.01em; color: var(--text-primary); line-height: 1.1; }
+        .stat-desc { font-size: 10.5px; color: var(--text-muted); margin-top: 3px; }
 
         /* ── FORMS ── */
-        .form-group { margin-bottom: 20px; }
-        .form-label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; color: var(--text-secondary); margin-bottom: 8px; }
-        .form-input { width: 100%; background: var(--bg-base); border: 1px solid var(--border); color: var(--text-primary); padding: 10px 14px; font-size: 13px; font-family: 'Inter', sans-serif; transition: border-color 0.2s; outline: none; border-radius: 8px; }
-        .form-input:focus { border-color: var(--green); }
+        .form-group { margin-bottom: 18px; }
+        .form-label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); margin-bottom: 7px; }
+        .form-input { width: 100%; background: var(--bg-base); border: 1px solid transparent; color: var(--text-primary); padding: 10px 13px; font-size: 13.5px; font-family: var(--font); transition: box-shadow 0.15s, background 0.15s; outline: none; border-radius: 10px; }
+        .form-input:focus { background: var(--bg-card); box-shadow: 0 0 0 3.5px var(--green-tint), 0 0 0 1px var(--green); }
         .form-textarea { resize: vertical; min-height: 100px; }
         .form-select { cursor: pointer; }
 
         /* ── BUTTONS ── */
-        .btn { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 11px 22px; border: none; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; text-decoration: none; border-radius: 8px; }
+        .btn { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; letter-spacing: -0.005em; padding: 10px 18px; border: none; cursor: pointer; transition: background 0.15s, opacity 0.15s; font-family: var(--font); text-decoration: none; border-radius: 10px; }
         .btn-primary { background: var(--green); color: white; }
         .btn-primary:hover { background: var(--green-dark); }
-        .btn-gold { background: var(--gold); color: white; }
-        .btn-gold:hover { background: var(--gold-dark); }
-        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); }
-        .btn-outline:hover { border-color: var(--green); color: var(--green); }
-        .btn-danger { background: transparent; border: 1px solid rgba(206,17,38,0.3); color: var(--red); }
-        .btn-danger:hover { background: var(--red-soft); }
-        .btn-sm { padding: 6px 12px; font-size: 10px; }
+        .btn-gold { background: var(--gold-bright); color: #3D2B00; }
+        .btn-gold:hover { background: var(--gold-bright-dark); }
+        .btn-outline { background: rgba(60,60,67,0.06); border: none; color: var(--text-secondary); }
+        .btn-outline:hover { background: rgba(60,60,67,0.11); color: var(--text-primary); }
+        .btn-danger { background: var(--red-tint); border: none; color: var(--red); }
+        .btn-danger:hover { background: rgba(206,17,38,0.16); }
+        .btn-sm { padding: 6px 12px; font-size: 11.5px; border-radius: 8px; }
 
         /* ── BADGES ── */
-        .badge { display: inline-flex; align-items: center; font-size: 10px; font-weight: 700; letter-spacing: 0.02em; padding: 4px 10px; border-radius: 20px; }
-        .badge-green { background: rgba(11,110,51,0.12); color: var(--green); }
-        .badge-red { background: var(--red-soft); color: var(--red); }
-        .badge-gold { background: var(--gold-soft); color: var(--gold-dark); }
-        .badge-blue { background: rgba(59,130,246,0.1); color: #3b82f6; }
-        .badge-gray { background: #F0F0F0; color: var(--text-secondary); }
+        .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 3.5px 9px; border-radius: 7px; }
+        .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+        .badge-green { background: var(--green-tint); color: var(--green); }
+        .badge-red { background: var(--red-tint); color: var(--red); }
+        .badge-gold { background: var(--gold-tint); color: var(--gold-dark); }
+        .badge-blue { background: var(--blue-tint); color: var(--blue); }
+        .badge-gray { background: rgba(60,60,67,0.07); color: var(--text-secondary); }
+        .badge-gray::before { display: none; }
 
         /* ── ALERTS ── */
-        .alert { padding: 12px 16px; border-radius: 8px; font-size: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .alert-success { background: rgba(11,110,51,0.08); border: 1px solid rgba(11,110,51,0.25); color: var(--green); }
-        .alert-error { background: var(--red-soft); border: 1px solid rgba(206,17,38,0.3); color: var(--red); }
+        .alert { padding: 12px 16px; border-radius: 10px; font-size: 12.5px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .alert-success { background: var(--green-tint); color: var(--green); }
+        .alert-error { background: var(--red-tint); color: var(--red); }
 
         /* ── GRID LAYOUTS ── */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-        .grid-sidebar { display: grid; grid-template-columns: 1fr 360px; gap: 24px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+        .grid-sidebar { display: grid; grid-template-columns: 1fr 360px; gap: 20px; }
 
         /* ── SCROLLBAR ── */
         ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: #CBD5C8; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .page-content > * { animation: fadeIn 0.3s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .page-content > * { animation: fadeIn 0.25s ease forwards; }
 
         @media (max-width: 1024px) {
             .sidebar { transform: translateX(-100%); transition: transform 0.25s; }
@@ -197,8 +245,11 @@
 <aside class="sidebar" id="sidebar">
 
     <div class="sidebar-logo">
-        <div class="name">ÉCOLE DOCTORALE</div>
-        <div class="sub">ED-SEG — UAC</div>
+        <div class="mark"><img src="{{ asset('images/logo-edseg.png') }}" alt="ED-SEG"></div>
+        <div>
+            <div class="name">École Doctorale</div>
+            <div class="sub">ED-SEG — UAC</div>
+        </div>
     </div>
 
     <div class="sidebar-nav">
@@ -207,15 +258,15 @@
             <div class="sidebar-section-label">Vue d'ensemble</div>
             <a href="{{ route('admin.index') }}"
                class="nav-item {{ request()->routeIs('admin.index') ? 'active' : '' }}">
-                <span class="dot"></span> Tableau de bord
+                <x-icon name="home" class="icon" /> Tableau de bord
             </a>
             <a href="{{ route('admin.chiffres') }}"
                class="nav-item {{ request()->routeIs('admin.chiffres') ? 'active' : '' }}">
-                <span class="dot"></span> Chiffres clés
+                <x-icon name="chart" class="icon" /> Chiffres clés
             </a>
             <a href="{{ route('admin.ecole') }}"
                class="nav-item {{ request()->routeIs('admin.ecole') ? 'active' : '' }}">
-                <span class="dot"></span> Infos de l'école
+                <x-icon name="building" class="icon" /> Infos de l'école
             </a>
         </div>
 
@@ -223,15 +274,15 @@
             <div class="sidebar-section-label">Formation</div>
             <a href="{{ route('admin.filieres') }}"
                class="nav-item {{ request()->routeIs('admin.filieres*') ? 'active' : '' }}">
-                <span class="dot"></span> Filières & Spécialités
+                <x-icon name="book" class="icon" /> Filières & Spécialités
             </a>
             <a href="{{ route('admin.seminaires') }}"
                class="nav-item {{ request()->routeIs('admin.seminaires*') ? 'active' : '' }}">
-                <span class="dot"></span> Séminaires doctoraux
+                <x-icon name="calendar" class="icon" /> Séminaires doctoraux
             </a>
             <a href="{{ route('admin.theses') }}"
                class="nav-item {{ request()->routeIs('admin.theses*') ? 'active' : '' }}">
-                <span class="dot"></span> Thèses
+                <x-icon name="doc-text" class="icon" /> Thèses
             </a>
         </div>
 
@@ -239,11 +290,11 @@
             <div class="sidebar-section-label">Annuaire & Archive</div>
             <a href="{{ route('admin.doctorants') }}"
                class="nav-item {{ request()->routeIs('admin.doctorants*') ? 'active' : '' }}">
-                <span class="dot"></span> Doctorants
+                <x-icon name="user" class="icon" /> Doctorants
             </a>
             <a href="{{ route('admin.enseignants') }}"
                class="nav-item {{ request()->routeIs('admin.enseignants*') ? 'active' : '' }}">
-                <span class="dot"></span> Enseignants
+                <x-icon name="user-badge" class="icon" /> Enseignants
             </a>
         </div>
 
@@ -251,15 +302,19 @@
             <div class="sidebar-section-label">Recherche</div>
             <a href="{{ route('admin.recherche') }}"
                class="nav-item {{ request()->routeIs('admin.recherche*') ? 'active' : '' }}">
-                <span class="dot"></span> Axes de recherche
+                <x-icon name="flask" class="icon" /> Axes de recherche
             </a>
             <a href="{{ route('admin.laboratoires') }}"
                class="nav-item {{ request()->routeIs('admin.laboratoires*') ? 'active' : '' }}">
-                <span class="dot"></span> Laboratoires
+                <x-icon name="beaker" class="icon" /> Laboratoires
             </a>
             <a href="{{ route('admin.projets') }}"
                class="nav-item {{ request()->routeIs('admin.projets*') ? 'active' : '' }}">
-                <span class="dot"></span> Projets de recherche
+                <x-icon name="folder" class="icon" /> Projets de recherche
+            </a>
+            <a href="{{ route('admin.publications') }}"
+               class="nav-item {{ request()->routeIs('admin.publications*') ? 'active' : '' }}">
+                <x-icon name="doc-list" class="icon" /> Publications
             </a>
         </div>
 
@@ -267,11 +322,11 @@
             <div class="sidebar-section-label">Coopération</div>
             <a href="{{ route('admin.partenaires') }}"
                class="nav-item {{ request()->routeIs('admin.partenaires*') ? 'active' : '' }}">
-                <span class="dot"></span> Partenaires
+                <x-icon name="link" class="icon" /> Partenaires
             </a>
             <a href="{{ route('admin.bourses') }}"
                class="nav-item {{ request()->routeIs('admin.bourses*') ? 'active' : '' }}">
-                <span class="dot"></span> Bourses
+                <x-icon name="credit-card" class="icon" /> Bourses
             </a>
         </div>
 
@@ -279,23 +334,23 @@
             <div class="sidebar-section-label">Communication</div>
             <a href="{{ route('admin.actualites') }}"
                class="nav-item {{ request()->routeIs('admin.actualites*') ? 'active' : '' }}">
-                <span class="dot"></span> Actualités
+                <x-icon name="newspaper" class="icon" /> Actualités
             </a>
             <a href="{{ route('admin.candidatures') }}"
                class="nav-item {{ request()->routeIs('admin.candidatures*') ? 'active' : '' }}">
-                <span class="dot"></span> Candidatures
+                <x-icon name="inbox" class="icon" /> Candidatures
             </a>
             <a href="{{ route('admin.utilisateurs') }}"
                class="nav-item {{ request()->routeIs('admin.utilisateurs*') ? 'active' : '' }}">
-                <span class="dot"></span> Utilisateurs
+                <x-icon name="users" class="icon" /> Utilisateurs
             </a>
             <a href="{{ route('admin.documents') }}"
                class="nav-item {{ request()->routeIs('admin.documents*') ? 'active' : '' }}">
-                <span class="dot"></span> Documents & Résultats
+                <x-icon name="doc-text" class="icon" /> Documents & Résultats
             </a>
             <a href="{{ route('admin.photos') }}"
                class="nav-item {{ request()->routeIs('admin.photos*') ? 'active' : '' }}">
-                <span class="dot"></span> Album photo
+                <x-icon name="photo" class="icon" /> Album photo
             </a>
         </div>
 
@@ -312,11 +367,10 @@
                 <div class="user-role">Administrateur</div>
             </div>
         </div>
-        <form method="POST" action="{{ route('logout') }}" style="margin-top:10px;">
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="btn btn-outline"
-                    style="width:100%; justify-content:center; background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.15); color:white;">
-                Déconnexion
+            <button type="submit" class="btn-logout-link">
+                <x-icon name="logout" class="icon" /> Déconnexion
             </button>
         </form>
     </div>
@@ -329,7 +383,9 @@
 
     {{-- TOPBAR --}}
     <div class="topbar">
-        <button id="burger" class="btn-outline btn-sm" style="display:none;" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <button id="burger" class="icon-btn" style="display:none;" onclick="document.getElementById('sidebar').classList.toggle('open')">
+            <x-icon name="menu" class="icon" />
+        </button>
         <div class="topbar-breadcrumb">
             <span>ED-SEG</span>
             <span class="sep">/</span>
@@ -338,9 +394,8 @@
             <span class="current">@yield('breadcrumb', 'Dashboard')</span>
         </div>
         <div class="topbar-actions">
-            <a href="/" target="_blank"
-               style="font-size:11px; color:var(--text-muted); text-decoration:none; font-weight:600;">
-                Voir le site →
+            <a href="/" target="_blank" class="topbar-link">
+                Voir le site public <x-icon name="external" class="icon" style="width:14px;height:14px;" />
             </a>
         </div>
     </div>
@@ -367,4 +422,3 @@
 
 </body>
 </html>
-

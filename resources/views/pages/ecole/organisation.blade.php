@@ -89,16 +89,25 @@
             <tbody>
                 @php
 
-function trierParGrade(array $liste): array {
-    $rang = function ($e) {
-        if (str_contains($e[1], 'Titulaire')) return 0;
-        if (str_contains($e[1], 'Agrégé')) return 1;
-        return 2;
-    };
-    usort($liste, fn($a, $b) => $rang($a) <=> $rang($b));
-    return $liste;
+$directeurEcole = 'HOUNKOU Cossi Emmanuel';
+
+function rangGrade(string $grade): int {
+    if (str_contains($grade, 'Titulaire')) return 0;
+    if (str_contains($grade, 'Agrégé')) return 1;
+    return 2;
 }
 
+function trierParDirecteurPuisGrade(array $liste, string $directeurEcole): array {
+    usort($liste, function ($a, $b) use ($directeurEcole) {
+        $aDirecteur = $a[0] === $directeurEcole;
+        $bDirecteur = $b[0] === $directeurEcole;
+        if ($aDirecteur !== $bDirecteur) {
+            return $aDirecteur ? -1 : 1;
+        }
+        return rangGrade($a[1]) <=> rangGrade($b[1]);
+    });
+    return $liste;
+}
 
                 $economie_uac = [
                     ['CHABOSSOU Augustin Foster Comlan', 'Professeur Titulaire', 'Économie', 'Université d\'Abomey-Calavi', 'eco'],
@@ -165,47 +174,27 @@ function trierParGrade(array $liste): array {
                     ['PILO Mikémina', 'Maître de Conférences Agrégé', 'Économie', 'Université de Kara', 'int', 'Togo'],
                     ['TAHIROU YOUNOUSSI MEDA Adama', 'Maître de Conférences Agrégé', 'Économie', 'Université Daouda Hamani de Tahoua', 'int', 'Niger'],
                 ];
-                $economie_uac = trierParGrade($economie_uac);
-                $gestion = trierParGrade($gestion);
-                $etrangers = trierParGrade($etrangers);
+                // Structure unifiée : [nom, grade, mention, spécialité, établissement, nationalité, filtre]
+                $tous = array_merge(
+                    array_map(fn ($e) => [$e[0], $e[1], 'Économie', $e[2], $e[3], 'Bénin', 'eco'], $economie_uac),
+                    array_map(fn ($e) => [$e[0], $e[1], 'Gestion', $e[2], $e[3], 'Bénin', 'ges'], $gestion),
+                    array_map(fn ($e) => [$e[0], $e[1], $e[2], null, $e[3], $e[5] ?? '—', 'int'], $etrangers),
+                );
+                $tous = trierParDirecteurPuisGrade($tous, $directeurEcole);
                 $n = 1;
                 @endphp
 
-                @foreach($economie_uac as $e)
-                <tr class="row-eco row-all border-b border-gray-100 hover:bg-gray-50 transition">
-                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $n++ }}</td>
-                    <td class="px-5 py-3.5 text-sm font-medium text-[#1A1A1A]">{{ $e[0] }}</td>
-                    <td class="px-5 py-3.5 text-xs font-semibold {{ str_contains($e[1], 'Titulaire') ? 'text-[#C99000]' : 'text-[#CE1126]' }}">{{ $e[1] }}</td>
-                    <td class="px-5 py-3.5"><span class="inline-block text-[9px] font-bold uppercase tracking-wide px-2.5 py-1 rounded bg-emerald-50 text-[#0B6E33] border border-emerald-200">Économie</span></td>
-                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[2] }}</td>
-                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[3] }}</td>
-                    <td class="px-5 py-3.5 text-xs text-gray-500">Bénin</td>
-                </tr>
-                @endforeach
-
-                @foreach($gestion as $e)
-                <tr class="row-ges row-all border-b border-gray-100 hover:bg-gray-50 transition">
-                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $n++ }}</td>
-                    <td class="px-5 py-3.5 text-sm font-medium text-[#1A1A1A]">{{ $e[0] }}</td>
-                    <td class="px-5 py-3.5 text-xs font-semibold {{ str_contains($e[1], 'Titulaire') ? 'text-[#C99000]' : 'text-[#CE1126]' }}">{{ $e[1] }}</td>
-                    <td class="px-5 py-3.5"><span class="inline-block text-[9px] font-bold uppercase tracking-wide px-2.5 py-1 rounded bg-amber-50 text-[#C99000] border border-amber-200">Gestion</span></td>
-                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[2] }}</td>
-                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[3] }}</td>
-                    <td class="px-5 py-3.5 text-xs text-gray-500">Bénin</td>
-                </tr>
-                @endforeach
-
-                @foreach($etrangers as $e)
-                <tr class="row-int row-all border-b border-gray-100 hover:bg-gray-50 transition">
+                @foreach($tous as $e)
+                <tr class="row-{{ $e[6] }} row-all border-b border-gray-100 hover:bg-gray-50 transition">
                     <td class="px-5 py-3.5 text-xs text-gray-500">{{ $n++ }}</td>
                     <td class="px-5 py-3.5 text-sm font-medium text-[#1A1A1A]">{{ $e[0] }}</td>
                     <td class="px-5 py-3.5 text-xs font-semibold {{ str_contains($e[1], 'Titulaire') ? 'text-[#C99000]' : 'text-[#CE1126]' }}">{{ $e[1] }}</td>
                     <td class="px-5 py-3.5">
                         <span class="inline-block text-[9px] font-bold uppercase tracking-wide px-2.5 py-1 rounded {{ $e[2] === 'Gestion' ? 'bg-amber-50 text-[#C99000] border border-amber-200' : 'bg-emerald-50 text-[#0B6E33] border border-emerald-200' }}">{{ $e[2] }}</span>
                     </td>
-                    <td class="px-5 py-3.5 text-xs text-gray-500">—</td>
-                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[3] }}</td>
-                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[5] ?? '—' }}</td>
+                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[3] ?? '—' }}</td>
+                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[4] }}</td>
+                    <td class="px-5 py-3.5 text-xs text-gray-500">{{ $e[5] }}</td>
                 </tr>
                 @endforeach
 

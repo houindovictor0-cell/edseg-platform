@@ -30,6 +30,33 @@
 
 <div class="border-t border-gray-100"></div>
 
+{{-- HISTORIQUE — HOMMAGE AU FONDATEUR --}}
+<section class="max-w-screen-xl mx-auto px-8 py-20">
+    <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C99000] mb-4">Historique</p>
+    <h2 class="garamond text-3xl font-medium text-[#0B6E33] leading-snug mb-10">
+        Depuis 2006, une école au service de la recherche africaine
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="bg-[#F5F7FA] rounded-lg p-8 border-t-4 border-t-[#0B6E33]">
+            <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C99000] mb-3">Fondateur</p>
+            <h3 class="garamond text-xl font-medium text-[#0B6E33] mb-3">Professeur Fulbert Géro Amoussouga</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+                Père fondateur de l'École Doctorale des Sciences Économiques et de Gestion de l'UAC, ancien Doyen de la Faculté des Sciences Économiques et de Gestion (1995-2010), seul titulaire de la chaire de l'Organisation Mondiale du Commerce (OMC) au Bénin et membre du Conseil Africain et Malgache pour l'Enseignement Supérieur (CAMES). Il s'est éteint le 23 juin 2017, laissant à l'ED-SEG des bases solides pour sa gouvernance et son rayonnement scientifique.
+            </p>
+        </div>
+        <div class="bg-[#F5F7FA] rounded-lg p-8 border-t-4 border-t-[#F5B400]">
+            <p class="text-[10px] font-semibold tracking-widest uppercase text-[#C99000] mb-3">Continuité</p>
+            <h3 class="garamond text-xl font-medium text-[#0B6E33] mb-3">Professeur Titulaire Emmanuel Cossi Hounkou</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+                Directeur de l'École Doctorale depuis 2017, il poursuit avec engagement la préservation et le développement des acquis légués par le professeur Géro Amoussouga, en assurant à l'ED-SEG une formation doctorale de qualité, exigeante et ouverte sur l'Afrique et le monde.
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="border-t border-gray-100"></div>
+
 {{-- CHIFFRES DYNAMIQUES --}}
 <x-chiffres-cles :chiffres="$chiffresEcole" />
 

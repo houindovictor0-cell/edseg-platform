@@ -16,6 +16,7 @@ protected $fillable = [
     'photo',
     'grade',
     'specialite',
+    'mention_id',
     'etablissement',
     'est_directeur_these',
     'quota_theses',
@@ -50,6 +51,11 @@ protected $fillable = [
     public function specialites()
     {
         return $this->belongsToMany(Specialite::class, 'enseignant_specialite');
+    }
+
+    public function mention()
+    {
+        return $this->belongsTo(Mention::class);
     }
 
     public function archives()

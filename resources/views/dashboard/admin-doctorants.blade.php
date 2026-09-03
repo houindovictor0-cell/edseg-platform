@@ -105,7 +105,12 @@
         </div>
         <div class="card-body">
             <form action="{{ isset($doctorant) ? route('admin.doctorants.update', $doctorant->id) : route('admin.doctorants.store') }}"
-                  method="POST" enctype="multipart/form-data">
+                  method="POST" enctype="multipart/form-data"
+                  x-data="{
+                      specialites: {{ Js::from($specialites->map(fn($s) => ['id' => $s->id, 'nom' => $s->nom, 'mention_id' => $s->mention_id])) }},
+                      mentionId: '{{ old('mention_id', $doctorant->specialiteRef->mention_id ?? '') }}',
+                      specialiteId: '{{ old('specialite_id', $doctorant->specialite_id ?? '') }}'
+                  }">
                 @csrf
                 @if(isset($doctorant)) @method('PUT') @endif
 
@@ -146,16 +151,28 @@
                     <input type="text" name="nationalite" value="{{ old('nationalite', $doctorant->nationalite ?? '') }}" class="form-input">
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Spécialité</label>
-                    <select name="specialite_id" class="form-input form-select">
-                        <option value="">-- Aucune --</option>
-                        @foreach($specialites as $s)
-                        <option value="{{ $s->id }}" {{ old('specialite_id', $doctorant->specialite_id ?? '') == $s->id ? 'selected' : '' }}>
-                            {{ $s->nom }}
-                        </option>
-                        @endforeach
-                    </select>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Mention</label>
+                        <select class="form-input form-select" x-model="mentionId" @change="specialiteId = ''">
+                            <option value="">-- Choisir --</option>
+                            @foreach($mentions as $m)
+                            <option value="{{ $m->id }}">{{ $m->nom }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Spécialité</label>
+                        <select name="specialite_id" class="form-input form-select" x-model="specialiteId">
+                            <option value="">-- Aucune --</option>
+                            <template x-for="s in specialites.filter(s => !mentionId || s.mention_id == mentionId)" :key="s.id">
+                                <option :value="s.id" x-text="s.nom"></option>
+                            </template>
+                        </select>
+                        <p style="font-size:10px; color:var(--text-muted); margin-top:4px;" x-show="!mentionId">
+                            Choisissez d'abord une mention.
+                        </p>
+                    </div>
                 </div>
 
                 <div class="form-group">

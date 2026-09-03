@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Enseignant;
+use App\Models\Mention;
 
 class EnseignantSeeder extends Seeder
 {
@@ -83,13 +84,30 @@ class EnseignantSeeder extends Seeder
             ['nom' => 'PILO',          'prenom' => 'Mikémina',           'grade' => 'Maître de Conférences Agrégé', 'specialite' => 'Économie','etablissement' => 'Université de Kara',                  'pays' => 'Togo'],
         ];
 
-        $tous = array_merge($economie_uac, $economie_parakou, $gestion, $etrangers);
+        $mentionIds = Mention::pluck('id', 'nom');
 
-        foreach ($tous as $data) {
+        $groupes = [
+            'Économie' => array_merge($economie_uac, $economie_parakou),
+            'Gestion'  => $gestion,
+        ];
+
+        foreach ($groupes as $mentionNom => $rows) {
+            foreach ($rows as $data) {
+                Enseignant::create(array_merge($data, [
+                    'est_directeur_these' => true,
+                    'option'              => $mentionNom,
+                    'mention_id'          => $mentionIds[$mentionNom] ?? null,
+                    'provenance'          => 'national',
+                ]));
+            }
+        }
+
+        foreach ($etrangers as $data) {
             Enseignant::create(array_merge($data, [
                 'est_directeur_these' => true,
-                'option'             => in_array($data, $gestion) ? 'Gestion' : 'Économie',
-                'provenance'         => isset($data['pays']) ? 'international' : 'national',
+                'option'              => $data['specialite'],
+                'mention_id'          => $mentionIds[$data['specialite']] ?? null,
+                'provenance'          => 'international',
             ]));
         }
 

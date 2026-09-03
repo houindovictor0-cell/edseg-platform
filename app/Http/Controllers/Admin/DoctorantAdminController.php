@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Logger;
 use App\Models\Doctorant;
 use App\Models\Enseignant;
+use App\Models\Mention;
 use App\Models\ResultatAnnuelDoctorant;
 use App\Models\Specialite;
 use Illuminate\Http\Request;
@@ -21,8 +22,9 @@ class DoctorantAdminController extends Controller
         }
         $doctorants  = $query->get();
         $directeurs  = Enseignant::where('est_directeur_these', true)->orderBy('nom')->get();
-        $specialites = Specialite::orderBy('nom')->get();
-        return view('dashboard.admin-doctorants', compact('doctorants', 'directeurs', 'specialites'));
+        $specialites = Specialite::with('mention')->orderBy('nom')->get();
+        $mentions    = Mention::orderBy('nom')->get();
+        return view('dashboard.admin-doctorants', compact('doctorants', 'directeurs', 'specialites', 'mentions'));
     }
 
     public function store(Request $request)
@@ -85,8 +87,9 @@ class DoctorantAdminController extends Controller
         $doctorant   = Doctorant::with(['user', 'resultatsAnnuels'])->findOrFail($id);
         $doctorants  = Doctorant::with(['user', 'directeur', 'specialiteRef', 'resultatsAnnuels'])->orderBy('nom')->get();
         $directeurs  = Enseignant::where('est_directeur_these', true)->orderBy('nom')->get();
-        $specialites = Specialite::orderBy('nom')->get();
-        return view('dashboard.admin-doctorants', compact('doctorants', 'doctorant', 'directeurs', 'specialites'));
+        $specialites = Specialite::with('mention')->orderBy('nom')->get();
+        $mentions    = Mention::orderBy('nom')->get();
+        return view('dashboard.admin-doctorants', compact('doctorants', 'doctorant', 'directeurs', 'specialites', 'mentions'));
     }
 
     public function update(Request $request, $id)

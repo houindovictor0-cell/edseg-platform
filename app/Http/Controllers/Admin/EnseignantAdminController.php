@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Helpers\Logger;
 use App\Models\Enseignant;
+use App\Models\Mention;
 use App\Models\Specialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -13,9 +14,10 @@ class EnseignantAdminController extends Controller
 {
     public function index()
     {
-        $enseignants = Enseignant::with(['user', 'specialites', 'publications'])->orderBy('nom')->get();
-        $specialites = Specialite::orderBy('nom')->get();
-        return view('dashboard.admin-enseignants', compact('enseignants', 'specialites'));
+        $enseignants = Enseignant::with(['user', 'mention', 'specialites', 'publications'])->orderBy('nom')->get();
+        $specialites = Specialite::with('mention')->orderBy('nom')->get();
+        $mentions    = Mention::orderBy('nom')->get();
+        return view('dashboard.admin-enseignants', compact('enseignants', 'specialites', 'mentions'));
     }
 
     public function store(Request $request)
@@ -28,6 +30,7 @@ class EnseignantAdminController extends Controller
             'email'                => 'nullable|email|max:255',
             'grade'                => 'required|string|max:100',
             'specialite'           => 'required|string|max:150',
+            'mention_id'           => 'nullable|exists:mentions,id',
             'etablissement'        => 'required|string|max:200',
             'option'               => 'nullable|string|max:150',
             'provenance'           => 'nullable|string|max:150',
@@ -48,6 +51,7 @@ class EnseignantAdminController extends Controller
             'email'               => $request->email,
             'grade'               => $request->grade,
             'specialite'          => $request->specialite,
+            'mention_id'          => $request->mention_id,
             'etablissement'       => $request->etablissement,
             'est_directeur_these' => $request->has('est_directeur_these'),
             'quota_theses'        => $request->quota_theses ?? 0,
@@ -78,10 +82,11 @@ class EnseignantAdminController extends Controller
 
     public function edit($id)
     {
-        $enseignant  = Enseignant::with(['user', 'specialites', 'publications'])->findOrFail($id);
-        $enseignants = Enseignant::with(['user', 'specialites', 'publications'])->orderBy('nom')->get();
-        $specialites = Specialite::orderBy('nom')->get();
-        return view('dashboard.admin-enseignants', compact('enseignants', 'enseignant', 'specialites'));
+        $enseignant  = Enseignant::with(['user', 'mention', 'specialites', 'publications'])->findOrFail($id);
+        $enseignants = Enseignant::with(['user', 'mention', 'specialites', 'publications'])->orderBy('nom')->get();
+        $specialites = Specialite::with('mention')->orderBy('nom')->get();
+        $mentions    = Mention::orderBy('nom')->get();
+        return view('dashboard.admin-enseignants', compact('enseignants', 'enseignant', 'specialites', 'mentions'));
     }
 
     public function update(Request $request, $id)
@@ -96,6 +101,7 @@ class EnseignantAdminController extends Controller
             'email'                => 'nullable|email|max:255',
             'grade'                => 'required|string|max:100',
             'specialite'           => 'required|string|max:150',
+            'mention_id'           => 'nullable|exists:mentions,id',
             'etablissement'        => 'required|string|max:200',
             'option'               => 'nullable|string|max:150',
             'provenance'           => 'nullable|string|max:150',
@@ -116,6 +122,7 @@ class EnseignantAdminController extends Controller
             'email'               => $request->email,
             'grade'               => $request->grade,
             'specialite'          => $request->specialite,
+            'mention_id'          => $request->mention_id,
             'etablissement'       => $request->etablissement,
             'est_directeur_these' => $request->has('est_directeur_these'),
             'quota_theses'        => $request->quota_theses ?? 0,

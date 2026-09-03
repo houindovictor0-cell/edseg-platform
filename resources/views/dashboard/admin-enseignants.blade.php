@@ -7,7 +7,7 @@
 <div class="page-header">
     <div class="page-label">Annuaire & Archive</div>
     <h1 class="page-title">Enseignants-chercheurs</h1>
-    <p class="page-desc">Répertoire des enseignants-chercheurs affiliés à l'ED-SEG, leurs filières et leurs travaux de recherche.</p>
+    <p class="page-desc">Répertoire des enseignants-chercheurs affiliés à l'ED-SEG, leurs spécialités et leurs travaux de recherche.</p>
 </div>
 
 @if(session('success'))
@@ -25,8 +25,9 @@
                         <th></th>
                         <th style="min-width:160px;">Enseignant</th>
                         <th style="min-width:140px;">Grade</th>
+                        <th style="min-width:100px;">Mention</th>
                         <th style="min-width:160px;">Établissement</th>
-                        <th style="min-width:160px;">Filières enseignées</th>
+                        <th style="min-width:160px;">Spécialités enseignées</th>
                         <th style="min-width:90px;">Publications</th>
                         <th style="min-width:100px;">Directeur ?</th>
                         <th style="min-width:160px;">Actions</th>
@@ -46,6 +47,13 @@
                             @endif
                         </td>
                         <td>{{ $e->grade }}</td>
+                        <td>
+                            @if($e->mention)
+                            <span class="badge badge-gray">{{ $e->mention->nom }}</span>
+                            @else
+                            <span style="color:var(--text-muted); font-size:11px;">—</span>
+                            @endif
+                        </td>
                         <td class="td-wrap">{{ $e->etablissement }}</td>
                         <td class="td-wrap">
                             @forelse($e->specialites as $s)
@@ -72,7 +80,7 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="8" style="text-align:center; padding:32px; color:var(--text-muted);">Aucun enseignant enregistré.</td></tr>
+                    <tr><td colspan="9" style="text-align:center; padding:32px; color:var(--text-muted);">Aucun enseignant enregistré.</td></tr>
                     @endforelse
                 </tbody>
             </table>
@@ -131,8 +139,22 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">Mention</label>
+                    <select name="mention_id" class="form-input form-select">
+                        <option value="">-- Aucune --</option>
+                        @foreach($mentions as $m)
+                        <option value="{{ $m->id }}" {{ old('mention_id', $enseignant->mention_id ?? '') == $m->id ? 'selected' : '' }}>
+                            {{ $m->nom }}
+                        </option>
+                        @endforeach
+                    </select>
+                    <p style="font-size:10px; color:var(--text-muted); margin-top:4px;">La mention (Économie / Gestion) à laquelle l'enseignant est rattaché à l'ED-SEG.</p>
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Spécialité principale <span style="color:#CE1126;">*</span></label>
-                    <input type="text" name="specialite" value="{{ old('specialite', $enseignant->specialite ?? '') }}" class="form-input" required placeholder="Ex: Économie">
+                    <input type="text" name="specialite" value="{{ old('specialite', $enseignant->specialite ?? '') }}" class="form-input" required placeholder="Ex: Management des Organisations-Finances">
+                    <p style="font-size:10px; color:var(--text-muted); margin-top:4px;">Spécialité de doctorat / spécialisation de l'enseignant (son propre parcours académique).</p>
                 </div>
 
                 <div class="form-group">
@@ -141,15 +163,20 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Filières enseignées à l'ED-SEG</label>
-                    <div style="display:flex; flex-direction:column; gap:6px; max-height:160px; overflow-y:auto; border:1px solid var(--border); border-radius:8px; padding:10px;">
+                    <label class="form-label">Spécialités enseignées à l'ED-SEG</label>
+                    <div style="display:flex; flex-direction:column; gap:10px; max-height:220px; overflow-y:auto; border:1px solid var(--border); border-radius:8px; padding:10px;">
                         @php $enseigneesIds = old('specialites_enseignees', isset($enseignant) ? $enseignant->specialites->pluck('id')->toArray() : []); @endphp
-                        @forelse($specialites as $s)
-                        <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;">
-                            <input type="checkbox" name="specialites_enseignees[]" value="{{ $s->id }}"
-                                   {{ in_array($s->id, $enseigneesIds) ? 'checked' : '' }}>
-                            {{ $s->nom }}
-                        </label>
+                        @forelse($specialites->groupBy(fn($s) => $s->mention->nom ?? 'Sans mention') as $mentionNom => $specialitesMention)
+                        <div>
+                            <p style="font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin-bottom:4px;">{{ $mentionNom }}</p>
+                            @foreach($specialitesMention as $s)
+                            <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer; padding:2px 0;">
+                                <input type="checkbox" name="specialites_enseignees[]" value="{{ $s->id }}"
+                                       {{ in_array($s->id, $enseigneesIds) ? 'checked' : '' }}>
+                                {{ $s->nom }}
+                            </label>
+                            @endforeach
+                        </div>
                         @empty
                         <p style="font-size:11px; color:var(--text-muted);">Aucune spécialité enregistrée.</p>
                         @endforelse

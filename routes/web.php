@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\LaboratoireAdminController;
 use App\Http\Controllers\Admin\PartenaireAdminController;
 use App\Http\Controllers\Admin\PhotoEcoleAdminController;
 use App\Http\Controllers\Admin\ProjetRechercheController;
+use App\Http\Controllers\Admin\PublicationController as AdminPublicationController;
 use App\Http\Controllers\Admin\RechercheAdminController;
 use App\Http\Controllers\Admin\SeminaireAdminController;
 use App\Http\Controllers\Admin\TheseAdminController;
@@ -135,6 +136,11 @@ Route::middleware(['auth', 'approved'])->group(function () {
         Route::get('/projets-recherche/{id}/edit', [ProjetRechercheController::class, 'edit'])->name('admin.projets.edit');
         Route::put('/projets-recherche/{id}', [ProjetRechercheController::class, 'update'])->name('admin.projets.update');
         Route::delete('/projets-recherche/{id}', [ProjetRechercheController::class, 'destroy'])->name('admin.projets.destroy');
+        // Publications
+        Route::get('/publications', [AdminPublicationController::class, 'index'])->name('admin.publications');
+        Route::post('/publications', [AdminPublicationController::class, 'store'])->name('admin.publications.store');
+        Route::put('/publications/{id}', [AdminPublicationController::class, 'update'])->name('admin.publications.update');
+        Route::delete('/publications/{id}', [AdminPublicationController::class, 'destroy'])->name('admin.publications.destroy');
         // Laboratoires
         Route::get('/laboratoires', [LaboratoireAdminController::class, 'index'])->name('admin.laboratoires');
         Route::post('/laboratoires', [LaboratoireAdminController::class, 'store'])->name('admin.laboratoires.store');

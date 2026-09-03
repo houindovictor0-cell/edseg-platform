@@ -46,6 +46,72 @@
 
 </section>
 
+<div class="border-t border-gray-100"></div>
+
+{{-- PUBLICATIONS --}}
+<section class="max-w-screen-xl mx-auto px-8 py-20">
+    <p class="text-sm font-semibold tracking-widest uppercase text-[#C99000] mb-4">Production scientifique</p>
+    <h2 class="garamond text-3xl font-medium text-[#0B6E33] leading-snug mb-10">
+        Publications des chercheurs
+    </h2>
+
+    @php
+    $typesLabels = [
+        'article'    => 'Article',
+        'ouvrage'    => 'Ouvrage',
+        'chapitre'   => 'Chapitre',
+        'conference' => 'Conférence',
+    ];
+    @endphp
+
+    @if($publications->isEmpty())
+    <div class="py-16 text-center text-[#CE1126]">
+        <p class="text-sm tracking-wide">Aucune publication enregistrée pour le moment.</p>
+    </div>
+    @else
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        @foreach($publications as $publication)
+        <article class="group border-t-2 border-gray-200 hover:border-[#0B6E33] pt-5 transition">
+            <img src="{{ $publication->photo_url }}" alt="{{ $publication->titre }}"
+                 class="w-full h-44 object-cover mb-4">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-[#C99000]">
+                    {{ $typesLabels[$publication->type] ?? $publication->type }}
+                </span>
+                <span class="text-[10px] text-[#CE1126]">{{ $publication->annee_publication }}</span>
+            </div>
+            <h4 class="font-semibold text-gray-900 text-base leading-snug mb-2 group-hover:text-[#0B6E33] transition">
+                {{ $publication->titre }}
+            </h4>
+            <p class="text-[#1A1A1A] text-xs mb-1 leading-relaxed">{{ $publication->auteurs }}</p>
+            @if($publication->revue)
+            <p class="text-gray-500 text-xs italic mb-3">{{ $publication->revue }}</p>
+            @endif
+            <div class="flex items-center gap-3">
+                @if($publication->enseignant)
+                <img src="{{ $publication->enseignant->photo_url }}" alt="{{ $publication->enseignant->nom }}"
+                     class="w-7 h-7 rounded-full object-cover">
+                <span class="text-xs text-gray-500">{{ $publication->enseignant->nom }} {{ $publication->enseignant->prenom }}</span>
+                @endif
+            </div>
+            <div class="flex flex-wrap gap-3 mt-4">
+                @if($publication->fichier_url)
+                <a href="{{ $publication->fichier_url }}" target="_blank" class="text-xs font-semibold text-[#0B6E33] hover:underline">PDF →</a>
+                @endif
+                @if($publication->lien_externe)
+                <a href="{{ $publication->lien_externe }}" target="_blank" class="text-xs font-semibold text-[#0B6E33] hover:underline">Lien →</a>
+                @endif
+                @if($publication->doi)
+                <a href="https://doi.org/{{ $publication->doi }}" target="_blank" class="text-xs font-semibold text-[#0B6E33] hover:underline">DOI →</a>
+                @endif
+            </div>
+        </article>
+        @endforeach
+    </div>
+    <div class="mt-10">{{ $publications->links() }}</div>
+    @endif
+</section>
+
 {{-- CTA --}}
 <section class="bg-[#0B6E33] py-16 px-8">
     <div class="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between gap-8">

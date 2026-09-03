@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             ChiffresClesSeeder::class,
             LaboratoireSeeder::class,
             EnseignantSeeder::class,
+            PublicationSeeder::class,
             TheseSeeder::class,
             TheseGestionSeeder::class,
             PartenaireSeeder::class,

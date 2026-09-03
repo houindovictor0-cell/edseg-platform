@@ -8,7 +8,11 @@ class RechercheController extends Controller
     public function axes()
 {
     $axes = \App\Models\AxeRecherche::where('actif', true)->orderBy('ordre')->get();
-    return view('pages.recherche.axes', compact('axes'));
+    $publications = \App\Models\Publication::with('enseignant')
+        ->orderByDesc('annee_publication')
+        ->orderByDesc('created_at')
+        ->paginate(9);
+    return view('pages.recherche.axes', compact('axes', 'publications'));
 }
 
     public function laboratoires()

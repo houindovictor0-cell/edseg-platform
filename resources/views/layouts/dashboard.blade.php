@@ -85,17 +85,17 @@
 
         .sidebar-logo {
             display: flex; align-items: center; gap: 11px;
-            padding: 20px 18px;
+            padding: 18px;
             border-bottom: 1px solid rgba(255,255,255,0.15);
         }
         .sidebar-logo .mark {
-            width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+            width: 100%; border-radius: 12px;
             background: white;
             display: flex; align-items: center; justify-content: center;
-            padding: 4px;
-            box-shadow: 0 1px 2px rgba(6,66,30,0.25);
+            padding: 10px 12px;
+            box-shadow: 0 1px 3px rgba(6,66,30,0.25);
         }
-        .sidebar-logo .mark img { width: 100%; height: 100%; object-fit: contain; }
+        .sidebar-logo .mark img { width: 100%; height: auto; object-fit: contain; }
         .sidebar-logo .name { font-size: 14px; font-weight: 700; color: white; letter-spacing: -0.01em; line-height: 1.25; }
         .sidebar-logo .sub { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 1px; }
 
@@ -245,11 +245,7 @@
 <aside class="sidebar" id="sidebar">
 
     <div class="sidebar-logo">
-        <div class="mark"><img src="{{ asset('images/logo-edseg.png') }}" alt="ED-SEG"></div>
-        <div>
-            <div class="name">École Doctorale</div>
-            <div class="sub">ED-SEG — UAC</div>
-        </div>
+        <div class="mark"><img src="{{ asset('images/logo.jpg') }}" alt="ED-SEG"></div>
     </div>
 
     <div class="sidebar-nav">

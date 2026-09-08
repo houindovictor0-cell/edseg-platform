@@ -150,7 +150,7 @@
 
         {{-- COLONNE CENTRE : Logo ED-SEG, centré et mis en avant --}}
         <a href="/" class="flex flex-col items-center text-center">
-            <img src="/images/logo-edseg.png" alt="ED-SEG" class="h-12 md:h-16 w-auto">
+            <img src="/images/logo.jpg" alt="ED-SEG" class="h-12 md:h-16 w-auto">
             <p class="hidden md:block text-[9px] font-semibold text-gray-900 tracking-wide uppercase mt-1 max-w-[280px] leading-snug">École Doctorale des Sciences Économiques et de Gestion</p>
         </a>
 
